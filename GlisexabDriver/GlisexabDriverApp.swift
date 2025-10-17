@@ -9,9 +9,13 @@ import SwiftUI
 
 @main
 struct GlisexabDriverApp: App {
+    
+    @StateObject private var router = NavigationRouter()
+    
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            RootView()
+                .environmentObject(router)
         }
     }
 }

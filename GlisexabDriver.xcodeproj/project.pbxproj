@@ -6,17 +6,97 @@
 	objectVersion = 77;
 	objects = {
 
-/* Begin PBXFileReference section */
-		CFBAAAB92E9F740D001D8398 /* GlisexabDriver.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GlisexabDriver.app; sourceTree = BUILT_PRODUCTS_DIR; };
-/* End PBXFileReference section */
+/* Begin PBXBuildFile section */
+		CF0BD3AB2EA0CCDB00581E5B /* CustomButtonAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF0BD3AA2EA0CCDB00581E5B /* CustomButtonAction.swift */; };
+		CF0BD3AE2EA0D3BE00581E5B /* TrackingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF0BD3AD2EA0D3BE00581E5B /* TrackingView.swift */; };
+		CF6D6A752E9F9D2800B3656C /* DriverDocView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF6D6A742E9F9D2700B3656C /* DriverDocView.swift */; };
+		CF6D6A782E9FA1F300B3656C /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF6D6A772E9FA1F300B3656C /* HomeView.swift */; };
+		CF804F5E2EA20CA000F16E58 /* ScheduleBookingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF804F5D2EA20CA000F16E58 /* ScheduleBookingView.swift */; };
+		CF804F692EA225D200F16E58 /* EditProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF804F682EA225D200F16E58 /* EditProfileView.swift */; };
+		CF89F93F2EA118E0002FF10B /* PopUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF89F93E2EA118E0002FF10B /* PopUp.swift */; };
+		CF89F9422EA1287D002FF10B /* RideDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF89F9412EA1287D002FF10B /* RideDetailView.swift */; };
+		CF8DE8792EA25CAB00F75D73 /* SideMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF8DE8782EA25CAB00F75D73 /* SideMenu.swift */; };
+		CF8DE87B2EA25E6100F75D73 /* SideMenuHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF8DE87A2EA25E6100F75D73 /* SideMenuHeader.swift */; };
+		CF8DE87D2EA2646E00F75D73 /* SideMenuRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF8DE87C2EA2646E00F75D73 /* SideMenuRow.swift */; };
+		CFBAAACB2E9F7418001D8398 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CFBAAAC72E9F7418001D8398 /* Assets.xcassets */; };
+		CFBAAACD2E9F7418001D8398 /* GlisexabDriverApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFBAAAC92E9F7418001D8398 /* GlisexabDriverApp.swift */; };
+		CFBAAAD52E9F760A001D8398 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFBAAAD42E9F760A001D8398 /* OnboardingView.swift */; };
+		CFBAAADB2E9F7737001D8398 /* BackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFBAAAD92E9F7737001D8398 /* BackButton.swift */; };
+		CFBAAADD2E9F7737001D8398 /* UiExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFBAAAD62E9F7737001D8398 /* UiExtension.swift */; };
+		CFBAAADE2E9F7737001D8398 /* CustomLogo.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFBAAADA2E9F7737001D8398 /* CustomLogo.swift */; };
+		CFBAAADF2E9F7737001D8398 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFBAAAD82E9F7737001D8398 /* LocationManager.swift */; };
+		CFBAAAE32E9F774A001D8398 /* NavigationRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFBAAAE02E9F774A001D8398 /* NavigationRouter.swift */; };
+		CFBAAAE42E9F774A001D8398 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFBAAAE22E9F774A001D8398 /* RootView.swift */; };
+		CFBAAAE52E9F774A001D8398 /* AppNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFBAAAE12E9F774A001D8398 /* AppNavigationView.swift */; };
+		CFBAAAF92E9F77B6001D8398 /* Inter-ExtraLight-BETA.otf in Resources */ = {isa = PBXBuildFile; fileRef = CFBAAAED2E9F77B6001D8398 /* Inter-ExtraLight-BETA.otf */; };
+		CFBAAAFA2E9F77B6001D8398 /* Inter-MediumItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = CFBAAAF32E9F77B6001D8398 /* Inter-MediumItalic.otf */; };
+		CFBAAAFB2E9F77B6001D8398 /* Inter-ExtraLightItalic-BETA.otf in Resources */ = {isa = PBXBuildFile; fileRef = CFBAAAEE2E9F77B6001D8398 /* Inter-ExtraLightItalic-BETA.otf */; };
+		CFBAAAFC2E9F77B6001D8398 /* Inter-Italic.otf in Resources */ = {isa = PBXBuildFile; fileRef = CFBAAAEF2E9F77B6001D8398 /* Inter-Italic.otf */; };
+		CFBAAAFD2E9F77B6001D8398 /* Inter-SemiBoldItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = CFBAAAF62E9F77B6001D8398 /* Inter-SemiBoldItalic.otf */; };
+		CFBAAAFE2E9F77B6001D8398 /* Inter-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = CFBAAAF22E9F77B6001D8398 /* Inter-Medium.otf */; };
+		CFBAAAFF2E9F77B6001D8398 /* Inter-Thin-BETA.otf in Resources */ = {isa = PBXBuildFile; fileRef = CFBAAAF72E9F77B6001D8398 /* Inter-Thin-BETA.otf */; };
+		CFBAAB002E9F77B6001D8398 /* Inter-ThinItalic-BETA.otf in Resources */ = {isa = PBXBuildFile; fileRef = CFBAAAF82E9F77B6001D8398 /* Inter-ThinItalic-BETA.otf */; };
+		CFBAAB012E9F77B6001D8398 /* Inter-BoldItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = CFBAAAEA2E9F77B6001D8398 /* Inter-BoldItalic.otf */; };
+		CFBAAB022E9F77B6001D8398 /* Inter-Light-BETA.otf in Resources */ = {isa = PBXBuildFile; fileRef = CFBAAAF02E9F77B6001D8398 /* Inter-Light-BETA.otf */; };
+		CFBAAB032E9F77B6001D8398 /* Inter-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = CFBAAAF52E9F77B6001D8398 /* Inter-SemiBold.otf */; };
+		CFBAAB042E9F77B6001D8398 /* Inter-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = CFBAAAE92E9F77B6001D8398 /* Inter-Bold.otf */; };
+		CFBAAB052E9F77B6001D8398 /* Inter-LightItalic-BETA.otf in Resources */ = {isa = PBXBuildFile; fileRef = CFBAAAF12E9F77B6001D8398 /* Inter-LightItalic-BETA.otf */; };
+		CFBAAB062E9F77B6001D8398 /* Inter-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = CFBAAAF42E9F77B6001D8398 /* Inter-Regular.otf */; };
+		CFBAAB072E9F77B6001D8398 /* Inter-Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = CFBAAAE72E9F77B6001D8398 /* Inter-Black.otf */; };
+		CFBAAB082E9F77B6001D8398 /* Inter-BlackItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = CFBAAAE82E9F77B6001D8398 /* Inter-BlackItalic.otf */; };
+		CFBAAB092E9F77B6001D8398 /* Inter-ExtraBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = CFBAAAEB2E9F77B6001D8398 /* Inter-ExtraBold.otf */; };
+		CFBAAB0A2E9F77B6001D8398 /* Inter-ExtraBoldItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = CFBAAAEC2E9F77B6001D8398 /* Inter-ExtraBoldItalic.otf */; };
+		CFBAAB0D2E9F791E001D8398 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFBAAB0C2E9F791E001D8398 /* LoginView.swift */; };
+		CFBAAB0F2E9F7E61001D8398 /* SignupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFBAAB0E2E9F7E61001D8398 /* SignupView.swift */; };
+		CFBAAB172E9F8893001D8398 /* VehcileDetailSignupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFBAAB162E9F8893001D8398 /* VehcileDetailSignupView.swift */; };
+/* End PBXBuildFile section */
 
-/* Begin PBXFileSystemSynchronizedRootGroup section */
-		CFBAAABB2E9F740D001D8398 /* GlisexabDriver */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = GlisexabDriver;
-			sourceTree = "<group>";
-		};
-/* End PBXFileSystemSynchronizedRootGroup section */
+/* Begin PBXFileReference section */
+		CF0BD3AA2EA0CCDB00581E5B /* CustomButtonAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButtonAction.swift; sourceTree = "<group>"; };
+		CF0BD3AD2EA0D3BE00581E5B /* TrackingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingView.swift; sourceTree = "<group>"; };
+		CF6D6A742E9F9D2700B3656C /* DriverDocView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DriverDocView.swift; sourceTree = "<group>"; };
+		CF6D6A772E9FA1F300B3656C /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		CF804F5D2EA20CA000F16E58 /* ScheduleBookingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleBookingView.swift; sourceTree = "<group>"; };
+		CF804F682EA225D200F16E58 /* EditProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileView.swift; sourceTree = "<group>"; };
+		CF89F93E2EA118E0002FF10B /* PopUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopUp.swift; sourceTree = "<group>"; };
+		CF89F9412EA1287D002FF10B /* RideDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RideDetailView.swift; sourceTree = "<group>"; };
+		CF8DE8782EA25CAB00F75D73 /* SideMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenu.swift; sourceTree = "<group>"; };
+		CF8DE87A2EA25E6100F75D73 /* SideMenuHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuHeader.swift; sourceTree = "<group>"; };
+		CF8DE87C2EA2646E00F75D73 /* SideMenuRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuRow.swift; sourceTree = "<group>"; };
+		CFBAAAB92E9F740D001D8398 /* GlisexabDriver.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GlisexabDriver.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		CFBAAAC72E9F7418001D8398 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		CFBAAAC92E9F7418001D8398 /* GlisexabDriverApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlisexabDriverApp.swift; sourceTree = "<group>"; };
+		CFBAAAD32E9F75CA001D8398 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		CFBAAAD42E9F760A001D8398 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
+		CFBAAAD62E9F7737001D8398 /* UiExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UiExtension.swift; sourceTree = "<group>"; };
+		CFBAAAD82E9F7737001D8398 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
+		CFBAAAD92E9F7737001D8398 /* BackButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackButton.swift; sourceTree = "<group>"; };
+		CFBAAADA2E9F7737001D8398 /* CustomLogo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomLogo.swift; sourceTree = "<group>"; };
+		CFBAAAE02E9F774A001D8398 /* NavigationRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationRouter.swift; sourceTree = "<group>"; };
+		CFBAAAE12E9F774A001D8398 /* AppNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppNavigationView.swift; sourceTree = "<group>"; };
+		CFBAAAE22E9F774A001D8398 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
+		CFBAAAE72E9F77B6001D8398 /* Inter-Black.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter-Black.otf"; sourceTree = "<group>"; };
+		CFBAAAE82E9F77B6001D8398 /* Inter-BlackItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter-BlackItalic.otf"; sourceTree = "<group>"; };
+		CFBAAAE92E9F77B6001D8398 /* Inter-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter-Bold.otf"; sourceTree = "<group>"; };
+		CFBAAAEA2E9F77B6001D8398 /* Inter-BoldItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter-BoldItalic.otf"; sourceTree = "<group>"; };
+		CFBAAAEB2E9F77B6001D8398 /* Inter-ExtraBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter-ExtraBold.otf"; sourceTree = "<group>"; };
+		CFBAAAEC2E9F77B6001D8398 /* Inter-ExtraBoldItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter-ExtraBoldItalic.otf"; sourceTree = "<group>"; };
+		CFBAAAED2E9F77B6001D8398 /* Inter-ExtraLight-BETA.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter-ExtraLight-BETA.otf"; sourceTree = "<group>"; };
+		CFBAAAEE2E9F77B6001D8398 /* Inter-ExtraLightItalic-BETA.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter-ExtraLightItalic-BETA.otf"; sourceTree = "<group>"; };
+		CFBAAAEF2E9F77B6001D8398 /* Inter-Italic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter-Italic.otf"; sourceTree = "<group>"; };
+		CFBAAAF02E9F77B6001D8398 /* Inter-Light-BETA.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter-Light-BETA.otf"; sourceTree = "<group>"; };
+		CFBAAAF12E9F77B6001D8398 /* Inter-LightItalic-BETA.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter-LightItalic-BETA.otf"; sourceTree = "<group>"; };
+		CFBAAAF22E9F77B6001D8398 /* Inter-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter-Medium.otf"; sourceTree = "<group>"; };
+		CFBAAAF32E9F77B6001D8398 /* Inter-MediumItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter-MediumItalic.otf"; sourceTree = "<group>"; };
+		CFBAAAF42E9F77B6001D8398 /* Inter-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter-Regular.otf"; sourceTree = "<group>"; };
+		CFBAAAF52E9F77B6001D8398 /* Inter-SemiBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter-SemiBold.otf"; sourceTree = "<group>"; };
+		CFBAAAF62E9F77B6001D8398 /* Inter-SemiBoldItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter-SemiBoldItalic.otf"; sourceTree = "<group>"; };
+		CFBAAAF72E9F77B6001D8398 /* Inter-Thin-BETA.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter-Thin-BETA.otf"; sourceTree = "<group>"; };
+		CFBAAAF82E9F77B6001D8398 /* Inter-ThinItalic-BETA.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter-ThinItalic-BETA.otf"; sourceTree = "<group>"; };
+		CFBAAB0C2E9F791E001D8398 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		CFBAAB0E2E9F7E61001D8398 /* SignupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupView.swift; sourceTree = "<group>"; };
+		CFBAAB162E9F8893001D8398 /* VehcileDetailSignupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VehcileDetailSignupView.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		CFBAAAB62E9F740D001D8398 /* Frameworks */ = {
@@ -29,10 +109,117 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		CF0BD3A72EA0CC9700581E5B /* User Interface */ = {
+			isa = PBXGroup;
+			children = (
+				CFBAAAD92E9F7737001D8398 /* BackButton.swift */,
+				CFBAAADA2E9F7737001D8398 /* CustomLogo.swift */,
+				CFBAAAD62E9F7737001D8398 /* UiExtension.swift */,
+				CF0BD3AA2EA0CCDB00581E5B /* CustomButtonAction.swift */,
+			);
+			path = "User Interface";
+			sourceTree = "<group>";
+		};
+		CF0BD3A92EA0CCBA00581E5B /* Location Handling */ = {
+			isa = PBXGroup;
+			children = (
+				CFBAAAD82E9F7737001D8398 /* LocationManager.swift */,
+			);
+			path = "Location Handling";
+			sourceTree = "<group>";
+		};
+		CF0BD3AC2EA0D3A100581E5B /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				CF6D6A772E9FA1F300B3656C /* HomeView.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		CF6D6A762E9FA1D800B3656C /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				CF804F662EA225A700F16E58 /* Home Tab */,
+				CF804F672EA225AF00F16E58 /* Setting Tab */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
+		CF804F5C2EA20C5700F16E58 /* Ride Details */ = {
+			isa = PBXGroup;
+			children = (
+				CF89F9412EA1287D002FF10B /* RideDetailView.swift */,
+			);
+			path = "Ride Details";
+			sourceTree = "<group>";
+		};
+		CF804F652EA223F400F16E58 /* Schedule Booking */ = {
+			isa = PBXGroup;
+			children = (
+				CF804F5D2EA20CA000F16E58 /* ScheduleBookingView.swift */,
+			);
+			path = "Schedule Booking";
+			sourceTree = "<group>";
+		};
+		CF804F662EA225A700F16E58 /* Home Tab */ = {
+			isa = PBXGroup;
+			children = (
+				CF0BD3AC2EA0D3A100581E5B /* Home */,
+				CF89F93D2EA11638002FF10B /* Track Ride */,
+				CF89F9402EA12862002FF10B /* Pop up */,
+				CF804F5C2EA20C5700F16E58 /* Ride Details */,
+				CF804F652EA223F400F16E58 /* Schedule Booking */,
+			);
+			path = "Home Tab";
+			sourceTree = "<group>";
+		};
+		CF804F672EA225AF00F16E58 /* Setting Tab */ = {
+			isa = PBXGroup;
+			children = (
+				CF8DE8682EA23D1E00F75D73 /* Side Menu */,
+				CF804F6A2EA225DB00F16E58 /* Edit Profile */,
+			);
+			path = "Setting Tab";
+			sourceTree = "<group>";
+		};
+		CF804F6A2EA225DB00F16E58 /* Edit Profile */ = {
+			isa = PBXGroup;
+			children = (
+				CF804F682EA225D200F16E58 /* EditProfileView.swift */,
+			);
+			path = "Edit Profile";
+			sourceTree = "<group>";
+		};
+		CF89F93D2EA11638002FF10B /* Track Ride */ = {
+			isa = PBXGroup;
+			children = (
+				CF0BD3AD2EA0D3BE00581E5B /* TrackingView.swift */,
+			);
+			path = "Track Ride";
+			sourceTree = "<group>";
+		};
+		CF89F9402EA12862002FF10B /* Pop up */ = {
+			isa = PBXGroup;
+			children = (
+				CF89F93E2EA118E0002FF10B /* PopUp.swift */,
+			);
+			path = "Pop up";
+			sourceTree = "<group>";
+		};
+		CF8DE8682EA23D1E00F75D73 /* Side Menu */ = {
+			isa = PBXGroup;
+			children = (
+				CF8DE8782EA25CAB00F75D73 /* SideMenu.swift */,
+				CF8DE87A2EA25E6100F75D73 /* SideMenuHeader.swift */,
+				CF8DE87C2EA2646E00F75D73 /* SideMenuRow.swift */,
+			);
+			path = "Side Menu";
+			sourceTree = "<group>";
+		};
 		CFBAAAB02E9F740D001D8398 = {
 			isa = PBXGroup;
 			children = (
-				CFBAAABB2E9F740D001D8398 /* GlisexabDriver */,
+				CFBAAACA2E9F7418001D8398 /* GlisexabDriver */,
 				CFBAAABA2E9F740D001D8398 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -43,6 +230,93 @@
 				CFBAAAB92E9F740D001D8398 /* GlisexabDriver.app */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		CFBAAACA2E9F7418001D8398 /* GlisexabDriver */ = {
+			isa = PBXGroup;
+			children = (
+				CFBAAAD32E9F75CA001D8398 /* Info.plist */,
+				CFBAAAC92E9F7418001D8398 /* GlisexabDriverApp.swift */,
+				CFBAAAD22E9F754E001D8398 /* Font */,
+				CFBAAAD02E9F7494001D8398 /* Component */,
+				CFBAAACF2E9F7489001D8398 /* Resources */,
+				CFBAAACE2E9F7472001D8398 /* View */,
+			);
+			path = GlisexabDriver;
+			sourceTree = "<group>";
+		};
+		CFBAAACE2E9F7472001D8398 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				CFBAAB0B2E9F7844001D8398 /* Primary */,
+				CF6D6A762E9FA1D800B3656C /* Main */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		CFBAAACF2E9F7489001D8398 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				CFBAAAC72E9F7418001D8398 /* Assets.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		CFBAAAD02E9F7494001D8398 /* Component */ = {
+			isa = PBXGroup;
+			children = (
+				CF0BD3A92EA0CCBA00581E5B /* Location Handling */,
+				CF0BD3A72EA0CC9700581E5B /* User Interface */,
+				CFBAAAE62E9F774E001D8398 /* Navigatioon */,
+			);
+			path = Component;
+			sourceTree = "<group>";
+		};
+		CFBAAAD22E9F754E001D8398 /* Font */ = {
+			isa = PBXGroup;
+			children = (
+				CFBAAAE72E9F77B6001D8398 /* Inter-Black.otf */,
+				CFBAAAE82E9F77B6001D8398 /* Inter-BlackItalic.otf */,
+				CFBAAAE92E9F77B6001D8398 /* Inter-Bold.otf */,
+				CFBAAAEA2E9F77B6001D8398 /* Inter-BoldItalic.otf */,
+				CFBAAAEB2E9F77B6001D8398 /* Inter-ExtraBold.otf */,
+				CFBAAAEC2E9F77B6001D8398 /* Inter-ExtraBoldItalic.otf */,
+				CFBAAAED2E9F77B6001D8398 /* Inter-ExtraLight-BETA.otf */,
+				CFBAAAEE2E9F77B6001D8398 /* Inter-ExtraLightItalic-BETA.otf */,
+				CFBAAAEF2E9F77B6001D8398 /* Inter-Italic.otf */,
+				CFBAAAF02E9F77B6001D8398 /* Inter-Light-BETA.otf */,
+				CFBAAAF12E9F77B6001D8398 /* Inter-LightItalic-BETA.otf */,
+				CFBAAAF22E9F77B6001D8398 /* Inter-Medium.otf */,
+				CFBAAAF32E9F77B6001D8398 /* Inter-MediumItalic.otf */,
+				CFBAAAF42E9F77B6001D8398 /* Inter-Regular.otf */,
+				CFBAAAF52E9F77B6001D8398 /* Inter-SemiBold.otf */,
+				CFBAAAF62E9F77B6001D8398 /* Inter-SemiBoldItalic.otf */,
+				CFBAAAF72E9F77B6001D8398 /* Inter-Thin-BETA.otf */,
+				CFBAAAF82E9F77B6001D8398 /* Inter-ThinItalic-BETA.otf */,
+			);
+			path = Font;
+			sourceTree = "<group>";
+		};
+		CFBAAAE62E9F774E001D8398 /* Navigatioon */ = {
+			isa = PBXGroup;
+			children = (
+				CFBAAAE02E9F774A001D8398 /* NavigationRouter.swift */,
+				CFBAAAE12E9F774A001D8398 /* AppNavigationView.swift */,
+				CFBAAAE22E9F774A001D8398 /* RootView.swift */,
+			);
+			path = Navigatioon;
+			sourceTree = "<group>";
+		};
+		CFBAAB0B2E9F7844001D8398 /* Primary */ = {
+			isa = PBXGroup;
+			children = (
+				CFBAAAD42E9F760A001D8398 /* OnboardingView.swift */,
+				CFBAAB0C2E9F791E001D8398 /* LoginView.swift */,
+				CFBAAB0E2E9F7E61001D8398 /* SignupView.swift */,
+				CFBAAB162E9F8893001D8398 /* VehcileDetailSignupView.swift */,
+				CF6D6A742E9F9D2700B3656C /* DriverDocView.swift */,
+			);
+			path = Primary;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -59,9 +333,6 @@
 			buildRules = (
 			);
 			dependencies = (
-			);
-			fileSystemSynchronizedGroups = (
-				CFBAAABB2E9F740D001D8398 /* GlisexabDriver */,
 			);
 			name = GlisexabDriver;
 			packageProductDependencies = (
@@ -94,6 +365,8 @@
 			);
 			mainGroup = CFBAAAB02E9F740D001D8398;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = CFBAAABA2E9F740D001D8398 /* Products */;
 			projectDirPath = "";
@@ -109,6 +382,25 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CFBAAACB2E9F7418001D8398 /* Assets.xcassets in Resources */,
+				CFBAAAF92E9F77B6001D8398 /* Inter-ExtraLight-BETA.otf in Resources */,
+				CFBAAAFA2E9F77B6001D8398 /* Inter-MediumItalic.otf in Resources */,
+				CFBAAAFB2E9F77B6001D8398 /* Inter-ExtraLightItalic-BETA.otf in Resources */,
+				CFBAAAFC2E9F77B6001D8398 /* Inter-Italic.otf in Resources */,
+				CFBAAAFD2E9F77B6001D8398 /* Inter-SemiBoldItalic.otf in Resources */,
+				CFBAAAFE2E9F77B6001D8398 /* Inter-Medium.otf in Resources */,
+				CFBAAAFF2E9F77B6001D8398 /* Inter-Thin-BETA.otf in Resources */,
+				CFBAAB002E9F77B6001D8398 /* Inter-ThinItalic-BETA.otf in Resources */,
+				CFBAAB012E9F77B6001D8398 /* Inter-BoldItalic.otf in Resources */,
+				CFBAAB022E9F77B6001D8398 /* Inter-Light-BETA.otf in Resources */,
+				CFBAAB032E9F77B6001D8398 /* Inter-SemiBold.otf in Resources */,
+				CFBAAB042E9F77B6001D8398 /* Inter-Bold.otf in Resources */,
+				CFBAAB052E9F77B6001D8398 /* Inter-LightItalic-BETA.otf in Resources */,
+				CFBAAB062E9F77B6001D8398 /* Inter-Regular.otf in Resources */,
+				CFBAAB072E9F77B6001D8398 /* Inter-Black.otf in Resources */,
+				CFBAAB082E9F77B6001D8398 /* Inter-BlackItalic.otf in Resources */,
+				CFBAAB092E9F77B6001D8398 /* Inter-ExtraBold.otf in Resources */,
+				CFBAAB0A2E9F77B6001D8398 /* Inter-ExtraBoldItalic.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -119,6 +411,29 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CFBAAB0F2E9F7E61001D8398 /* SignupView.swift in Sources */,
+				CFBAAAE32E9F774A001D8398 /* NavigationRouter.swift in Sources */,
+				CFBAAAE42E9F774A001D8398 /* RootView.swift in Sources */,
+				CF8DE8792EA25CAB00F75D73 /* SideMenu.swift in Sources */,
+				CFBAAAE52E9F774A001D8398 /* AppNavigationView.swift in Sources */,
+				CF0BD3AB2EA0CCDB00581E5B /* CustomButtonAction.swift in Sources */,
+				CF8DE87B2EA25E6100F75D73 /* SideMenuHeader.swift in Sources */,
+				CFBAAADB2E9F7737001D8398 /* BackButton.swift in Sources */,
+				CF804F5E2EA20CA000F16E58 /* ScheduleBookingView.swift in Sources */,
+				CFBAAADD2E9F7737001D8398 /* UiExtension.swift in Sources */,
+				CF6D6A782E9FA1F300B3656C /* HomeView.swift in Sources */,
+				CF6D6A752E9F9D2800B3656C /* DriverDocView.swift in Sources */,
+				CF804F692EA225D200F16E58 /* EditProfileView.swift in Sources */,
+				CFBAAADE2E9F7737001D8398 /* CustomLogo.swift in Sources */,
+				CFBAAADF2E9F7737001D8398 /* LocationManager.swift in Sources */,
+				CF0BD3AE2EA0D3BE00581E5B /* TrackingView.swift in Sources */,
+				CFBAAB172E9F8893001D8398 /* VehcileDetailSignupView.swift in Sources */,
+				CF89F93F2EA118E0002FF10B /* PopUp.swift in Sources */,
+				CFBAAB0D2E9F791E001D8398 /* LoginView.swift in Sources */,
+				CF8DE87D2EA2646E00F75D73 /* SideMenuRow.swift in Sources */,
+				CFBAAACD2E9F7418001D8398 /* GlisexabDriverApp.swift in Sources */,
+				CFBAAAD52E9F760A001D8398 /* OnboardingView.swift in Sources */,
+				CF89F9422EA1287D002FF10B /* RideDetailView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -249,15 +564,18 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 5P7MCR7S32;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = GlisexabDriver/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -265,6 +583,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.Main.GlisexabDriver;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
@@ -280,15 +599,18 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 5P7MCR7S32;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = GlisexabDriver/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -296,6 +618,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.Main.GlisexabDriver;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
