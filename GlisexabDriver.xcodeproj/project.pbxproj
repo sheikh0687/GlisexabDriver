@@ -9,6 +9,31 @@
 /* Begin PBXBuildFile section */
 		CF0BD3AB2EA0CCDB00581E5B /* CustomButtonAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF0BD3AA2EA0CCDB00581E5B /* CustomButtonAction.swift */; };
 		CF0BD3AE2EA0D3BE00581E5B /* TrackingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF0BD3AD2EA0D3BE00581E5B /* TrackingView.swift */; };
+		CF1F57412EC73D4B0056AE72 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = CF1F57402EC73D4B0056AE72 /* Alamofire */; };
+		CF1F57442EC73DC50056AE72 /* IQKeyboardManagerSwift in Frameworks */ = {isa = PBXBuildFile; productRef = CF1F57432EC73DC50056AE72 /* IQKeyboardManagerSwift */; };
+		CF1F57472EC73DEF0056AE72 /* CountryPicker in Frameworks */ = {isa = PBXBuildFile; productRef = CF1F57462EC73DEF0056AE72 /* CountryPicker */; };
+		CF1F574A2EC73E180056AE72 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = CF1F57492EC73E180056AE72 /* SDWebImageSwiftUI */; };
+		CF1F574F2EC73EE70056AE72 /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF1F574E2EC73EE70056AE72 /* Service.swift */; };
+		CF1F57502EC73EE70056AE72 /* Api.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF1F574C2EC73EE70056AE72 /* Api.swift */; };
+		CF1F57512EC73EE70056AE72 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF1F574D2EC73EE70056AE72 /* Router.swift */; };
+		CF1F57562EC73F0F0056AE72 /* InternetConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF1F57542EC73F0F0056AE72 /* InternetConnection.swift */; };
+		CF1F57572EC73F0F0056AE72 /* CountryPickerUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF1F57552EC73F0F0056AE72 /* CountryPickerUI.swift */; };
+		CF1F57582EC73F0F0056AE72 /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF1F57532EC73F0F0056AE72 /* Utility.swift */; };
+		CF1F575D2EC73F530056AE72 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = CF1F575C2EC73F530056AE72 /* Reachability.m */; };
+		CF1F57642EC740170056AE72 /* Api_Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF1F57632EC740170056AE72 /* Api_Login.swift */; };
+		CF1F57662EC740590056AE72 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF1F57652EC740590056AE72 /* LoginViewModel.swift */; };
+		CF1F576B2EC7408F0056AE72 /* CustomAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF1F576A2EC7408F0056AE72 /* CustomAlertView.swift */; };
+		CF1F576C2EC7408F0056AE72 /* CustomError.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF1F57682EC7408F0056AE72 /* CustomError.swift */; };
+		CF1F576D2EC7408F0056AE72 /* CustomErrorBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF1F57692EC7408F0056AE72 /* CustomErrorBanner.swift */; };
+		CF1F57702EC740B50056AE72 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF1F576F2EC740B50056AE72 /* AppState.swift */; };
+		CF1F57732EC7427E0056AE72 /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF1F57722EC7427E0056AE72 /* Constant.swift */; };
+		CF1F577C2EC746370056AE72 /* LocationSearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF1F577B2EC746370056AE72 /* LocationSearchViewModel.swift */; };
+		CF1F57822EC747FC0056AE72 /* AddressPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF1F57812EC747FC0056AE72 /* AddressPickerView.swift */; };
+		CF1F57842EC747FE0056AE72 /* AddressPickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF1F57832EC747FE0056AE72 /* AddressPickerViewModel.swift */; };
+		CF1F57862EC748000056AE72 /* LocationData.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF1F57852EC748000056AE72 /* LocationData.swift */; };
+		CF3760C92EC752BA00C749BD /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF3760C82EC752BA00C749BD /* ImagePicker.swift */; };
+		CF546BD82EAFA1F70059D03E /* MyAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF546BD72EAFA1F70059D03E /* MyAccountView.swift */; };
+		CF5B147D2EAF6EB3000C40C2 /* SideMenuRowOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF5B147C2EAF6EB3000C40C2 /* SideMenuRowOption.swift */; };
 		CF6D6A752E9F9D2800B3656C /* DriverDocView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF6D6A742E9F9D2700B3656C /* DriverDocView.swift */; };
 		CF6D6A782E9FA1F300B3656C /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF6D6A772E9FA1F300B3656C /* HomeView.swift */; };
 		CF804F5E2EA20CA000F16E58 /* ScheduleBookingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF804F5D2EA20CA000F16E58 /* ScheduleBookingView.swift */; };
@@ -18,6 +43,9 @@
 		CF8DE8792EA25CAB00F75D73 /* SideMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF8DE8782EA25CAB00F75D73 /* SideMenu.swift */; };
 		CF8DE87B2EA25E6100F75D73 /* SideMenuHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF8DE87A2EA25E6100F75D73 /* SideMenuHeader.swift */; };
 		CF8DE87D2EA2646E00F75D73 /* SideMenuRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF8DE87C2EA2646E00F75D73 /* SideMenuRow.swift */; };
+		CFA379B82ECD8EC900893DAB /* SignupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFA379B72ECD8EC900893DAB /* SignupViewModel.swift */; };
+		CFA379BB2ECD8EEE00893DAB /* VehicleList.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFA379BA2ECD8EEE00893DAB /* VehicleList.swift */; };
+		CFA379BD2ECD8F9900893DAB /* VehcileDetailSignupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFA379BC2ECD8F9900893DAB /* VehcileDetailSignupView.swift */; };
 		CFBAAACB2E9F7418001D8398 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CFBAAAC72E9F7418001D8398 /* Assets.xcassets */; };
 		CFBAAACD2E9F7418001D8398 /* GlisexabDriverApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFBAAAC92E9F7418001D8398 /* GlisexabDriverApp.swift */; };
 		CFBAAAD52E9F760A001D8398 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFBAAAD42E9F760A001D8398 /* OnboardingView.swift */; };
@@ -48,12 +76,38 @@
 		CFBAAB0A2E9F77B6001D8398 /* Inter-ExtraBoldItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = CFBAAAEC2E9F77B6001D8398 /* Inter-ExtraBoldItalic.otf */; };
 		CFBAAB0D2E9F791E001D8398 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFBAAB0C2E9F791E001D8398 /* LoginView.swift */; };
 		CFBAAB0F2E9F7E61001D8398 /* SignupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFBAAB0E2E9F7E61001D8398 /* SignupView.swift */; };
-		CFBAAB172E9F8893001D8398 /* VehcileDetailSignupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFBAAB162E9F8893001D8398 /* VehcileDetailSignupView.swift */; };
+		CFBE2DC92ECDB94E0053672B /* PendingRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFBE2DC82ECDB94E0053672B /* PendingRequest.swift */; };
+		CFBE2DCB2ECDB9D90053672B /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFBE2DCA2ECDB9D90053672B /* HomeViewModel.swift */; };
+		CFD7AD472EB09C1B00FDB2D9 /* ReviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFD7AD462EB09C1B00FDB2D9 /* ReviewView.swift */; };
+		CFD7AD4E2EB0A76200FDB2D9 /* WalletView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFD7AD4C2EB0A76200FDB2D9 /* WalletView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		CF0BD3AA2EA0CCDB00581E5B /* CustomButtonAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButtonAction.swift; sourceTree = "<group>"; };
 		CF0BD3AD2EA0D3BE00581E5B /* TrackingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingView.swift; sourceTree = "<group>"; };
+		CF1F574C2EC73EE70056AE72 /* Api.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Api.swift; sourceTree = "<group>"; };
+		CF1F574D2EC73EE70056AE72 /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
+		CF1F574E2EC73EE70056AE72 /* Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
+		CF1F57532EC73F0F0056AE72 /* Utility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utility.swift; sourceTree = "<group>"; };
+		CF1F57542EC73F0F0056AE72 /* InternetConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InternetConnection.swift; sourceTree = "<group>"; };
+		CF1F57552EC73F0F0056AE72 /* CountryPickerUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryPickerUI.swift; sourceTree = "<group>"; };
+		CF1F575B2EC73F530056AE72 /* Reachability.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
+		CF1F575C2EC73F530056AE72 /* Reachability.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
+		CF1F575E2EC73F540056AE72 /* GlisexabDriver-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "GlisexabDriver-Bridging-Header.h"; sourceTree = "<group>"; };
+		CF1F57632EC740170056AE72 /* Api_Login.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Api_Login.swift; sourceTree = "<group>"; };
+		CF1F57652EC740590056AE72 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
+		CF1F57682EC7408F0056AE72 /* CustomError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomError.swift; sourceTree = "<group>"; };
+		CF1F57692EC7408F0056AE72 /* CustomErrorBanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomErrorBanner.swift; sourceTree = "<group>"; };
+		CF1F576A2EC7408F0056AE72 /* CustomAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlertView.swift; sourceTree = "<group>"; };
+		CF1F576F2EC740B50056AE72 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
+		CF1F57722EC7427E0056AE72 /* Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
+		CF1F577B2EC746370056AE72 /* LocationSearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationSearchViewModel.swift; sourceTree = "<group>"; };
+		CF1F57812EC747FC0056AE72 /* AddressPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressPickerView.swift; sourceTree = "<group>"; };
+		CF1F57832EC747FE0056AE72 /* AddressPickerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressPickerViewModel.swift; sourceTree = "<group>"; };
+		CF1F57852EC748000056AE72 /* LocationData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationData.swift; sourceTree = "<group>"; };
+		CF3760C82EC752BA00C749BD /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
+		CF546BD72EAFA1F70059D03E /* MyAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAccountView.swift; sourceTree = "<group>"; };
+		CF5B147C2EAF6EB3000C40C2 /* SideMenuRowOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuRowOption.swift; sourceTree = "<group>"; };
 		CF6D6A742E9F9D2700B3656C /* DriverDocView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DriverDocView.swift; sourceTree = "<group>"; };
 		CF6D6A772E9FA1F300B3656C /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		CF804F5D2EA20CA000F16E58 /* ScheduleBookingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleBookingView.swift; sourceTree = "<group>"; };
@@ -63,6 +117,9 @@
 		CF8DE8782EA25CAB00F75D73 /* SideMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenu.swift; sourceTree = "<group>"; };
 		CF8DE87A2EA25E6100F75D73 /* SideMenuHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuHeader.swift; sourceTree = "<group>"; };
 		CF8DE87C2EA2646E00F75D73 /* SideMenuRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuRow.swift; sourceTree = "<group>"; };
+		CFA379B72ECD8EC900893DAB /* SignupViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupViewModel.swift; sourceTree = "<group>"; };
+		CFA379BA2ECD8EEE00893DAB /* VehicleList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VehicleList.swift; sourceTree = "<group>"; };
+		CFA379BC2ECD8F9900893DAB /* VehcileDetailSignupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VehcileDetailSignupView.swift; sourceTree = "<group>"; };
 		CFBAAAB92E9F740D001D8398 /* GlisexabDriver.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GlisexabDriver.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CFBAAAC72E9F7418001D8398 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CFBAAAC92E9F7418001D8398 /* GlisexabDriverApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlisexabDriverApp.swift; sourceTree = "<group>"; };
@@ -95,7 +152,10 @@
 		CFBAAAF82E9F77B6001D8398 /* Inter-ThinItalic-BETA.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter-ThinItalic-BETA.otf"; sourceTree = "<group>"; };
 		CFBAAB0C2E9F791E001D8398 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		CFBAAB0E2E9F7E61001D8398 /* SignupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupView.swift; sourceTree = "<group>"; };
-		CFBAAB162E9F8893001D8398 /* VehcileDetailSignupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VehcileDetailSignupView.swift; sourceTree = "<group>"; };
+		CFBE2DC82ECDB94E0053672B /* PendingRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PendingRequest.swift; sourceTree = "<group>"; };
+		CFBE2DCA2ECDB9D90053672B /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		CFD7AD462EB09C1B00FDB2D9 /* ReviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewView.swift; sourceTree = "<group>"; };
+		CFD7AD4C2EB0A76200FDB2D9 /* WalletView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +163,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CF1F574A2EC73E180056AE72 /* SDWebImageSwiftUI in Frameworks */,
+				CF1F57412EC73D4B0056AE72 /* Alamofire in Frameworks */,
+				CF1F57472EC73DEF0056AE72 /* CountryPicker in Frameworks */,
+				CF1F57442EC73DC50056AE72 /* IQKeyboardManagerSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -131,9 +195,180 @@
 		CF0BD3AC2EA0D3A100581E5B /* Home */ = {
 			isa = PBXGroup;
 			children = (
-				CF6D6A772E9FA1F300B3656C /* HomeView.swift */,
+				CFBE2DC72ECDB93A0053672B /* Model */,
+				CFBE2DC52ECDB9270053672B /* View Model */,
+				CFBE2DC62ECDB92B0053672B /* View */,
 			);
 			path = Home;
+			sourceTree = "<group>";
+		};
+		CF1F574B2EC73EDF0056AE72 /* Http */ = {
+			isa = PBXGroup;
+			children = (
+				CF1F574C2EC73EE70056AE72 /* Api.swift */,
+				CF1F574D2EC73EE70056AE72 /* Router.swift */,
+				CF1F574E2EC73EE70056AE72 /* Service.swift */,
+			);
+			path = Http;
+			sourceTree = "<group>";
+		};
+		CF1F57522EC73F020056AE72 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				CF1F57532EC73F0F0056AE72 /* Utility.swift */,
+				CF1F57542EC73F0F0056AE72 /* InternetConnection.swift */,
+				CF1F57552EC73F0F0056AE72 /* CountryPickerUI.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		CF1F575A2EC73F450056AE72 /* Objc */ = {
+			isa = PBXGroup;
+			children = (
+				CF1F575B2EC73F530056AE72 /* Reachability.h */,
+				CF1F575C2EC73F530056AE72 /* Reachability.m */,
+				CF1F575E2EC73F540056AE72 /* GlisexabDriver-Bridging-Header.h */,
+			);
+			path = Objc;
+			sourceTree = "<group>";
+		};
+		CF1F575F2EC73FE40056AE72 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				CF1F57622EC73FFD0056AE72 /* Model */,
+				CF1F57612EC73FF50056AE72 /* View Model */,
+				CF1F57602EC73FEF0056AE72 /* View */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		CF1F57602EC73FEF0056AE72 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				CFBAAB0C2E9F791E001D8398 /* LoginView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		CF1F57612EC73FF50056AE72 /* View Model */ = {
+			isa = PBXGroup;
+			children = (
+				CF1F57652EC740590056AE72 /* LoginViewModel.swift */,
+			);
+			path = "View Model";
+			sourceTree = "<group>";
+		};
+		CF1F57622EC73FFD0056AE72 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				CF1F57632EC740170056AE72 /* Api_Login.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		CF1F57672EC740850056AE72 /* Custom Alert */ = {
+			isa = PBXGroup;
+			children = (
+				CF1F57682EC7408F0056AE72 /* CustomError.swift */,
+				CF1F57692EC7408F0056AE72 /* CustomErrorBanner.swift */,
+				CF1F576A2EC7408F0056AE72 /* CustomAlertView.swift */,
+			);
+			path = "Custom Alert";
+			sourceTree = "<group>";
+		};
+		CF1F576E2EC740AB0056AE72 /* App Storage */ = {
+			isa = PBXGroup;
+			children = (
+				CF1F576F2EC740B50056AE72 /* AppState.swift */,
+			);
+			path = "App Storage";
+			sourceTree = "<group>";
+		};
+		CF1F57712EC7426F0056AE72 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				CF1F57722EC7427E0056AE72 /* Constant.swift */,
+				CF3760C82EC752BA00C749BD /* ImagePicker.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
+		CF1F57742EC744340056AE72 /* Signup */ = {
+			isa = PBXGroup;
+			children = (
+				CFA379B92ECD8EE200893DAB /* Model */,
+				CF1F57762EC744910056AE72 /* View Model */,
+				CF1F57752EC7443F0056AE72 /* View */,
+			);
+			path = Signup;
+			sourceTree = "<group>";
+		};
+		CF1F57752EC7443F0056AE72 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				CFBAAB0E2E9F7E61001D8398 /* SignupView.swift */,
+				CFA379BC2ECD8F9900893DAB /* VehcileDetailSignupView.swift */,
+				CF6D6A742E9F9D2700B3656C /* DriverDocView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		CF1F57762EC744910056AE72 /* View Model */ = {
+			isa = PBXGroup;
+			children = (
+				CFA379B72ECD8EC900893DAB /* SignupViewModel.swift */,
+			);
+			path = "View Model";
+			sourceTree = "<group>";
+		};
+		CF1F577A2EC7462A0056AE72 /* Location Manager */ = {
+			isa = PBXGroup;
+			children = (
+				CF1F577B2EC746370056AE72 /* LocationSearchViewModel.swift */,
+			);
+			path = "Location Manager";
+			sourceTree = "<group>";
+		};
+		CF1F577D2EC747D70056AE72 /* Address Picker */ = {
+			isa = PBXGroup;
+			children = (
+				CF1F57802EC747F50056AE72 /* Model */,
+				CF1F577F2EC747EE0056AE72 /* View Model */,
+				CF1F577E2EC747E80056AE72 /* View */,
+			);
+			path = "Address Picker";
+			sourceTree = "<group>";
+		};
+		CF1F577E2EC747E80056AE72 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				CF1F57812EC747FC0056AE72 /* AddressPickerView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		CF1F577F2EC747EE0056AE72 /* View Model */ = {
+			isa = PBXGroup;
+			children = (
+				CF1F57832EC747FE0056AE72 /* AddressPickerViewModel.swift */,
+			);
+			path = "View Model";
+			sourceTree = "<group>";
+		};
+		CF1F57802EC747F50056AE72 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				CF1F57852EC748000056AE72 /* LocationData.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		CF546BD92EAFA26B0059D03E /* Account Detail */ = {
+			isa = PBXGroup;
+			children = (
+				CF546BD72EAFA1F70059D03E /* MyAccountView.swift */,
+			);
+			path = "Account Detail";
 			sourceTree = "<group>";
 		};
 		CF6D6A762E9FA1D800B3656C /* Main */ = {
@@ -178,6 +413,9 @@
 			children = (
 				CF8DE8682EA23D1E00F75D73 /* Side Menu */,
 				CF804F6A2EA225DB00F16E58 /* Edit Profile */,
+				CF546BD92EAFA26B0059D03E /* Account Detail */,
+				CFD7AD482EB09C2E00FDB2D9 /* Review */,
+				CFD7AD4D2EB0A76200FDB2D9 /* Wallet */,
 			);
 			path = "Setting Tab";
 			sourceTree = "<group>";
@@ -212,8 +450,17 @@
 				CF8DE8782EA25CAB00F75D73 /* SideMenu.swift */,
 				CF8DE87A2EA25E6100F75D73 /* SideMenuHeader.swift */,
 				CF8DE87C2EA2646E00F75D73 /* SideMenuRow.swift */,
+				CF5B147C2EAF6EB3000C40C2 /* SideMenuRowOption.swift */,
 			);
 			path = "Side Menu";
+			sourceTree = "<group>";
+		};
+		CFA379B92ECD8EE200893DAB /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				CFA379BA2ECD8EEE00893DAB /* VehicleList.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		CFBAAAB02E9F740D001D8398 = {
@@ -265,6 +512,13 @@
 		CFBAAAD02E9F7494001D8398 /* Component */ = {
 			isa = PBXGroup;
 			children = (
+				CF1F574B2EC73EDF0056AE72 /* Http */,
+				CF1F576E2EC740AB0056AE72 /* App Storage */,
+				CF1F57672EC740850056AE72 /* Custom Alert */,
+				CF1F575A2EC73F450056AE72 /* Objc */,
+				CF1F57522EC73F020056AE72 /* Utilities */,
+				CF1F57712EC7426F0056AE72 /* Extension */,
+				CF1F577A2EC7462A0056AE72 /* Location Manager */,
 				CF0BD3A92EA0CCBA00581E5B /* Location Handling */,
 				CF0BD3A72EA0CC9700581E5B /* User Interface */,
 				CFBAAAE62E9F774E001D8398 /* Navigatioon */,
@@ -311,12 +565,51 @@
 			isa = PBXGroup;
 			children = (
 				CFBAAAD42E9F760A001D8398 /* OnboardingView.swift */,
-				CFBAAB0C2E9F791E001D8398 /* LoginView.swift */,
-				CFBAAB0E2E9F7E61001D8398 /* SignupView.swift */,
-				CFBAAB162E9F8893001D8398 /* VehcileDetailSignupView.swift */,
-				CF6D6A742E9F9D2700B3656C /* DriverDocView.swift */,
+				CF1F575F2EC73FE40056AE72 /* Login */,
+				CF1F57742EC744340056AE72 /* Signup */,
+				CF1F577D2EC747D70056AE72 /* Address Picker */,
 			);
 			path = Primary;
+			sourceTree = "<group>";
+		};
+		CFBE2DC52ECDB9270053672B /* View Model */ = {
+			isa = PBXGroup;
+			children = (
+				CFBE2DCA2ECDB9D90053672B /* HomeViewModel.swift */,
+			);
+			path = "View Model";
+			sourceTree = "<group>";
+		};
+		CFBE2DC62ECDB92B0053672B /* View */ = {
+			isa = PBXGroup;
+			children = (
+				CF6D6A772E9FA1F300B3656C /* HomeView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		CFBE2DC72ECDB93A0053672B /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				CFBE2DC82ECDB94E0053672B /* PendingRequest.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		CFD7AD482EB09C2E00FDB2D9 /* Review */ = {
+			isa = PBXGroup;
+			children = (
+				CFD7AD462EB09C1B00FDB2D9 /* ReviewView.swift */,
+			);
+			path = Review;
+			sourceTree = "<group>";
+		};
+		CFD7AD4D2EB0A76200FDB2D9 /* Wallet */ = {
+			isa = PBXGroup;
+			children = (
+				CFD7AD4C2EB0A76200FDB2D9 /* WalletView.swift */,
+			);
+			path = Wallet;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -336,6 +629,10 @@
 			);
 			name = GlisexabDriver;
 			packageProductDependencies = (
+				CF1F57402EC73D4B0056AE72 /* Alamofire */,
+				CF1F57432EC73DC50056AE72 /* IQKeyboardManagerSwift */,
+				CF1F57462EC73DEF0056AE72 /* CountryPicker */,
+				CF1F57492EC73E180056AE72 /* SDWebImageSwiftUI */,
 			);
 			productName = GlisexabDriver;
 			productReference = CFBAAAB92E9F740D001D8398 /* GlisexabDriver.app */;
@@ -353,6 +650,7 @@
 				TargetAttributes = {
 					CFBAAAB82E9F740D001D8398 = {
 						CreatedOnToolsVersion = 26.0.1;
+						LastSwiftMigration = 2600;
 					};
 				};
 			};
@@ -366,6 +664,10 @@
 			mainGroup = CFBAAAB02E9F740D001D8398;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
+				CF1F573F2EC73D4B0056AE72 /* XCRemoteSwiftPackageReference "Alamofire" */,
+				CF1F57422EC73DC50056AE72 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */,
+				CF1F57452EC73DEF0056AE72 /* XCRemoteSwiftPackageReference "CountryPicker" */,
+				CF1F57482EC73E180056AE72 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = CFBAAABA2E9F740D001D8398 /* Products */;
@@ -411,27 +713,54 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CF1F576B2EC7408F0056AE72 /* CustomAlertView.swift in Sources */,
+				CF3760C92EC752BA00C749BD /* ImagePicker.swift in Sources */,
+				CF1F576C2EC7408F0056AE72 /* CustomError.swift in Sources */,
+				CFBE2DCB2ECDB9D90053672B /* HomeViewModel.swift in Sources */,
+				CF1F576D2EC7408F0056AE72 /* CustomErrorBanner.swift in Sources */,
 				CFBAAB0F2E9F7E61001D8398 /* SignupView.swift in Sources */,
+				CF1F57862EC748000056AE72 /* LocationData.swift in Sources */,
 				CFBAAAE32E9F774A001D8398 /* NavigationRouter.swift in Sources */,
 				CFBAAAE42E9F774A001D8398 /* RootView.swift in Sources */,
 				CF8DE8792EA25CAB00F75D73 /* SideMenu.swift in Sources */,
 				CFBAAAE52E9F774A001D8398 /* AppNavigationView.swift in Sources */,
 				CF0BD3AB2EA0CCDB00581E5B /* CustomButtonAction.swift in Sources */,
 				CF8DE87B2EA25E6100F75D73 /* SideMenuHeader.swift in Sources */,
+				CF1F57562EC73F0F0056AE72 /* InternetConnection.swift in Sources */,
+				CF1F57702EC740B50056AE72 /* AppState.swift in Sources */,
+				CF1F57662EC740590056AE72 /* LoginViewModel.swift in Sources */,
+				CF1F57572EC73F0F0056AE72 /* CountryPickerUI.swift in Sources */,
+				CF1F57582EC73F0F0056AE72 /* Utility.swift in Sources */,
 				CFBAAADB2E9F7737001D8398 /* BackButton.swift in Sources */,
 				CF804F5E2EA20CA000F16E58 /* ScheduleBookingView.swift in Sources */,
 				CFBAAADD2E9F7737001D8398 /* UiExtension.swift in Sources */,
 				CF6D6A782E9FA1F300B3656C /* HomeView.swift in Sources */,
+				CF1F574F2EC73EE70056AE72 /* Service.swift in Sources */,
+				CF1F57642EC740170056AE72 /* Api_Login.swift in Sources */,
+				CF1F57502EC73EE70056AE72 /* Api.swift in Sources */,
+				CFA379BB2ECD8EEE00893DAB /* VehicleList.swift in Sources */,
+				CF1F57842EC747FE0056AE72 /* AddressPickerViewModel.swift in Sources */,
+				CF1F575D2EC73F530056AE72 /* Reachability.m in Sources */,
+				CFA379B82ECD8EC900893DAB /* SignupViewModel.swift in Sources */,
+				CFA379BD2ECD8F9900893DAB /* VehcileDetailSignupView.swift in Sources */,
+				CF1F57512EC73EE70056AE72 /* Router.swift in Sources */,
 				CF6D6A752E9F9D2800B3656C /* DriverDocView.swift in Sources */,
+				CF546BD82EAFA1F70059D03E /* MyAccountView.swift in Sources */,
 				CF804F692EA225D200F16E58 /* EditProfileView.swift in Sources */,
+				CF5B147D2EAF6EB3000C40C2 /* SideMenuRowOption.swift in Sources */,
+				CFBE2DC92ECDB94E0053672B /* PendingRequest.swift in Sources */,
 				CFBAAADE2E9F7737001D8398 /* CustomLogo.swift in Sources */,
+				CF1F577C2EC746370056AE72 /* LocationSearchViewModel.swift in Sources */,
 				CFBAAADF2E9F7737001D8398 /* LocationManager.swift in Sources */,
 				CF0BD3AE2EA0D3BE00581E5B /* TrackingView.swift in Sources */,
-				CFBAAB172E9F8893001D8398 /* VehcileDetailSignupView.swift in Sources */,
+				CF1F57732EC7427E0056AE72 /* Constant.swift in Sources */,
 				CF89F93F2EA118E0002FF10B /* PopUp.swift in Sources */,
+				CFD7AD4E2EB0A76200FDB2D9 /* WalletView.swift in Sources */,
 				CFBAAB0D2E9F791E001D8398 /* LoginView.swift in Sources */,
+				CFD7AD472EB09C1B00FDB2D9 /* ReviewView.swift in Sources */,
 				CF8DE87D2EA2646E00F75D73 /* SideMenuRow.swift in Sources */,
 				CFBAAACD2E9F7418001D8398 /* GlisexabDriverApp.swift in Sources */,
+				CF1F57822EC747FC0056AE72 /* AddressPickerView.swift in Sources */,
 				CFBAAAD52E9F760A001D8398 /* OnboardingView.swift in Sources */,
 				CF89F9422EA1287D002FF10B /* RideDetailView.swift in Sources */,
 			);
@@ -564,6 +893,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -588,6 +918,8 @@
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "GlisexabDriver/Component/Objc/GlisexabDriver-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -599,6 +931,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -623,6 +956,7 @@
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "GlisexabDriver/Component/Objc/GlisexabDriver-Bridging-Header.h";
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -651,6 +985,64 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		CF1F573F2EC73D4B0056AE72 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.10.2;
+			};
+		};
+		CF1F57422EC73DC50056AE72 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/hackiftekhar/IQKeyboardManager.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 8.0.1;
+			};
+		};
+		CF1F57452EC73DEF0056AE72 /* XCRemoteSwiftPackageReference "CountryPicker" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/mobven/CountryPicker/";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.3;
+			};
+		};
+		CF1F57482EC73E180056AE72 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SDWebImage/SDWebImageSwiftUI.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.1.4;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		CF1F57402EC73D4B0056AE72 /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CF1F573F2EC73D4B0056AE72 /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
+		CF1F57432EC73DC50056AE72 /* IQKeyboardManagerSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CF1F57422EC73DC50056AE72 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */;
+			productName = IQKeyboardManagerSwift;
+		};
+		CF1F57462EC73DEF0056AE72 /* CountryPicker */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CF1F57452EC73DEF0056AE72 /* XCRemoteSwiftPackageReference "CountryPicker" */;
+			productName = CountryPicker;
+		};
+		CF1F57492EC73E180056AE72 /* SDWebImageSwiftUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CF1F57482EC73E180056AE72 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */;
+			productName = SDWebImageSwiftUI;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = CFBAAAB12E9F740D001D8398 /* Project object */;
 }

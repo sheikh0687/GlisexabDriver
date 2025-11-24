@@ -17,6 +17,9 @@ enum AppNavigationView: Hashable {
     case trackRide
     case ridedetails
     case scheduleDetail
+    case editProfile
+    case myAccount
+    case myReview
     
     @ViewBuilder
     var view: some View {
@@ -37,6 +40,12 @@ enum AppNavigationView: Hashable {
             RideDetailView()
         case .scheduleDetail:
             ScheduleBookingView()
+        case .editProfile:
+            EditProfileView()
+        case .myAccount:
+            MyAccountView()
+        case .myReview:
+            ReviewView()
         }
     }
 }

@@ -13,15 +13,16 @@ struct EditProfileView: View {
     @State private var email: String = "lesliealexander@gmail.com"
     @State private var contact: String = "23874823****"
     @State private var location: String = "Royal Ln. Mesa, New Jersey"
-
+    
     @EnvironmentObject private var router: NavigationRouter
+    @State private var showMenu = false
     
     var body: some View {
         ZStack {
             VStack {
                 ScrollView {
                     VStack(spacing: 40) {
-                        Image("leslie")
+                        Image("userPlace")
                             .resizable()
                             .scaledToFit()
                             .frame(width: 120, height: 120)
@@ -43,7 +44,6 @@ struct EditProfileView: View {
                         .background(Color.colorNeavyBlue)
                         .foregroundColor(.white)
                         .cornerRadius(8)
-                        
                     }
                     .padding(.horizontal, 20)
                     .background(Color.white)

@@ -10,6 +10,8 @@ import SwiftUI
 struct SideMenu: View {
     
     @Binding var isShow: Bool
+//    @State private var selectedOption: SideMenuRowOption?
+    var onOptionSelection: (SideMenuRowOption) -> Void
     
     var body: some View {
         ZStack {
@@ -22,28 +24,36 @@ struct SideMenu: View {
                     }
                 
                 HStack {
-                    VStack(alignment: .leading, spacing: 30) {
+                    VStack(spacing: 30) {
                         SideMenuHeader()
-                        
-                        VStack {
-                            ForEach(0..<5) { option in
-                                SideMenuRow()
+
+                        VStack(spacing: 10) {
+                            ForEach(SideMenuRowOption.allCases) { option in
+                                Button {
+                                    isShow = false
+                                    onOptionSelection(option)
+                                } label: {
+                                    SideMenuRow(optionModel: option)
+                                }
                             }
                         }
                         Spacer()
                     }
                     .padding( )
-                    .frame(width: 270, alignment: .leading)
+                    .frame(width: 270)
                     .background(Color.colorNeavyBlue)
+                    .multilineTextAlignment(.center)
                     Spacer()
                 }
+                .transition(.move(edge: .leading))
             }
         }
-        .transition(.move(edge: .leading))
         .animation(.easeInOut, value: isShow)
     }
 }
 
 #Preview {
-    SideMenu(isShow: .constant(true))
-}
+    SideMenu(isShow: .constant(true), onOptionSelection: { option in
+        print("Selected: \(option)")
+        })
+    }

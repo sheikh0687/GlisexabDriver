@@ -26,7 +26,6 @@ struct OnboardingView: View {
     @EnvironmentObject var router: NavigationRouter
     
     var body: some View {
-        
         ZStack {
             // Background color
             Color.colorNeavyBlue
@@ -36,6 +35,7 @@ struct OnboardingView: View {
             TabView(selection: $currentPage) {
                 ForEach(onboardingData.indices, id: \.self) { index in
                     VStack(alignment: .leading) {
+                        
                         Image(onboardingData[index].imageName)
                             .resizable()
                             .scaledToFit()
@@ -54,6 +54,7 @@ struct OnboardingView: View {
                             .padding(.top, 8)
                         
                         Spacer()
+                        
                     }
                     .padding(20)
                     .background(Color.white)
@@ -112,7 +113,13 @@ struct OnboardingView: View {
             }
         }
         .navigationBarHidden(true)
-        .navigationBarBackButtonHidden()
+        .navigationBarBackButtonHidden(true)
+        .onAppear {
+            UINavigationBar.appearance().isHidden = true
+        }
+        .onDisappear {
+            UINavigationBar.appearance().isHidden = false
+        }
     }
 }
 

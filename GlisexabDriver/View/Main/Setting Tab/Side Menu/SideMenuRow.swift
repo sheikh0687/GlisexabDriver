@@ -8,23 +8,34 @@
 import SwiftUI
 
 struct SideMenuRow: View {
+    
+    let optionModel: SideMenuRowOption
+//    @Binding var selectedOption: SideMenuRowOption?
+    
     var body: some View {
-        HStack {
-            Image(systemName: "paperplane")
-                .imageScale(.medium)
+        HStack(alignment: .center, spacing: 18) {
+            Image(optionModel.imageName)
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(width: 28, height: 28)
+                .alignmentGuide(.firstTextBaseline) { d in
+                    d[.bottom]
+                }
             
-            Text("Message")
-                .font(.customfont(.semiBold, fontSize: 16))
+            Text(optionModel.title)
+                .font(.customfont(.medium, fontSize: 18))
                 .foregroundColor(.white)
-            
-            Spacer()
+                .alignmentGuide(.firstTextBaseline) { d in
+                    d[.bottom]
+                }
+
         }
-        .padding(.leading)
-        .frame(height: 44)
-        
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .padding(.vertical, 8)
     }
 }
 
+
 #Preview {
-    SideMenuRow()
+    SideMenuRow(optionModel: .myAccount)
 }
