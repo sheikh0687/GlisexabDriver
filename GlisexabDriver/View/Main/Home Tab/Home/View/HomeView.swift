@@ -11,7 +11,6 @@ import _MapKit_SwiftUI
 struct HomeView: View {
     
     @StateObject private var locationManager = LocationManager()
-    @State var isOnline = false
     
     @State private var showMenu = false
     @State private var selectedTab = 0
@@ -64,7 +63,6 @@ struct HomeView: View {
                 }
             }
         }
-        //        .toolbar(showMenu ? .hidden : .visible, for: .navigationBar)
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden(true)
         .toolbar {
@@ -82,6 +80,18 @@ struct HomeView: View {
         .onAppear {
             UINavigationBar.setTitleColor(.white)
             VM.loadPendingRequests(appState: appState)
+            VM.loadDriverProfileDetail(appState: appState)
+        }
+        .onChange(of: VM.isReqAccept) { isNewReq in
+            if isNewReq {
+                if VM.strBookingType == "Later" {
+                    router.popToRoot()
+                } else {
+                    router.push(to: .trackRide)
+                }
+            } else {
+                VM.loadPendingRequests(appState: appState)
+            }
         }
     }
     
@@ -90,14 +100,14 @@ struct HomeView: View {
     private var EarningsSummaryView: some View {
         
         VStack(alignment: .center, spacing: 10) {
-            Text("$0.0")
+            Text("$\(VM.userProfile?.total_earning ?? "0")")
                 .font(.customfont(.bold, fontSize: 18))
             
             Text("Today Earning")
                 .font(.customfont(.medium, fontSize: 16))
                 .multilineTextAlignment(.center)
             
-            Text("0 trip completed today")
+            Text("\(VM.userProfile?.total_deliveries ?? "0") trip completed today")
                 .font(.customfont(.medium, fontSize: 16))
                 .multilineTextAlignment(.center)
         }
@@ -121,18 +131,18 @@ struct HomeView: View {
         VStack(spacing: 0) {
             HStack {
                 Button {
-                    isOnline.toggle()
+                    VM.toggleDriverStatus(appState: appState)
                 } label: {
                     HStack {
-                        Image(systemName: isOnline ? "checkmark.circle.fill" : "xmark.octagon.fill")
+                        Image(systemName: VM.isOnline ? "checkmark.circle.fill" : "xmark.octagon.fill")
                             .foregroundColor(.white)
-                        Text(isOnline ? "Online" : "Offline")
+                        Text(VM.isOnline ? "Online" : "Offline")
                             .font(.customfont(.medium, fontSize: 14))
                             .foregroundColor(.white)
                     }
                     .padding(.horizontal, 18)
                     .padding(.vertical, 8)
-                    .background(isOnline ? Color.green : Color.red)
+                    .background(VM.isOnline ? Color.green : Color.red)
                     .cornerRadius(22)
                 }
                 
@@ -149,7 +159,7 @@ struct HomeView: View {
                                 .frame(width: 30, height: 30)
                             
                             Circle()
-                                .fill(isOnline ? Color.red : Color.clear)
+                                .fill(VM.isOnline ? Color.red : Color.clear)
                                 .frame(width: 12, height: 12)
                                 .offset(x: 6, y: -10)
                         }
@@ -169,11 +179,11 @@ struct HomeView: View {
                 .padding()
             }
             
-            if !isOnline {
+            if !VM.isOnline {
                 HStack(spacing: 8) {
-                    Text(isOnline ? "Finding rides" : "Your are currently offline")
+                    Text(VM.isOnline ? "Finding rides" : "Your are currently offline")
                         .font(.customfont(.semiBold, fontSize: 16))
-                    if isOnline {
+                    if VM.isOnline {
                         ProgressView()
                             .progressViewStyle(CircularProgressViewStyle())
                     }
@@ -184,7 +194,7 @@ struct HomeView: View {
         }
         .frame(maxWidth: .infinity)
         .padding()
-        .background(
+        .background (
             RoundedRectangle(cornerRadius: 18)
                 .stroke(Color(.separator), lineWidth: 0.5)
                 .background(
@@ -201,26 +211,24 @@ struct HomeView: View {
         
         if let r = VM.selectedRequest {
             VStack(spacing: 15) {
-                // Header
                 HStack {
-                    Text("New Bargain Request!")
-                        .font(.customfont(.semiBold, fontSize: 16))
-                    Spacer()
-                    Text("Estimated trip: \(r.time_away ?? "") mins")
-                        .font(.customfont(.regular, fontSize: 12))
-                }
-                
-                // User info
-                HStack {
-                    
                     if let urlString = r.user_details?.image {
                         Utility.CustomWebImage(imageUrl: urlString, placeholder: Image(systemName: "placeholder"), width: 44, height: 44)
+                            .clipShape(.circle)
                     }
                     
                     Spacer().frame(width: 10)
                     
-                    Text("\(r.user_details?.first_name ?? "") \(r.user_details?.last_name ?? "")")
-                        .font(.customfont(.medium, fontSize: 14))
+                    VStack(spacing: 6) {
+                        Text("\(r.user_details?.first_name ?? "")")
+                            .font(.customfont(.medium, fontSize: 14))
+                        HStack {
+                            Image(systemName: "star.fill")
+                                .foregroundColor(.yellow)
+                            Text("\(r.user_details?.rating ?? "") (\(r.user_details?.rating_count ?? ""))")
+                                .font(.customfont(.regular, fontSize: 14))
+                        }
+                    }
                     
                     Spacer()
                     
@@ -247,26 +255,9 @@ struct HomeView: View {
                     VStack(spacing: 6) {
                         Text("$\(r.total_amount ?? "")")
                             .font(.customfont(.medium, fontSize: 14))
-                        Text("Customer Offered:")
+                        Text("\(r.ride_time ?? "") minutes trip")
                             .font(.customfont(.regular, fontSize: 12))
                             .foregroundColor(.gray)
-                    }
-                }
-                
-                // Date / Time
-                HStack {
-                    HStack(spacing: 4) {
-                        Text("Time:")
-                            .font(.customfont(.semiBold, fontSize: 14))
-                        Text(r.time ?? "")
-                            .font(.customfont(.regular, fontSize: 12))
-                    }
-                    Spacer()
-                    HStack(spacing: 4) {
-                        Text("Date:")
-                            .font(.customfont(.semiBold, fontSize: 14))
-                        Text(r.date ?? "")
-                            .font(.customfont(.regular, fontSize: 12))
                     }
                 }
                 
@@ -274,6 +265,10 @@ struct HomeView: View {
                 
                 // Pickup / Drop info
                 VStack(alignment: .leading, spacing: 14) {
+                    
+                    Text("New Bargain Request!")
+                        .font(.customfont(.semiBold, fontSize: 16))
+                    
                     HStack(spacing: 4) {
                         Image(systemName: "mappin")
                             .foregroundColor(.red)
@@ -292,22 +287,19 @@ struct HomeView: View {
                             .multilineTextAlignment(.leading)
                     }
                     
-                    Text("2 mins left to accept the ride!")
+                    Text("\(r.time_away ?? "") mins away")
                         .font(.customfont(.medium, fontSize: 14))
                         .foregroundColor(.colorGreen)
                 }
                 
                 HStack {
-                    CustomButtonAction(title: "Accept", color: .colorGreen, titleColor: .white) {
-                        router.push(to: .trackRide)
+                    CustomButtonAction(title: "Accept", color: .colorNeavyBlue, titleColor: .white) {
+                        VM.loadChangeRequest(appState: appState, requestiD: r.id ?? "")
+                        VM.strBookingType = r.booking_type ?? ""
                     }
-                    
-                    CustomButtonAction(title: "Send Counter", color: .colorNeavyBlue, titleColor: .white) {
-                        print("Accept request")
-                    }
-                    
+                                        
                     CustomButtonAction(title: "Decline", color: .red, titleColor: .white) {
-                        print("Accept request")
+                        VM.loadRejectedRequest(appState: appState, reqiD: r.id ?? "")
                     }
                 }
             }

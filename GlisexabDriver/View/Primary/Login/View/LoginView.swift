@@ -97,74 +97,80 @@ struct LoginView: View {
     
     @ViewBuilder
     private var mobileNumberField: some View {
-        Text("Contact Number")
-            .font(.customfont(.medium, fontSize: 14))
-            .padding(.leading, 4)
-        
-        ZStack {
-            Rectangle()
-                .fill(Color.gray.opacity(0.15))
-                .frame(height: 45)
-                .cornerRadius(10)
-                .overlay(
-                    RoundedRectangle(cornerRadius: 10)
-                        .stroke(Color.gray.opacity(0.3), lineWidth: 0.8)
-                )
-            HStack {
-                Button {
-                    showCountryPicker = true
-                } label: {
-                    if let countryObj = countryObj {
-                        Text("\(countryObj.isoCode.getFlag())")
-                            .font(.customfont(.medium, fontSize: 28))
-                        Text("+\(countryObj.phoneCode)")
-                            .font(.customfont(.medium, fontSize: 16))
-                            .foregroundColor(.black)
+        VStack(alignment: .leading, spacing: 12) {
+            Text("Contact Number")
+                .font(.customfont(.medium, fontSize: 14))
+                .padding(.leading, 4)
+            
+            ZStack {
+                Rectangle()
+                    .fill(Color.gray.opacity(0.15))
+                    .frame(height: 45)
+                    .cornerRadius(10)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 10)
+                            .stroke(Color.gray.opacity(0.3), lineWidth: 0.8)
+                    )
+                HStack {
+                    Button {
+                        showCountryPicker = true
+                    } label: {
+                        if let countryObj = countryObj {
+                            Text("\(countryObj.isoCode.getFlag())")
+                                .font(.customfont(.medium, fontSize: 28))
+                            Text("+\(countryObj.phoneCode)")
+                                .font(.customfont(.medium, fontSize: 16))
+                                .foregroundColor(.black)
+                        }
                     }
+                    .padding(.leading, 8)
+                    
+                    TextField("Enter Contact Number", text: $viewModel.mobile)
+                        .font(.customfont(.light, fontSize: 14))
+                        .padding(.leading, 4)
                 }
-                
-                TextField("Enter Contact Number", text: $viewModel.mobile)
-                    .font(.customfont(.light, fontSize: 14))
-                    .padding(.leading, 4)
+//                .padding()
             }
-            .padding()
         }
     }
     
     @ViewBuilder
     private var passwordField: some View {
-        Text("Password")
-            .font(.customfont(.medium, fontSize: 14))
-            .padding(.leading, 4)
-        
-        ZStack {
-            Rectangle()
-                .fill(Color.gray.opacity(0.15))
-                .frame(height: 45)
-                .cornerRadius(10)
-                .overlay(
-                    RoundedRectangle(cornerRadius: 10)
-                        .stroke(Color.gray.opacity(0.3), lineWidth: 0.8)
-                )
-            HStack {
-                Image("Password")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 24, height: 24)
-                    .padding(.leading, 12)
-                
-                SecureField("Enter Password", text: $viewModel.password)
-                    .font(.customfont(.light, fontSize: 14))
-                    .padding(.leading, 4)
-                
-                Spacer()
-                
-                Image("Unlock")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 24, height: 24)
-                    .padding(.trailing, 12)
+        VStack(alignment: .leading, spacing: 8) {
+            Text("Password")
+                .font(.customfont(.medium, fontSize: 14))
+                .padding(.leading, 4)
+            
+            ZStack {
+                Rectangle()
+                    .fill(Color.gray.opacity(0.15))
+                    .frame(height: 45)
+                    .cornerRadius(10)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 10)
+                            .stroke(Color.gray.opacity(0.3), lineWidth: 0.8)
+                    )
+                HStack {
+                    Image("Password")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 24, height: 24)
+                        .padding(.leading, 12)
+                    
+                    SecureField("Enter Password", text: $viewModel.password)
+                        .font(.customfont(.light, fontSize: 14))
+                        .padding(.leading, 4)
+                    
+                    Spacer()
+                    
+                    Image("Unlock")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 24, height: 24)
+                        .padding(.trailing, 12)
+                }
             }
+
         }
     }
     

@@ -27,11 +27,15 @@ enum Router: String {
     case change_password
     case add_user_address
     case request_nearbuy_driver
+    case update_driver_status
     
     case get_conversation_detail
     case get_driver_pending_request
     
+    case change_request_status
+    
     case delete_user_address
+    case add_rejected_request
     
     public func url() -> String {
         switch self {
@@ -67,6 +71,14 @@ enum Router: String {
             return Router.oAuthRoute(path: "vehicle_list")
         case .get_driver_pending_request:
             return Router.oAuthRoute(path: "get_driver_pending_request")
+            
+        case .change_request_status:
+            return Router.oAuthRoute(path: "change_request_status")
+        case .add_rejected_request:
+            return Router.oAuthRoute(path: "add_rejected_request")
+            
+        case .update_driver_status:
+            return Router.oAuthRoute(path: "update_driver_status")
         }
     }
     

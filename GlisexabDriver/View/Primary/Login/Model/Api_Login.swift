@@ -91,6 +91,7 @@ struct Res_LoginResponse : Codable {
     let unique_code_image : String?
     let referral_code : String?
     let signup_referral_code : String?
+    let total_earning : String?
 
     enum CodingKeys: String, CodingKey {
 
@@ -156,6 +157,7 @@ struct Res_LoginResponse : Codable {
         case unique_code_image = "unique_code_image"
         case referral_code = "referral_code"
         case signup_referral_code = "signup_referral_code"
+        case total_earning = "total_earning"
     }
 
     init(from decoder: Decoder) throws {
@@ -222,6 +224,6 @@ struct Res_LoginResponse : Codable {
         unique_code_image = try values.decodeIfPresent(String.self, forKey: .unique_code_image)
         referral_code = try values.decodeIfPresent(String.self, forKey: .referral_code)
         signup_referral_code = try values.decodeIfPresent(String.self, forKey: .signup_referral_code)
+        total_earning = try values.decodeIfPresent(String.self, forKey: .total_earning)
     }
-
 }

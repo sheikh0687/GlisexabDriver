@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B762FCF02ED6D7E300EB6EA5 /* ChangeRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B762FCEF2ED6D7E300EB6EA5 /* ChangeRequest.swift */; };
+		B762FCF22ED6DCA800EB6EA5 /* RejectRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B762FCF12ED6DCA800EB6EA5 /* RejectRequest.swift */; };
+		B762FCF42ED6E3E800EB6EA5 /* UpdateDriverStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = B762FCF32ED6E3E800EB6EA5 /* UpdateDriverStatus.swift */; };
 		CF0BD3AB2EA0CCDB00581E5B /* CustomButtonAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF0BD3AA2EA0CCDB00581E5B /* CustomButtonAction.swift */; };
 		CF0BD3AE2EA0D3BE00581E5B /* TrackingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF0BD3AD2EA0D3BE00581E5B /* TrackingView.swift */; };
 		CF1F57412EC73D4B0056AE72 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = CF1F57402EC73D4B0056AE72 /* Alamofire */; };
@@ -83,6 +86,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		B762FCEF2ED6D7E300EB6EA5 /* ChangeRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeRequest.swift; sourceTree = "<group>"; };
+		B762FCF12ED6DCA800EB6EA5 /* RejectRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RejectRequest.swift; sourceTree = "<group>"; };
+		B762FCF32ED6E3E800EB6EA5 /* UpdateDriverStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateDriverStatus.swift; sourceTree = "<group>"; };
 		CF0BD3AA2EA0CCDB00581E5B /* CustomButtonAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButtonAction.swift; sourceTree = "<group>"; };
 		CF0BD3AD2EA0D3BE00581E5B /* TrackingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingView.swift; sourceTree = "<group>"; };
 		CF1F574C2EC73EE70056AE72 /* Api.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Api.swift; sourceTree = "<group>"; };
@@ -196,8 +202,8 @@
 			isa = PBXGroup;
 			children = (
 				CFBE2DC72ECDB93A0053672B /* Model */,
-				CFBE2DC52ECDB9270053672B /* View Model */,
 				CFBE2DC62ECDB92B0053672B /* View */,
+				CFBE2DC52ECDB9270053672B /* View Model */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -236,8 +242,8 @@
 			isa = PBXGroup;
 			children = (
 				CF1F57622EC73FFD0056AE72 /* Model */,
-				CF1F57612EC73FF50056AE72 /* View Model */,
 				CF1F57602EC73FEF0056AE72 /* View */,
+				CF1F57612EC73FF50056AE72 /* View Model */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -592,6 +598,9 @@
 			isa = PBXGroup;
 			children = (
 				CFBE2DC82ECDB94E0053672B /* PendingRequest.swift */,
+				B762FCEF2ED6D7E300EB6EA5 /* ChangeRequest.swift */,
+				B762FCF12ED6DCA800EB6EA5 /* RejectRequest.swift */,
+				B762FCF32ED6E3E800EB6EA5 /* UpdateDriverStatus.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -725,6 +734,7 @@
 				CF8DE8792EA25CAB00F75D73 /* SideMenu.swift in Sources */,
 				CFBAAAE52E9F774A001D8398 /* AppNavigationView.swift in Sources */,
 				CF0BD3AB2EA0CCDB00581E5B /* CustomButtonAction.swift in Sources */,
+				B762FCF42ED6E3E800EB6EA5 /* UpdateDriverStatus.swift in Sources */,
 				CF8DE87B2EA25E6100F75D73 /* SideMenuHeader.swift in Sources */,
 				CF1F57562EC73F0F0056AE72 /* InternetConnection.swift in Sources */,
 				CF1F57702EC740B50056AE72 /* AppState.swift in Sources */,
@@ -737,6 +747,7 @@
 				CF6D6A782E9FA1F300B3656C /* HomeView.swift in Sources */,
 				CF1F574F2EC73EE70056AE72 /* Service.swift in Sources */,
 				CF1F57642EC740170056AE72 /* Api_Login.swift in Sources */,
+				B762FCF22ED6DCA800EB6EA5 /* RejectRequest.swift in Sources */,
 				CF1F57502EC73EE70056AE72 /* Api.swift in Sources */,
 				CFA379BB2ECD8EEE00893DAB /* VehicleList.swift in Sources */,
 				CF1F57842EC747FE0056AE72 /* AddressPickerViewModel.swift in Sources */,
@@ -758,6 +769,7 @@
 				CFD7AD4E2EB0A76200FDB2D9 /* WalletView.swift in Sources */,
 				CFBAAB0D2E9F791E001D8398 /* LoginView.swift in Sources */,
 				CFD7AD472EB09C1B00FDB2D9 /* ReviewView.swift in Sources */,
+				B762FCF02ED6D7E300EB6EA5 /* ChangeRequest.swift in Sources */,
 				CF8DE87D2EA2646E00F75D73 /* SideMenuRow.swift in Sources */,
 				CFBAAACD2E9F7418001D8398 /* GlisexabDriverApp.swift in Sources */,
 				CF1F57822EC747FC0056AE72 /* AddressPickerView.swift in Sources */,
