@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import MapKit
+internal import MapKit
 internal import Combine
 
 enum LocationError: Error {

@@ -9,392 +9,293 @@ import Foundation
 import Alamofire
 import UIKit
 
+// MARK: - Common API Response Protocol
+protocol HasApiMessage {
+    var message: String? { get }
+    var status: String? { get }
+}
+
 final class Api {
     static let shared = Api()
     
     private init() {}
     
-    func requestToLogin(params: [String: Any], completion: @escaping (Result<Res_LoginResponse, ApiError>) -> Void) {
-        Service.shared.request(
+    private func handleApiResponse<T: Decodable & HasApiMessage> (
+        _ response: T,
+        successCondition: (T) -> Bool,
+        extractData: (T) -> Any?,
+        defaultMessage: String
+    ) throws -> Any {
+        if successCondition(response), let data = extractData(response) {
+            return data
+        }
+        
+        throw ApiError.serverError(response.message ?? defaultMessage)
+    }
+    
+    func requestToLogin(params: [String: Any]) async throws -> Res_LoginResponse {
+        
+        let response: Api_LoginResponse = try await Service.shared.request(
             url: Router.login.url(),
             method: .get,
             params: params,
-            responseType: Api_LoginResponse.self
-        ) { result in
-            switch result {
-            case .success(let response):
-                if response.status == "1", let data = response.result {
-                    completion(.success(data))
-                } else {
-                    completion(.failure(.serverError(response.message ?? "Login failed")))
-                }
-            case .failure(let error):
-                completion(.failure(error))
-            }
-        }
+        )
+        
+        return try handleApiResponse(response,
+                                     successCondition: { $0.status == "1" },
+                                     extractData: { $0.result },
+                                     defaultMessage: "Login failed") as! Res_LoginResponse
     }
     
-    func requestToSignup(params: [String: String],imageParam: [String : UIImage], completion: @escaping (Result<Res_LoginResponse, ApiError>) -> Void) {
-        Service.shared.uploadSingleMedia(
+    func requestToSignup(params: [String: String], imageParam: [String : UIImage]) async throws -> Res_LoginResponse {
+        let response: Api_LoginResponse = try await Service.shared.uploadSingleMedia (
             url: Router.signup.url(),
             params: params,
-            images: imageParam,
-            videos: [:],
-            responseType: Api_LoginResponse.self
-        ) { result in
-            switch result {
-            case .success(let data):
-                if data.status == "1", let data = data.result {
-                    completion(.success(data))
-                } else {
-                    completion(.failure(.serverError(data.message ?? "Update Profile failed")))
-                }
-            case .failure(let error):
-                completion(.failure(error))
-            }
-        }
+            images: paramImageSignupDt
+        )
+        return try handleApiResponse(response,
+                                     successCondition: { $0.status == "1"},
+                                     extractData: { $0.result },
+                                     defaultMessage: "Signup Failed") as! Res_LoginResponse
     }
     
-    func requestToFetchVehicle(params: [String: Any], completion: @escaping (Result<[Res_VehicleList], ApiError>) -> Void) {
-        Service.shared.request (
+    func requestToFetchVehicle(params: [String: Any]) async throws -> [Res_VehicleList] {
+        
+        let response: Api_Vehiclelist = try await Service.shared.request (
             url: Router.vehicle_list.url(),
             method: .get,
-            params: params,
-            responseType: Api_Vehiclelist.self
-        ) { result in
-            switch result {
-            case .success(let response):
-                if response.status == "1", let data = response.result {
-                    completion(.success(data))
-                } else {
-                    completion(.failure(.serverError(response.message ?? "Forget password failed")))
-                }
-            case .failure(let error):
-                completion(.failure(error))
-            }
-        }
+            params: params
+        )
+        return try handleApiResponse(response,
+                                     successCondition: { $0.status == "1"},
+                                     extractData: { $0.result },
+                                     defaultMessage: "Failed Vehicle List") as! [Res_VehicleList]
     }
     
-    func requestToDriverPendingReq(params: [String: Any], completion: @escaping (Result<[Res_PendingRequest], ApiError>) -> Void) {
-        Service.shared.request (
+    func requestToDriverPendingReq(params: [String: Any]) async throws -> [Res_PendingRequest] {
+        
+        let response: Api_PendingRequest = try await Service.shared.request (
             url: Router.get_driver_pending_request.url(),
             method: .get,
-            params: params,
-            responseType: Api_PendingRequest.self
-        ) { result in
-            switch result {
-            case .success(let response):
-                if response.status == "1", let data = response.result {
-                    completion(.success(data))
-                } else {
-                    completion(.failure(.serverError(response.message ?? "Forget password failed")))
-                }
-            case .failure(let error):
-                completion(.failure(error))
-            }
-        }
+            params: params
+        )
+        return try handleApiResponse(response,
+                                     successCondition: {$0.status == "1"},
+                                     extractData: { $0.result },
+                                     defaultMessage: "Failed") as! [Res_PendingRequest]
     }
     
-    func reqToChangeRequest(params: [String: Any], completion: @escaping (Result<Res_ChangeRequest, ApiError>) -> Void) {
-        Service.shared.request (
+    func reqToChangeRequest(params: [String: Any]) async throws -> Res_ChangeRequest {
+        
+        let response: Api_ChangeRequest = try await Service.shared.request(
             url: Router.change_request_status.url(),
             method: .get,
-            params: params,
-            responseType: Api_ChangeRequest.self
-        ) { result in
-            switch result {
-            case .success(let response):
-                if response.status == "1", let data = response.result {
-                    completion(.success(data))
-                } else {
-                    completion(.failure(.serverError(response.message ?? "Forget password failed")))
-                }
-            case .failure(let error):
-                completion(.failure(error))
-            }
-        }
+            params: params
+        )
+        return try handleApiResponse(response,
+                                     successCondition: {$0.status == "1"},
+                                     extractData: {$0.result},
+                                     defaultMessage: "Something went worng") as! Res_ChangeRequest
     }
     
-    func reqToRejectRequest(params: [String: Any], completion: @escaping (Result<Res_RejectRequest, ApiError>) -> Void) {
-        Service.shared.request (
+    func reqToRejectRequest(params: [String: Any]) async throws -> Res_RejectRequest {
+        
+        let response: Api_RejectRequest = try await Service.shared.request(
             url: Router.add_rejected_request.url(),
             method: .get,
-            params: params,
-            responseType: Api_RejectRequest.self
-        ) { result in
-            switch result {
-            case .success(let response):
-                if response.status == "1", let data = response.result {
-                    completion(.success(data))
-                } else {
-                    completion(.failure(.serverError(response.message ?? "Forget password failed")))
-                }
-            case .failure(let error):
-                completion(.failure(error))
-            }
-        }
+            params: params
+        )
+        return try handleApiResponse(response,
+                                     successCondition: {$0.status == "1"},
+                                     extractData: {$0.result},
+                                     defaultMessage: "Something went wrong") as! Res_RejectRequest
     }
     
-    func reqToUpdateDriverStatus(params: [String: Any], completion: @escaping (Result<Api_DriverStatus, ApiError>) -> Void) {
-        Service.shared.request (
+    func reqToUpdateDriverStatus(params: [String: Any]) async throws -> Api_DriverStatus {
+        
+        let response: Api_DriverStatus = try await Service.shared.request(
             url: Router.update_driver_status.url(),
             method: .get,
-            params: params,
-            responseType: Api_DriverStatus.self
-        ) { result in
-            switch result {
-            case .success(let response):
-                if response.result != nil {
-                    completion(.success(response))
-                } else {
-                    completion(.failure(.serverError(response.message ?? "Forget password failed")))
-                }
-            case .failure(let error):
-                completion(.failure(error))
-            }
+            params: params
+        )
+        guard response.result != nil else {
+            throw ApiError.serverError(response.message ?? "Something went wrong")
         }
+        return response
     }
     
-    func requestToFetchProfile(params: [String: Any], completion: @escaping (Result<Res_LoginResponse, ApiError>) -> Void) {
-        Service.shared.request (
+    func requestToFetchProfile(params: [String: Any]) async throws -> Res_LoginResponse {
+        
+        let response: Api_LoginResponse = try await Service.shared.request(
             url: Router.get_profile.url(),
             method: .get,
             params: params,
-            responseType: Api_LoginResponse.self
-        ) { result in
-            switch result {
-            case .success(let response):
-                if response.status == "1", let data = response.result {
-                    completion(.success(data))
-                } else {
-                    completion(.failure(.serverError(response.message ?? "Forget password failed")))
-                }
-            case .failure(let error):
-                completion(.failure(error))
-            }
-        }
+        )
+        
+        return try handleApiResponse(response,
+                                     successCondition: { $0.status == "1" },
+                                     extractData: { $0.result },
+                                     defaultMessage: "Login failed") as! Res_LoginResponse
     }
     
-    //
-    //    func requestToForgetPassword(params: [String: Any], completion: @escaping (Result<Api_Basic, ApiError>) -> Void) {
-    //        Service.shared.request (
-    //            url: Router.forgot_password.url(),
-    //            method: .get,
-    //            params: params,
-    //            responseType: Api_Basic.self
-    //        ) { result in
-    //            switch result {
-    //            case .success(let response):
-    //                if response.result != nil {
-    //                    completion(.success(response))
-    //                } else {
-    //                    completion(.failure(.serverError(response.message ?? "Forget password failed")))
-    //                }
-    //            case .failure(let error):
-    //                completion(.failure(error))
-    //            }
-    //        }
-    //    }
-    //
-    //
-    //    func requestToFetchVehicle(params: [String: Any], completion: @escaping (Result<[Res_VehicleList], ApiError>) -> Void) {
-    //        Service.shared.request (
-    //            url: Router.vehicle_list_with_calculation.url(),
-    //            method: .get,
-    //            params: params,
-    //            responseType: Api_VehicleList.self
-    //        ) { result in
-    //            switch result {
-    //            case .success(let response):
-    //                if response.status == "1", let data = response.result {
-    //                    completion(.success(data))
-    //                } else {
-    //                    completion(.failure(.serverError(response.message ?? "Forget password failed")))
-    //                }
-    //            case .failure(let error):
-    //                completion(.failure(error))
-    //            }
-    //        }
-    //    }
-    //
-    //    func requestToFetchSaveCard(params: [String: Any], completion: @escaping (Result<Res_CardList, ApiError>) -> Void) {
-    //        Service.shared.request (
-    //            url: Router.save_card_list.url(),
-    //            method: .get,
-    //            params: params,
-    //            responseType: Api_CardList.self
-    //        ) { result in
-    //            switch result {
-    //            case .success(let response):
-    //                if response.status == "1", let data = response.result {
-    //                    completion(.success(data))
-    //                } else {
-    //                    completion(.failure(.serverError(response.message ?? "Forget password failed")))
-    //                }
-    //            case .failure(let error):
-    //                completion(.failure(error))
-    //            }
-    //        }
-    //    }
-    //
-    //    func requestToUpdateProfile(params: [String: String],imageParam: [String : UIImage], completion: @escaping (Result<Res_LoginResponse, ApiError>) -> Void) {
-    //        Service.shared.uploadSingleMedia(
-    //            url: Router.user_update_profile.url(),
-    //            params: params,
-    //            images: imageParam,
-    //            videos: [:],
-    //            responseType: LoginResponse.self
-    //        ) { result in
-    //            switch result {
-    //            case .success(let data):
-    //                if data.status == "1", let data = data.result {
-    //                    completion(.success(data))
-    //                } else {
-    //                    completion(.failure(.serverError(data.message ?? "Update Profile failed")))
-    //                }
-    //            case .failure(let error):
-    //                completion(.failure(error))
-    //            }
-    //        }
-    //    }
-    //
-    //    func requestToChangePassword(params: [String: Any], completion: @escaping (Result<Api_Basic, ApiError>) -> Void) {
-    //        Service.shared.request (
-    //            url: Router.change_password.url(),
-    //            method: .get,
-    //            params: params,
-    //            responseType: Api_Basic.self
-    //        ) { result in
-    //            switch result {
-    //            case .success(let response):
-    //                if response.result != nil {
-    //                    completion(.success(response))
-    //                } else {
-    //                    completion(.failure(.serverError(response.message ?? "Forget password failed")))
-    //                }
-    //            case .failure(let error):
-    //                completion(.failure(error))
-    //            }
-    //        }
-    //    }
-    //
-    //    func requestToSaveAddressList(params: [String: Any], completion: @escaping (Result<[Res_InfoAddress], ApiError>) -> Void) {
-    //        Service.shared.request (
-    //            url: Router.get_user_address.url(),
-    //            method: .get,
-    //            params: params,
-    //            responseType: Api_InfoAddress.self
-    //        ) { result in
-    //            switch result {
-    //            case .success(let response):
-    //                if response.status == "1", let data = response.result {
-    //                    completion(.success(data))
-    //                } else {
-    //                    completion(.failure(.serverError(response.message ?? "Forget password failed")))
-    //                }
-    //            case .failure(let error):
-    //                completion(.failure(error))
-    //            }
-    //        }
-    //    }
-    //
-    //    func requestToAddAddress(params: [String: Any], completion: @escaping (Result<Res_AddAddress, ApiError>) -> Void) {
-    //        Service.shared.request (
-    //            url: Router.add_user_address.url(),
-    //            method: .get,
-    //            params: params,
-    //            responseType: Api_AddAddress.self
-    //        ) { result in
-    //            switch result {
-    //            case .success(let response):
-    //                if response.status == "1", let data = response.result {
-    //                    completion(.success(data))
-    //                } else {
-    //                    completion(.failure(.serverError(response.message ?? "Forget password failed")))
-    //                }
-    //            case .failure(let error):
-    //                completion(.failure(error))
-    //            }
-    //        }
-    //    }
-    //
-    //    func requestToDeleteAddress(params: [String: Any], completion: @escaping (Result<Api_Basic, ApiError>) -> Void) {
-    //        Service.shared.request (
-    //            url: Router.delete_user_address.url(),
-    //            method: .get,
-    //            params: params,
-    //            responseType: Api_Basic.self
-    //        ) { result in
-    //            switch result {
-    //            case .success(let response):
-    //                if response.result != nil {
-    //                    completion(.success(response))
-    //                } else {
-    //                    completion(.failure(.serverError(response.message ?? "Forget password failed")))
-    //                }
-    //            case .failure(let error):
-    //                completion(.failure(error))
-    //            }
-    //        }
-    //    }
-    //
-    //    func requestToChatList(params: [String: Any], completion: @escaping (Result<[Res_InfoAddress], ApiError>) -> Void) {
-    //        Service.shared.request (
-    //            url: Router.get_user_address.url(),
-    //            method: .get,
-    //            params: params,
-    //            responseType: Api_InfoAddress.self
-    //        ) { result in
-    //            switch result {
-    //            case .success(let response):
-    //                if response.status == "1", let data = response.result {
-    //                    completion(.success(data))
-    //                } else {
-    //                    completion(.failure(.serverError(response.message ?? "Forget password failed")))
-    //                }
-    //            case .failure(let error):
-    //                completion(.failure(error))
-    //            }
-    //        }
-    //    }
-    //
-    //    func requestToAddNewRequest(params: [String: Any], completion: @escaping (Result<Res_AddNewRequest, ApiError>) -> Void) {
-    //        Service.shared.request (
-    //            url: Router.request_nearbuy_driver.url(),
-    //            method: .get,
-    //            params: params,
-    //            responseType: Api_AddNewRequest.self
-    //        ) { result in
-    //            switch result {
-    //            case .success(let response):
-    //                if response.status == "1", let data = response.result {
-    //                    completion(.success(data))
-    //                } else {
-    //                    completion(.failure(.serverError(response.message ?? "")))
-    //                }
-    //            case .failure(let error):
-    //                completion(.failure(error))
-    //            }
-    //        }
-    //    }
-    //
-    //    func requestToUserActiveReq(params: [String: Any], completion: @escaping (Result<Res_UserActiveRequest, ApiError>) -> Void) {
-    //        Service.shared.request (
-    //            url: Router.get_user_active_request.url(),
-    //            method: .get,
-    //            params: params,
-    //            responseType: Api_UserActiveRequest.self
-    //        ) { result in
-    //            switch result {
-    //            case .success(let response):
-    //                if response.status == "1", let data = response.result {
-    //                    completion(.success(data))
-    //                } else {
-    //                    completion(.failure(.serverError(response.message ?? "")))
-    //                }
-    //            case .failure(let error):
-    //                completion(.failure(error))
-    //            }
-    //        }
-    //    }
+    func requestToDriverActiveRequest(params: [String: Any]) async throws -> Res_ActiveDriverRequest {
+        
+        let response: Api_ActiveDriverRequest = try await Service.shared.request(
+            url: Router.get_driver_active_request.url(),
+            method: .get,
+            params: params,
+        )
+        
+        return try handleApiResponse(response,
+                                     successCondition: { $0.status == "1" },
+                                     extractData: { $0.result },
+                                     defaultMessage: "Login failed") as! Res_ActiveDriverRequest
+        
+    }
+    
+    func requestToFinalFareCalculation(params: [String: Any]) async throws -> Api_FinalFareCalculation {
+        
+        let response: Api_FinalFareCalculation = try await Service.shared.request(
+            url: Router.final_fare_calculation.url(),
+            method: .get,
+            params: params,
+        )
+        
+        guard response.result != nil else {
+            throw ApiError.serverError(response.message ?? "Something went wrong")
+        }
+        return response
+    }
+    
+    func requestToAddUserRating(params: [String: Any]) async throws -> Res_UserRating {
+        
+        let response: Api_UserRating = try await Service.shared.request(
+            url: Router.give_rating_to_user.url(),
+            method: .get,
+            params: params,
+        )
+        return try handleApiResponse(response,
+                                     successCondition: { $0.status == "1" },
+                                     extractData: { $0.result },
+                                     defaultMessage: "Login failed") as! Res_UserRating
+    }
+    
+    func requestToRideDetails(params: [String: Any]) async throws -> Res_RideDetail {
+        
+        let response: Api_RideDetails = try await Service.shared.request(
+            url: Router.get_request_details.url(),
+            method: .get,
+            params: params,
+        )
+        return try handleApiResponse(response,
+                                     successCondition: { $0.status == "1" },
+                                     extractData: { $0.result },
+                                     defaultMessage: "Login failed") as! Res_RideDetail
+        
+    }
+    
+    func requestToUpdateProfile(params: [String: String],imageParam: [String : UIImage]) async throws -> Res_LoginResponse {
+        
+        let response: Api_LoginResponse = try await Service.shared.uploadSingleMedia(
+            url: Router.driver_update_profile.url(),
+            params: params,
+            images: imageParam,
+            videos: [:]
+        )
+        
+        return try handleApiResponse(response,
+                                     successCondition: { $0.status == "1" },
+                                     extractData: { $0.result },
+                                     defaultMessage: "Login failed") as! Res_LoginResponse
+        
+    }
+    
+    func requestToVerifyMobileNumber(params: [String: Any]) async throws -> Res_VerifyNumber {
+        
+        let response: Api_VerifyNumber = try await Service.shared.request(
+            url: Router.verify_number.url(),
+            method: .get,
+            params: params,
+        )
+        return try handleApiResponse(response,
+                                     successCondition: { $0.status == "1" },
+                                     extractData: { $0.result },
+                                     defaultMessage: "Login failed") as! Res_VerifyNumber
+    }
+    
+    func requestToReviewList(params: [String: Any]) async throws -> [Res_ReviewList] {
+        
+        let response: Api_ReviewList = try await Service.shared.request(
+            url: Router.get_rating_review.url(),
+            method: .get,
+            params: params,
+        )
+        return try handleApiResponse(response,
+                                     successCondition: { $0.status == "1" },
+                                     extractData: { $0.result },
+                                     defaultMessage: "Login failed") as! [Res_ReviewList]
+    }
+    
+    
+    func requestToAddBankDetail(params: [String : Any]) async throws -> Res_LoginResponse {
+        let response: Api_LoginResponse = try await Service.shared.request(
+            url: Router.driver_update_bank_details.url(),
+            method: .get,
+            params: params,
+        )
+        
+        return try handleApiResponse(response,
+                                     successCondition: { $0.status == "1" },
+                                     extractData: { $0.result },
+                                     defaultMessage: "Login failed") as! Res_LoginResponse
+    }
+    
+    func requestToHistoryList(params: [String: Any]) async throws -> [Res_HistoryList] {
+        let response: Api_HistoryList = try await Service.shared.request(
+            url: Router.get_driver_complete_request.url(),
+            method: .get,
+            params: params
+        )
+        return try handleApiResponse(response,
+                                     successCondition: { $0.status == "1" },
+                                     extractData: { $0.result },
+                                     defaultMessage: "History fetch failed") as! [Res_HistoryList]
+    }
+    
+    func requestToScheduleList(params: [String: Any]) async throws -> [Res_HistoryList] {
+        let response: Api_HistoryList = try await Service.shared.request(
+            url: Router.get_driver_schedule_request.url(),
+            method: .get,
+            params: params
+        )
+        return try handleApiResponse(response,
+                                     successCondition: { $0.status == "1" },
+                                     extractData: { $0.result },
+                                     defaultMessage: "History fetch failed") as! [Res_HistoryList]
+    }
+    
+    func requestToNotificationList(params: [String: Any]) async throws -> [Res_NotificationList] {
+        let response: Api_NotificationList = try await Service.shared.request (
+            url: Router.get_notification_list.url(),
+            method: .get,
+            params: params
+        )
+        return try handleApiResponse(response,
+                                     successCondition: { $0.status == "1" },
+                                     extractData: { $0.result },
+                                     defaultMessage: "History fetch failed") as! [Res_NotificationList]
+    }
 }
+
+extension Api_LoginResponse: HasApiMessage {}
+extension Api_Vehiclelist: HasApiMessage {}
+extension Api_PendingRequest: HasApiMessage {}
+extension Api_ChangeRequest: HasApiMessage {}
+extension Api_RejectRequest: HasApiMessage {}
+extension Api_ActiveDriverRequest: HasApiMessage {}
+extension Api_UserRating: HasApiMessage {}
+extension Api_RideDetails: HasApiMessage {}
+extension Api_VerifyNumber: HasApiMessage {}
+extension Api_ReviewList: HasApiMessage {}
+extension Api_HistoryList: HasApiMessage {}
+extension Api_NotificationList: HasApiMessage {}

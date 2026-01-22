@@ -13,6 +13,7 @@ enum SideMenuRowOption: Int, CaseIterable {
     case myReview
     case wallet
     case history
+    case earning
     case inviteFriend
     case privacyPolicy
     case support
@@ -30,6 +31,8 @@ enum SideMenuRowOption: Int, CaseIterable {
             return "Wallet"
         case .history:
             return "History"
+        case .earning:
+            return "Earning"
         case .inviteFriend:
             return "Invite Friend"
         case .privacyPolicy:
@@ -53,6 +56,8 @@ enum SideMenuRowOption: Int, CaseIterable {
             return "wallet"
         case .history:
             return "history"
+        case .earning:
+            return "wallet"
         case .inviteFriend:
             return "invite"
         case .privacyPolicy:

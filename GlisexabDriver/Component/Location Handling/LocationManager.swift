@@ -7,7 +7,7 @@
 
 import Foundation
 import CoreLocation
-import MapKit
+internal import MapKit
 internal import Combine
 
 class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {

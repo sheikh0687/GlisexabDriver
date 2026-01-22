@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct CustomButtonAction: View {
+    
     var title: String
     var color: Color
     var titleColor: Color = .white // ✅ New property with default value

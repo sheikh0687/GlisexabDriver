@@ -13,7 +13,6 @@ struct Api_LoginResponse : Codable {
     let status : String?
 
     enum CodingKeys: String, CodingKey {
-
         case result = "result"
         case message = "message"
         case status = "status"
@@ -25,7 +24,6 @@ struct Api_LoginResponse : Codable {
         message = try values.decodeIfPresent(String.self, forKey: .message)
         status = try values.decodeIfPresent(String.self, forKey: .status)
     }
-
 }
 
 struct Res_LoginResponse : Codable {
@@ -92,6 +90,9 @@ struct Res_LoginResponse : Codable {
     let referral_code : String?
     let signup_referral_code : String?
     let total_earning : String?
+    let rating : String?
+    let rating_review_count: String?
+    let noti_count: String?
 
     enum CodingKeys: String, CodingKey {
 
@@ -158,6 +159,9 @@ struct Res_LoginResponse : Codable {
         case referral_code = "referral_code"
         case signup_referral_code = "signup_referral_code"
         case total_earning = "total_earning"
+        case rating = "rating"
+        case rating_review_count = "rating_review_count"
+        case noti_count = "noti_count"
     }
 
     init(from decoder: Decoder) throws {
@@ -225,5 +229,8 @@ struct Res_LoginResponse : Codable {
         referral_code = try values.decodeIfPresent(String.self, forKey: .referral_code)
         signup_referral_code = try values.decodeIfPresent(String.self, forKey: .signup_referral_code)
         total_earning = try values.decodeIfPresent(String.self, forKey: .total_earning)
+        rating = try values.decodeIfPresent(String.self, forKey: .rating)
+        rating_review_count = try values.decodeIfPresent(String.self, forKey: .rating_review_count)
+        noti_count = try values.decodeIfPresent(String.self, forKey: .noti_count)
     }
 }

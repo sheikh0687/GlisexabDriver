@@ -12,10 +12,12 @@ enum AppStorageKey: String {
     case isLoggedIn
     case useriD
     case cardiD
+    case ios_RegisterediD
 }
 
 final class AppState: ObservableObject {
     @AppStorage(AppStorageKey.isLoggedIn.rawValue) var isLoggedIn: Bool = false
     @AppStorage(AppStorageKey.useriD.rawValue) var useriD: String = ""
     @AppStorage(AppStorageKey.cardiD.rawValue) var cardiD: String = ""
+    @AppStorage(AppStorageKey.ios_RegisterediD.rawValue) var ios_RegisterediD: String = ""
 }

@@ -10,6 +10,7 @@ import SwiftUI
 @main
 struct GlisexabDriverApp: App {
     
+    @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     @StateObject private var router = NavigationRouter()
     @StateObject private var appState = AppState()
     

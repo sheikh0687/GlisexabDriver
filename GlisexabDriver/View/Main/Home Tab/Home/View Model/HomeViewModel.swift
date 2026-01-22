@@ -28,13 +28,15 @@ class HomeViewModel: ObservableObject {
     @Published var pendingRequests: [Res_PendingRequest] = []
     @Published var selectedRequest: Res_PendingRequest?
     @Published var userProfile: Res_LoginResponse?
+    @Published var resActiveRequest: Res_ActiveDriverRequest?
+    @Published var isSuccessReq: Bool = false
     
     func toggleOnline() {
         isOnline.toggle()
     }
     
     // MARK: API
-    func loadPendingRequests(appState: AppState) {
+    func loadPendingRequests(appState: AppState) async {
         
         isLoading = true
         customError = nil
@@ -43,22 +45,32 @@ class HomeViewModel: ObservableObject {
         
         print(params)
         
-        Api.shared.requestToDriverPendingReq(params: params) { [weak self] result in
-            guard let self else { return }
-            DispatchQueue.main.async {
-                self.isLoading = false
-                switch result {
-                case .success(let res):
-                    self.pendingRequests = res
-                    self.selectedRequest = res.first      // Automatically show first request
-                case .failure(let error):
-                    self.customError = .customError(message: error.localizedDescription)
-                }
-            }
+//        Api.shared.requestToDriverPendingReq(params: params) { [weak self] result in
+//            guard let self else { return }
+//            DispatchQueue.main.async {
+//                self.isLoading = false
+//                switch result {
+//                case .success(let res):
+//                    self.pendingRequests = res
+//                    self.selectedRequest = res.first      // Automatically show first request
+//                case .failure(let error):
+//                    self.customError = .customError(message: error.localizedDescription)
+//                }
+//            }
+//        }
+        
+        do {
+            let res = try await Api.shared.requestToDriverPendingReq(params: params)
+            self.pendingRequests = res
+            self.selectedRequest = res.first
+        } catch {
+            self.customError = .customError(message: error.localizedDescription)
         }
+        
+        isLoading = false
     }
     
-    func loadChangeRequest(appState: AppState, requestiD: String) {
+    func loadChangeRequest(appState: AppState, requestiD: String) async {
         isLoading = true
         customError = nil
         
@@ -69,22 +81,31 @@ class HomeViewModel: ObservableObject {
         
         print(param)
         
-        Api.shared.reqToChangeRequest(params: param) { [weak self] result in
-            guard let self else { return }
-            
-            DispatchQueue.main.async {
-                self.isLoading = false
-                switch result {
-                case .success(_):
-                    self.isReqAccept = true
-                case .failure(let error):
-                    self.customError = .customError(message: error.localizedDescription)
-                }
-            }
+//        Api.shared.reqToChangeRequest(params: param) { [weak self] result in
+//            guard let self else { return }
+//            
+//            DispatchQueue.main.async {
+//                self.isLoading = false
+//                switch result {
+//                case .success(_):
+//                    self.isReqAccept = true
+//                case .failure(let error):
+//                    self.customError = .customError(message: error.localizedDescription)
+//                }
+//            }
+//        }
+        
+        do {
+            let _ = try await Api.shared.reqToChangeRequest(params: param)
+            self.isReqAccept = true
+        } catch {
+            self.customError = .customError(message: error.localizedDescription)
         }
+        
+        isLoading = false
     }
     
-    func loadRejectedRequest(appState: AppState, reqiD: String) {
+    func loadRejectedRequest(appState: AppState, reqiD: String) async {
         isLoading = true
         customError = nil
         
@@ -94,22 +115,31 @@ class HomeViewModel: ObservableObject {
         
         print(paramDict)
         
-        Api.shared.reqToRejectRequest(params: paramDict) { [weak self] result in
-            guard let self else { return }
-            
-            DispatchQueue.main.async {
-                self.isLoading = false
-                switch result {
-                case .success(_):
-                    self.isReqAccept = false
-                case .failure(let error):
-                    self.customError = .customError(message: error.localizedDescription)
-                }
-            }
+//        Api.shared.reqToRejectRequest(params: paramDict) { [weak self] result in
+//            guard let self else { return }
+//            
+//            DispatchQueue.main.async {
+//                self.isLoading = false
+//                switch result {
+//                case .success(_):
+//                    self.isReqAccept = false
+//                case .failure(let error):
+//                    self.customError = .customError(message: error.localizedDescription)
+//                }
+//            }
+//        }
+        
+        do {
+            let _ = try await Api.shared.reqToRejectRequest(params: paramDict)
+            self.isReqAccept = false
+        } catch {
+            self.customError = .customError(message: error.localizedDescription)
         }
+        
+        isLoading = false
     }
     
-    func loadDriverStatus(appState: AppState, driverStatus: String, completion: @escaping (Bool) -> Void) {
+    func loadDriverStatus(appState: AppState, driverStatus: String, completion: @escaping (Bool) -> Void) async {
         isLoading = true
         customError = nil
         
@@ -119,29 +149,39 @@ class HomeViewModel: ObservableObject {
         
         print(paramDict)
         
-        Api.shared.reqToUpdateDriverStatus(params: paramDict) { [weak self] result in
-            guard let self else { return }
-            
-            DispatchQueue.main.async {
-                self.isLoading = false
-                switch result {
-                case .success(_):
-                    completion(true)
-                case .failure(let error):
-                    self.customError = .customError(message: error.localizedDescription)
-                    completion(false)
-                }
-            }
+//        Api.shared.reqToUpdateDriverStatus(params: paramDict) { [weak self] result in
+//            guard let self else { return }
+//            
+//            DispatchQueue.main.async {
+//                self.isLoading = false
+//                switch result {
+//                case .success(_):
+//                    completion(true)
+//                case .failure(let error):
+//                    self.customError = .customError(message: error.localizedDescription)
+//                    completion(false)
+//                }
+//            }
+//        }
+        
+        do {
+            let _ = try await Api.shared.reqToUpdateDriverStatus(params: paramDict)
+            completion(true)
+        } catch {
+            self.customError = .customError(message: error.localizedDescription)
+            completion(false)
         }
+        
+        isLoading = false
     }
     
-    func toggleDriverStatus(appState: AppState) {
+    func toggleDriverStatus(appState: AppState) async {
         let newStatus = !isOnline      // what user wants to change to
         let statusString = newStatus ? "Online" : "Offline"
 
         isLoading = true
 
-        loadDriverStatus(appState: appState, driverStatus: statusString) { success in
+        await loadDriverStatus(appState: appState, driverStatus: statusString) { success in
             DispatchQueue.main.async {
                 if success {
                     self.isOnline = newStatus   // update UI only on success
@@ -153,32 +193,82 @@ class HomeViewModel: ObservableObject {
         }
     }
     
-    func loadDriverProfileDetail(appState: AppState) {
+    func loadDriverProfileDetail(appState: AppState) async {
         isLoading = true
         customError = nil
         
         var paramDict: [String : Any] = [:]
         paramDict["user_id"] = appState.useriD
         
-        Api.shared.requestToFetchProfile(params: paramDict) { [weak self] result in
-            guard let self else { return }
+//        Api.shared.requestToFetchProfile(params: paramDict) { [weak self] result in
+//            guard let self else { return }
+//            
+//            DispatchQueue.main.async {
+//                self.isLoading = false
+//                switch result {
+//                case .success(let res):
+//                    self.userProfile = res
+//                    
+//                    if res.available_status?.lowercased() == "online" {
+//                        self.isOnline = true
+//                    } else {
+//                        self.isOnline = false
+//                    }
+//                    
+//                case .failure(let error):
+//                    self.customError = .customError(message: error.localizedDescription)
+//                }
+//            }
+//        }
+        
+        do {
+            let res = try await Api.shared.requestToFetchProfile(params: paramDict)
+            self.userProfile = res
             
-            DispatchQueue.main.async {
-                self.isLoading = false
-                switch result {
-                case .success(let res):
-                    self.userProfile = res
-                    
-                    if res.available_status?.lowercased() == "online" {
-                        self.isOnline = true
-                    } else {
-                        self.isOnline = false
-                    }
-                    
-                case .failure(let error):
-                    self.customError = .customError(message: error.localizedDescription)
-                }
+            if res.available_status?.lowercased() == "online" {
+                self.isOnline = true
+            } else {
+                self.isOnline = false
             }
+        } catch {
+            self.customError = .customError(message: error.localizedDescription)
         }
+        
+        isLoading = false
+    }
+    
+    func loadDriverActiveReq(appState: AppState) async {
+        isLoading = true
+        customError = nil
+        
+        var paramDict: [String : Any] = [:]
+        paramDict["driver_id"] = appState.useriD
+        
+        print(paramDict)
+        
+//        Api.shared.requestToDriverActiveRequest(params: paramDict) { [weak self] result in
+//            guard let self else { return }
+//            
+//            DispatchQueue.main.async {
+//                self.isLoading = false
+//                switch result {
+//                case .success(let resActiveReq):
+//                    self.resActiveRequest = resActiveReq
+//                    self.isSuccessReq = true
+//                case .failure(let error):
+//                    self.customError = .customError(message: error.localizedDescription)
+//                }
+//            }
+//        }
+        
+        do {
+            let response = try await Api.shared.requestToDriverActiveRequest(params: paramDict)
+            self.resActiveRequest = response
+            self.isSuccessReq = true
+        } catch {
+            self.customError = .customError(message: error.localizedDescription)
+        }
+        
+        isLoading = false
     }
 }

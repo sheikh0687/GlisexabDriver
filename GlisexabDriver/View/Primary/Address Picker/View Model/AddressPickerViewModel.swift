@@ -7,7 +7,7 @@
 
 
 import Foundation
-import MapKit
+internal import MapKit
 internal import Combine
 
 protocol Address {

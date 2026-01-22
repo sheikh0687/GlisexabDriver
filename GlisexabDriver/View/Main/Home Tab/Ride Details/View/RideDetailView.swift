@@ -6,20 +6,28 @@
 //
 
 import SwiftUI
-import MapKit
+internal import MapKit
 
 struct RideDetailView: View {
     
     // MARK: PROPERTIES
-    @StateObject private var locationManager = LocationManager()
+    @StateObject private var locationManager = LocationSearchViewModel()
     @EnvironmentObject private var router: NavigationRouter
+    @EnvironmentObject private var appState: AppState
     
+    @StateObject private var viewModel = RideDetailViewModel()
+    
+    @State var strRequestiD: String = ""
+
     var body: some View {
         ZStack(alignment: .top) {
             // MARK: MAP VIEW
-            Map(coordinateRegion: $locationManager.region, showsUserLocation: true)
-                .edgesIgnoringSafeArea(.all)
-                        
+            CustomMapView (
+                region: $locationManager.region,
+                annotations: makeAnnotations(),
+                routes: locationManager.route.map { [$0] } ?? []
+            )
+
             // MARK: BOTTOM VIEW
             VStack {
                 Spacer()
@@ -32,7 +40,7 @@ struct RideDetailView: View {
                                 .foregroundColor(.red)
                                 .font(.system(size: 18))
                             
-                            Text("1901 Thornridge Cir. Shiloh, Hawaii 81063")
+                            Text(viewModel.rideDtls?.pick_address ?? "")
                                 .font(.customfont(.medium, fontSize: 14))
                                 .multilineTextAlignment(.leading)
                         }
@@ -42,7 +50,7 @@ struct RideDetailView: View {
                                 .foregroundColor(.green)
                                 .font(.system(size: 18))
 
-                            Text("2715 Ash Dr. San Jose, South Dakota 83475")
+                            Text(viewModel.rideDtls?.drop_address ?? "")
                                 .font(.customfont(.medium, fontSize: 14))
                                 .multilineTextAlignment(.leading)
                             
@@ -62,7 +70,7 @@ struct RideDetailView: View {
                             Text("Booking ID :")
                                 .font(.customfont(.medium, fontSize: 14))
 
-                            Text("SFHSFFI")
+                            Text("#\(viewModel.rideDtls?.id ?? "")")
                                 .font(.customfont(.medium, fontSize: 14))
                                 .foregroundColor(Color.gray)
                         }
@@ -71,7 +79,7 @@ struct RideDetailView: View {
                             Text("Date & Time :")
                                 .font(.customfont(.medium, fontSize: 14))
 
-                            Text("Today, 3:30PM")
+                            Text(viewModel.rideDtls?.date_time ?? "")
                                 .font(.customfont(.medium, fontSize: 14))
                                 .foregroundColor(Color.gray)
                         }
@@ -83,20 +91,19 @@ struct RideDetailView: View {
                     
                     // Driver Details
                     HStack {
-                        Image("userPlace")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 70, height: 70)
+                        if let urlString = viewModel.rideDtls?.user_details?.image {
+                            Utility.CustomWebImage(imageUrl: urlString, placeholder: Image(systemName: "placeholder"), width: 70, height: 70)
+                        }
                         Spacer().frame(width: 10)
                         VStack(spacing: 6) {
-                            Text("Jerome Bell")
+                            Text("\(viewModel.rideDtls?.user_details?.first_name ?? "") \(viewModel.rideDtls?.user_details?.last_name ?? "")")
                                 .font(.customfont(.medium, fontSize: 14))
                             HStack {
                                 Image(systemName: "star.fill")
                                     .foregroundColor(Color.yellow)
                                     .font(Font.system(size: 14))
                                 
-                                Text("4.8 (9)")
+                                Text(viewModel.rideDtls?.driver_details?.rating ?? "")
                                     .font(.customfont(.regular, fontSize: 14))
                             }
                         }
@@ -106,7 +113,7 @@ struct RideDetailView: View {
                             .foregroundColor(Color.black)
                         Spacer()
                         VStack(spacing: 6) {
-                            Text("$150.00")
+                            Text("$ \(viewModel.rideDtls?.total_amount ?? "")")
                                 .font(.customfont(.medium, fontSize: 14))
                             Text("Estimate")
                                 .font(.customfont(.regular, fontSize: 12))
@@ -146,7 +153,7 @@ struct RideDetailView: View {
                                 Text("Ride Preference :")
                                     .font(.customfont(.medium, fontSize: 16))
                                     .foregroundColor(.black)
-                                Text("luxury")
+                                Text(viewModel.rideDtls?.vehicle_name ?? "")
                                     .font(.customfont(.medium, fontSize: 14))
                                     .foregroundColor(.gray)
                             }
@@ -155,16 +162,15 @@ struct RideDetailView: View {
                                 Text("Number :")
                                     .font(.customfont(.medium, fontSize: 16))
                                     .foregroundColor(.black)
-                                Text("4893")
+                                Text(viewModel.rideDtls?.user_details?.registration_no ?? "")
                                     .font(.customfont(.medium, fontSize: 14))
                                     .foregroundColor(.gray)
                             }
                         }
                         Spacer()
-                        Image("sedan")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 140, height: 120)
+                        if let urlString = viewModel.rideDtls?.car_details?.image {
+                            Utility.CustomWebImage(imageUrl: urlString, placeholder: Image(systemName: "placeholder"), width: 60, height: 60)
+                        }
                     }
                     .padding()
                     .frame(height: 100)
@@ -173,20 +179,6 @@ struct RideDetailView: View {
                     .shadow(radius: 1)
 
                     // Estimate Amount
-                    HStack {
-                        Text("Estimate :")
-                            .font(.customfont(.medium, fontSize: 14))
-                        
-                        Spacer()
-                        
-                        Text("$150")
-                            .font(.customfont(.medium, fontSize: 14))
-                    }
-                    .padding()
-                    .frame(height: 60)
-                    .background(Color.white)
-                    .cornerRadius(10)
-                    .shadow(radius: 1)
                 }
                 .frame(maxWidth: .infinity)
                 .padding()
@@ -210,10 +202,51 @@ struct RideDetailView: View {
         }
         .onAppear {
             UINavigationBar.setTitleColor(.white)
+           Task {
+               await viewModel.loadRideDetails(appState: appState, requestiD: strRequestiD)
+            }
         }
+        .onChange(of: viewModel.rideDtls != nil) { isSuccess in
+            if isSuccess {
+                if let obj = viewModel.rideDtls {
+                    if let pickLat = Double(obj.pickup_lat ?? ""),
+                       let pickLon = Double(obj.pickup_lon ?? ""),
+                       let dropLat = Double(obj.dropoff_lat ?? ""),
+                       let dropLon = Double(obj.dropoff_lon ?? "") {
+                        
+                        let pickupCoord = CLLocationCoordinate2D(latitude: pickLat, longitude: pickLon)
+                        let dropoffCoord = CLLocationCoordinate2D(latitude: dropLat, longitude: dropLon)
+                        
+                        locationManager.pickupCoordinate = pickupCoord
+                        locationManager.dropoffCoordinate = dropoffCoord
+                    } else {
+                        print("Invalid coordinates received")
+                    }
+                }
+            }
+        }
+    }
+    
+    func makeAnnotations() -> [MKPointAnnotation] {
+        var result: [MKPointAnnotation] = []
+        if let pickup = locationManager.pickupCoordinate {
+            let ann = MKPointAnnotation()
+            ann.coordinate = pickup
+            ann.title = "Pickup"
+            result.append(ann)
+        }
+        if let drop = locationManager.dropoffCoordinate {
+            let ann = MKPointAnnotation()
+            ann.coordinate = drop
+            ann.title = "Drop-off"
+            result.append(ann)
+        }
+        return result
     }
 }
 
 #Preview {
-    RideDetailView()
+    RideDetailView(strRequestiD: "1")
+        .environmentObject(NavigationRouter())
+        .environmentObject(AppState())
 }

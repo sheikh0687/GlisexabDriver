@@ -2,17 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>UIUserInterfaceStyle</key>
-	<string>Light</string>
-	<key>UILaunchScreen</key>
-	<dict>
-		<key>UIColorName</key>
-		<string>ColorNeavyBlue</string>
-		<key>UIImageName</key>
-		<string>SplashLogo</string>
-		<key>UILaunchScreen</key>
-		<dict/>
-	</dict>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Inter-Black.otf</string>
@@ -33,5 +22,17 @@
 		<string>Inter-Thin-BETA.otf</string>
 		<string>Inter-ThinItalic-BETA.otf</string>
 	</array>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>remote-notification</string>
+		<string>fetch</string>
+	</array>
+	<key>UILaunchScreen</key>
+	<dict>
+		<key>UIImageName</key>
+		<string>customLogo</string>
+		<key>UILaunchScreen</key>
+		<dict/>
+	</dict>
 </dict>
 </plist>

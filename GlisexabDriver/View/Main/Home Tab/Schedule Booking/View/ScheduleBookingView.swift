@@ -21,7 +21,7 @@ struct ScheduleBookingView: View {
     var body: some View {
         ZStack {
             VStack {
-                HStack(spacing: 8) {
+                 HStack(spacing: 8) {
                     ForEach([BookingStatus.pending, .upcoming, .inProgress], id: \.self) { status in
                         Button {
                             selectedStatus = status
@@ -32,7 +32,6 @@ struct ScheduleBookingView: View {
                                 .frame(maxWidth: .infinity)
                                 .padding(.vertical, 16)
                                 .background(selectedStatus == status ? Color.colorNeavyBlue : Color(.systemGray6))
-                            
                         }
                     }
                 }
@@ -41,7 +40,7 @@ struct ScheduleBookingView: View {
                 .padding()
                 
                 // Booking Card
-                VStack(alignment: .leading, spacing: 16) {
+                 VStack(alignment: .leading, spacing: 16) {
                     HStack {
                         Image("userPlace")
                             .resizable()
@@ -145,7 +144,7 @@ struct ScheduleBookingView: View {
                 .shadow(radius: 4)
                 .padding()
                 
-                Spacer()
+                 Spacer()
             }
         }
         .navigationBarTitleDisplayMode(.inline)

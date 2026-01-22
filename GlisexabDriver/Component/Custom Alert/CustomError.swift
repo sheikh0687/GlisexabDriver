@@ -7,13 +7,17 @@
 
 import Foundation
 
-enum CustomError: LocalizedError, Equatable {
+enum CustomError: LocalizedError, Equatable, Identifiable {
     
     case customError(message: String)
     case networkError
     case validationError(message: String)
     case authenticationFailed
 
+    var id: String {
+        localizedDescription
+    }
+    
     var errorDescription: String? {
         switch self {
         case .customError(let message), .validationError(let message):

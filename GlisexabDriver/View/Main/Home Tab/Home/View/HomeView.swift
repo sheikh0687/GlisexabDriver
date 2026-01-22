@@ -14,14 +14,14 @@ struct HomeView: View {
     
     @State private var showMenu = false
     @State private var selectedTab = 0
+    
     @EnvironmentObject private var router: NavigationRouter
     @EnvironmentObject private var appState: AppState
     
     @StateObject var VM = HomeViewModel()
     
     var body: some View {
-        
-        ZStack(alignment: .top) {
+         ZStack(alignment: .top) {
             
             Map(coordinateRegion: $locationManager.region, showsUserLocation: true)
                 .edgesIgnoringSafeArea(.all)
@@ -49,9 +49,11 @@ struct HomeView: View {
                 case .myReview:
                     router.push(to: .myReview)
                 case .wallet:
-                    print("Navigate to wallet")
+                    router.push(to: .wallet)
                 case .history:
-                    print("Navigate to history")
+                    router.push(to: .history)
+                case .earning:
+                    router.push(to: .earning)
                 case .inviteFriend:
                     print("Navigate to Invite Friend")
                 case .privacyPolicy:
@@ -59,6 +61,7 @@ struct HomeView: View {
                 case .support:
                     print("Navigate to Support")
                 case .logout:
+                    appState.isLoggedIn = false
                     router.popToRoot()
                 }
             }
@@ -79,8 +82,11 @@ struct HomeView: View {
         }
         .onAppear {
             UINavigationBar.setTitleColor(.white)
-            VM.loadPendingRequests(appState: appState)
-            VM.loadDriverProfileDetail(appState: appState)
+            Task {
+               await VM.loadPendingRequests(appState: appState)
+               await VM.loadDriverProfileDetail(appState: appState)
+               await VM.loadDriverActiveReq(appState: appState)
+            }
         }
         .onChange(of: VM.isReqAccept) { isNewReq in
             if isNewReq {
@@ -90,7 +96,19 @@ struct HomeView: View {
                     router.push(to: .trackRide)
                 }
             } else {
-                VM.loadPendingRequests(appState: appState)
+               Task {
+                   await VM.loadPendingRequests(appState: appState)
+                }
+            }
+        }
+        .onChange(of: VM.isSuccessReq) { isSuccessfull in
+            if isSuccessfull {
+                print("Successfully requst fethced!!")
+                if let obj = VM.resActiveRequest {
+                    if obj.status != "Pending" {
+                        router.push(to: .trackRide)
+                    }
+                }
             }
         }
     }
@@ -100,7 +118,7 @@ struct HomeView: View {
     private var EarningsSummaryView: some View {
         
         VStack(alignment: .center, spacing: 10) {
-            Text("$\(VM.userProfile?.total_earning ?? "0")")
+            Text("$\("0.0")")
                 .font(.customfont(.bold, fontSize: 18))
             
             Text("Today Earning")
@@ -131,7 +149,9 @@ struct HomeView: View {
         VStack(spacing: 0) {
             HStack {
                 Button {
-                    VM.toggleDriverStatus(appState: appState)
+                    Task {
+                       await VM.toggleDriverStatus(appState: appState)
+                    }
                 } label: {
                     HStack {
                         Image(systemName: VM.isOnline ? "checkmark.circle.fill" : "xmark.octagon.fill")
@@ -150,7 +170,7 @@ struct HomeView: View {
                 
                 HStack(spacing: 10) {
                     Button {
-                        print("Navigate to notify")
+                        router.push(to: .notification)
                     } label: {
                         ZStack {
                             Image("notification")
@@ -197,7 +217,7 @@ struct HomeView: View {
         .background (
             RoundedRectangle(cornerRadius: 18)
                 .stroke(Color(.separator), lineWidth: 0.5)
-                .background(
+                .background (
                     RoundedRectangle(cornerRadius: 18)
                         .fill(.white)
                 )
@@ -219,7 +239,7 @@ struct HomeView: View {
                     
                     Spacer().frame(width: 10)
                     
-                    VStack(spacing: 6) {
+                    VStack(alignment: .leading, spacing: 6) {
                         Text("\(r.user_details?.first_name ?? "")")
                             .font(.customfont(.medium, fontSize: 14))
                         HStack {
@@ -294,12 +314,16 @@ struct HomeView: View {
                 
                 HStack {
                     CustomButtonAction(title: "Accept", color: .colorNeavyBlue, titleColor: .white) {
-                        VM.loadChangeRequest(appState: appState, requestiD: r.id ?? "")
+                       Task {
+                           await VM.loadChangeRequest(appState: appState, requestiD: r.id ?? "")
+                        }
                         VM.strBookingType = r.booking_type ?? ""
                     }
                                         
                     CustomButtonAction(title: "Decline", color: .red, titleColor: .white) {
-                        VM.loadRejectedRequest(appState: appState, reqiD: r.id ?? "")
+                       Task {
+                           await VM.loadRejectedRequest(appState: appState, reqiD: r.id ?? "")
+                        }
                     }
                 }
             }
@@ -322,6 +346,8 @@ struct HomeView: View {
 
 #Preview {
     HomeView()
+        .environmentObject(NavigationRouter())
+        .environmentObject(AppState())
 }
 
 

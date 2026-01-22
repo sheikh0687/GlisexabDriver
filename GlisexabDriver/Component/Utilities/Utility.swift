@@ -5,7 +5,7 @@
 //  Created by Techimmense Software Solutions on 29/10/25.
 //
 
-import MapKit
+internal import MapKit
 import SDWebImageSwiftUI
 import SDWebImage
 import SwiftUI

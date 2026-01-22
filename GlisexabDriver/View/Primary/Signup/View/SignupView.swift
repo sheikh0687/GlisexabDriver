@@ -11,9 +11,6 @@ import CountryPicker
 struct SignupView: View {
     
     // MARK: PROPERTY
-    @State private var isPaswordVisible = false
-    @State private var isConfirmPasswordVisible = false
-    
     @State private var showCountryPicker = false
     @State private var showAddressPicker = false
     @State private var showErrorBanner = false
@@ -28,376 +25,23 @@ struct SignupView: View {
     @StateObject var viewModel = SignupViewModel()
     
     var body: some View {
+        ZStack(alignment: .top) {
+            VStack(alignment: .leading, spacing: 16) {
+                headerText
                 
-        ZStack {
-            ScrollView {
-                VStack(spacing: 0) {
-                    
-                    Text("Continue to Signup")
-                        .font(.customfont(.medium, fontSize: 18))
-                        .padding(.leading)
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .padding(.top, 40)
-                        .padding(.bottom, 20)
-                    
-                    VStack(alignment: .leading, spacing: 16) {
-                        
-                        Text("First Name")
-                            .font(.customfont(.medium, fontSize: 14))
-                            .padding(.leading, 4)
-                        
-                        ZStack {
-                            Rectangle()
-                                .fill(Color.gray.opacity(0.15))
-                                .frame(height: 45)
-                                .cornerRadius(10)
-                                .overlay(
-                                    RoundedRectangle(cornerRadius: 10)
-                                        .stroke(Color.gray.opacity(0.3), lineWidth: 0.8)
-                                )
-                            
-                            HStack {
-                                Image("user")
-                                    .resizable()
-                                    .scaledToFit()
-                                    .frame(width: 24, height: 24)
-                                    .padding(.leading, 12)
-                                
-                                TextField("Enter First Name", text: $viewModel.firstName)
-                                    .font(.customfont(.light, fontSize: 14))
-                                    .padding(.leading, 4)
-                            }
-                        }
-                        
-                        Text("Last Name")
-                            .font(.customfont(.medium, fontSize: 14))
-                            .padding(.leading, 4)
-                        
-                        ZStack {
-                            Rectangle()
-                                .fill(Color.gray.opacity(0.15))
-                                .frame(height: 45)
-                                .cornerRadius(10)
-                                .overlay (
-                                    RoundedRectangle(cornerRadius: 10)
-                                        .stroke(Color.gray.opacity(0.3), lineWidth: 0.8)
-                                )
-                            
-                            HStack {
-                                Image("user")
-                                    .resizable()
-                                    .scaledToFit()
-                                    .frame(width: 24, height: 24)
-                                    .padding(.leading, 12)
-                                
-                                TextField("Enter Last Name", text: $viewModel.lastName)
-                                    .font(.customfont(.light, fontSize: 14))
-                                    .padding(.leading, 4)
-                            }
-                        }
-                        
-                        Text("Email Address")
-                            .font(.customfont(.medium, fontSize: 14))
-                            .padding(.leading, 4)
-                        
-                        ZStack {
-                            Rectangle()
-                                .fill(Color.gray.opacity(0.15))
-                                .frame(height: 45)
-                                .cornerRadius(10)
-                                .overlay (
-                                    RoundedRectangle(cornerRadius: 10)
-                                        .stroke(Color.gray.opacity(0.3), lineWidth: 0.8)
-                                )
-                            
-                            HStack {
-                                Image("mail")
-                                    .resizable()
-                                    .scaledToFit()
-                                    .frame(width: 24, height: 24)
-                                    .padding(.leading, 12)
-                                
-                                TextField("Enter Email Address", text: $viewModel.email)
-                                    .font(.customfont(.light, fontSize: 14))
-                                    .padding(.leading, 4)
-                            }
-                        }
-                        
-                        Text("Contact Number")
-                            .font(.customfont(.medium, fontSize: 14))
-                            .padding(.leading, 4)
-                        
-                        ZStack {
-                            Rectangle()
-                                .fill(Color.gray.opacity(0.15))
-                                .frame(height: 45)
-                                .cornerRadius(10)
-                                .overlay (
-                                    RoundedRectangle(cornerRadius: 10)
-                                        .stroke(Color.gray.opacity(0.3), lineWidth: 0.8)
-                                )
-                            
-                            HStack {
-                                
-                                Button {
-                                    showCountryPicker = true
-                                } label: {
-                                    if let countryObj = countryObj {
-                                        Text("\(countryObj.isoCode.getFlag())")
-                                            .font(.customfont(.medium, fontSize: 28))
-                                            .padding(.leading, 12)
-                                        
-                                        Text("+\(countryObj.phoneCode)")
-                                            .font(.customfont(.medium, fontSize: 16))
-                                            .foregroundColor(.black)
-                                    }
-                                }
-                                
-                                TextField("Enter Contact Number", text: $viewModel.mobile)
-                                    .font(.customfont(.light, fontSize: 14))
-                                    .padding(.leading, 4)
-                            }
-                        }
-                        
-                        Text("Location")
-                            .font(.customfont(.medium, fontSize: 14))
-                            .padding(.leading, 4)
-                        
-                        ZStack {
-                            Rectangle()
-                                .fill(Color.gray.opacity(0.15))
-                                .frame(height: 45)
-                                .cornerRadius(10)
-                                .overlay (
-                                    RoundedRectangle(cornerRadius: 10)
-                                        .stroke(Color.gray.opacity(0.3), lineWidth: 0.8)
-                                )
-                            
-                            HStack {
-                                Image("Location")
-                                    .resizable()
-                                    .scaledToFit()
-                                    .frame(width: 24, height: 24)
-                                    .padding(.leading, 12)
-                                
-                                Button {
-                                    showAddressPicker = true
-                                } label: {
-                                    Text(viewModel.address)
-                                        .font(.customfont(.light, fontSize: 14))
-                                        .foregroundColor(.black)
-                                        .multilineTextAlignment(.leading)
-                                        .frame(maxWidth: .infinity, alignment: .leading)
-                                        .padding(.leading, 4)
-                                }
-                            }
-
-                        }
-                        
-                        Text("Select Your Image")
-                            .font(.customfont(.medium, fontSize: 14))
-                            .padding(.leading, 4)
-
-                        ZStack {
-                            Rectangle()
-                                .fill(Color.gray.opacity(0.15))
-                                .frame(height: 100)
-                                .cornerRadius(10)
-                                .overlay (
-                                    RoundedRectangle(cornerRadius: 10)
-                                        .stroke(Color.gray.opacity(0.3), lineWidth: 0.8)
-                                )
-                            
-                            if let uiImage = viewModel.profileImage {
-                                Image(uiImage: uiImage)
-                                    .resizable()
-                                    .scaledToFill()
-                                    .frame(width: 60, height: 60)
-                                    .clipShape(Circle())
-                            } else {
-                                Image("imagePlace")
-                                    .resizable()
-                                    .scaledToFit()
-                                    .frame(width: 60, height: 60)
-                                    .clipShape(Circle())
-                            }
-                        }
-                        .onTapGesture {
-                            showCameraPicker = true
-                        }
-                        
-                        Text("Password")
-                            .font(.customfont(.medium, fontSize: 14))
-                            .padding(.leading, 4)
-                        
-                        ZStack {
-                            Rectangle()
-                                .fill(Color.gray.opacity(0.15))
-                                .frame(height: 45)
-                                .cornerRadius(10)
-                                .overlay (
-                                    RoundedRectangle(cornerRadius: 10)
-                                        .stroke(Color.gray.opacity(0.3), lineWidth: 0.8)
-                                )
-                            
-                            HStack {
-                                Image("Password")
-                                    .resizable()
-                                    .scaledToFit()
-                                    .frame(width: 24, height: 24)
-                                    .padding(.leading, 12)
-                                
-                                if isPaswordVisible {
-                                    TextField("Enter Password", text: $viewModel.password)
-                                        .font(.customfont(.light, fontSize: 14))
-                                        .padding(.leading, 4)
-                                } else {
-                                    SecureField("Enter Password", text: $viewModel.password)
-                                        .font(.customfont(.light, fontSize: 14))
-                                        .padding(.leading, 4)
-                                }
-                                
-                                Spacer()
-                                
-                                Button {
-                                    isPaswordVisible.toggle()
-                                } label: {
-                                    Image(isPaswordVisible ? "Password" : "Unlock")
-                                        .resizable()
-                                        .scaledToFit()
-                                        .frame(width: 24, height: 24)
-                                        .padding(.trailing, 12)
-                                }
-                            }
-                        }
-                        
-                        Text("Confirm Password")
-                            .font(.customfont(.medium, fontSize: 14))
-                            .padding(.leading, 4)
-                        
-                        ZStack {
-                            Rectangle()
-                                .fill(Color.gray.opacity(0.15))
-                                .frame(height: 45)
-                                .cornerRadius(10)
-                                .overlay (
-                                    RoundedRectangle(cornerRadius: 10)
-                                        .stroke(Color.gray.opacity(0.3), lineWidth: 0.8)
-                                )
-                            
-                            HStack {
-                                Image("Password")
-                                    .resizable()
-                                    .scaledToFit()
-                                    .frame(width: 24, height: 24)
-                                    .padding(.leading, 12)
-                                
-                                if isConfirmPasswordVisible {
-                                    TextField("Confirm Password", text: $viewModel.confirmPassword)
-                                        .font(.customfont(.light, fontSize: 14))
-                                        .padding(.leading, 4)
-                                } else {
-                                    SecureField("Confirm Password", text: $viewModel.confirmPassword)
-                                        .font(.customfont(.light, fontSize: 14))
-                                        .padding(.leading, 4)
-                                }
-                                
-                                Spacer()
-                                
-                                Button {
-                                    isConfirmPasswordVisible.toggle()
-                                } label: {
-                                    Image(isConfirmPasswordVisible ? "Password" : "Unlock")
-                                        .resizable()
-                                        .scaledToFit()
-                                        .frame(width: 24, height: 24)
-                                        .padding(.trailing, 12)
-                                }
-                            }
-                        }
-                        
-                        HStack() {
-                            Button {
-                                viewModel.isCheck.toggle()
-                            } label: {
-                                Image(viewModel.isCheck ? "checked" : "uncheck")
-                                    .resizable()
-                                    .scaledToFit()
-                                    .frame(width: 24, height: 24)
-                            }
-                            
-                            Button {
-                                print("")
-                            } label: {
-                                Text("By Signing up you agree to our ")
-                                    .font(.customfont(.light, fontSize: 14))
-                                    .foregroundColor(.gray)
-                                +
-                                Text("Terms & Conditions")
-                                    .font(.customfont(.bold, fontSize: 14))
-                                    .foregroundColor(.colorNeavyBlue)
-                            }
-                            .buttonStyle(.plain)
-                            .padding(.leading, 10)
-                        }
-                        .padding(.vertical, 10)
-                    }
-                    .padding(.horizontal, 24)
+                ScrollView {
+                    VStack(spacing: 24) {
+                        inputsField
+                        signupButton
+                        bottomSignin
+                    }// VSTACK
                     .padding(.top, 24)
-                    
-                    Button {
-                        viewModel.mobileCode = countryObj?.phoneCode ?? ""
-                        if viewModel.validateFields() {
-                            viewModel.paramDictionary()
-                            viewModel.paramImageDictionary()
-                            router.push(to: .vehicleDetail)
-                        }
-                    } label: {
-                        Text("Signup")
-                            .font(.customfont(.bold, fontSize: 16))
-                            .foregroundColor(.white)
-                            .frame(maxWidth: .infinity)
-                            .frame(height: 45)
-                            .background(Color.colorNeavyBlue)
-                            .cornerRadius(10)
-                    }
-                    .padding(.horizontal, 24)
-                    .padding(.top, 40)
-                    
-                    HStack {
-                        Text("Have an Account?")
-                            .font(.customfont(.regular, fontSize: 14))
-                            .foregroundColor(.gray)
-                        Button("Sign in") {
-                            
-                        }
-                        .font(.customfont(.bold, fontSize: 14))
-                        .foregroundColor(.colorNeavyBlue)
-                    }
-                    .padding(.top, 20)
-                    .padding(.bottom, 20)
-                    
-                }// VSTACK
-                .frame(maxWidth: .infinity, alignment: .top)
-                .background(Color.white)
-                .navigationBarBackButtonHidden(true)
+                }
             }
+            .padding(.horizontal, 24)
         } // ZSTACk
-        .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .topBarLeading) {
-                    BackButton {
-                        router.popView()
-                    }
-                }
-                
-                ToolbarItem(placement: .topBarTrailing) {
-                    CustomLogo()
-                        .frame(width: 100, height: 120)
-                }
-            }
+        .navigationBarBackButtonHidden(true)
         .onAppear {
-            UINavigationBar.setTitleColor(.white)
             self.countryObj = Country(phoneCode: "91", isoCode: "IN")
         }
         .sheet(isPresented: $showCountryPicker) {
@@ -414,22 +58,348 @@ struct SignupView: View {
                 viewModel.profileImage = image
             }
         }
-        .onChange(of: viewModel.customError) { newError in
-            withAnimation {
-                showErrorBanner = newError != nil
-            }
-        }
-        .alert(isPresented: $showErrorBanner) {
+        .alert(item: $viewModel.customError) { error in
             Alert (
                 title: Text(Constant.AppName),
-                message: Text(viewModel.customError?.localizedDescription ?? "Something went wrong!"),
-                dismissButton: .default(Text("Ok")) {
-                    withAnimation {
-                        viewModel.customError = nil
-                    }
-                }
+                message: Text(error.localizedDescription),
+                dismissButton: .default(Text("Ok"))
             )
         }
+    }
+    
+    private var headerText: some View {
+        VStack(alignment: .leading, spacing: 16) {
+            HStack(spacing: 16) {
+                Button {
+                    dissmiss()
+                } label: {
+                    Image(systemName: "chevron.left")
+                        .font(.system(size: 20, weight: .medium))
+                        .foregroundColor(.black)
+                }
+                
+                HStack(spacing: 8) {
+                    Image("logo")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 32, height: 32)
+                    
+                    Text("Glide Cabs")
+                        .font(.customfont(.semiBold, fontSize: 28))
+                }
+            }
+            
+            Text("Sign up")
+                .font(.customfont(.semiBold, fontSize: 24))
+                .frame(maxWidth: .infinity, alignment: .leading)
+            
+            Text("Create an account to continue")
+                .font(.customfont(.regular, fontSize: 12))
+                .foregroundColor(.gray)
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+    }
+    
+    private var inputsField: some View {
+        VStack(alignment: .leading, spacing: 16) {
+            profileImageView
+            firstName
+            lastName
+            emailField
+            addressField
+            numberField
+            passwordField
+            confirmPasswordField
+            termCondition
+        }
+    }
+    
+    private var profileImageView: some View {
+        ZStack(alignment: .bottomTrailing) {
+            
+            if let uiImage = viewModel.profileImage {
+                Image(uiImage: uiImage)
+                    .resizable()
+                    .scaledToFill()
+                    .frame(width: 100, height: 100)
+                    .clipShape(Circle())
+            } else {
+                Image("user")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 100, height: 100)
+                    .clipShape(Circle())
+            }
+            
+            Image("editImg")
+                .resizable()
+                .scaledToFit()
+                .frame(width: 18, height: 18)
+                .padding(6)
+                .background(.white)
+                .cornerRadius(8)
+                .shadow(radius: 2)
+        }
+        .frame(maxWidth: .infinity, alignment: .center)
+        .onTapGesture {
+            showCameraPicker = true
+        }
+    }
+    
+    private var firstName: some View {
+        VStack(alignment: .leading, spacing: 4) {
+            Text("First Name")
+                .font(.customfont(.medium, fontSize: 14))
+            
+            TextField("Please enter first name", text: $viewModel.firstName)
+                .textInputAutocapitalization(.never)
+                .autocorrectionDisabled(true)
+                .font(.customfont(.regular, fontSize: 14))
+                .padding(.horizontal, 12)
+                .frame(height: 50)
+                .background (
+                    RoundedRectangle(cornerRadius: 10)
+                        .fill(Color.white)
+                        .shadow(color: .black.opacity(0.04), radius: 8,x: 0, y: 2)
+                )
+        }
+    }
+    
+    private var lastName: some View {
+        VStack(alignment: .leading, spacing: 4) {
+            Text("Last Name")
+                .font(.customfont(.medium, fontSize: 14))
+            
+            TextField("Please enter last name", text: $viewModel.lastName)
+                .textInputAutocapitalization(.never)
+                .autocorrectionDisabled(true)
+                .font(.customfont(.regular, fontSize: 14))
+                .padding(.horizontal, 12)
+                .frame(height: 50)
+                .background (
+                    RoundedRectangle(cornerRadius: 10)
+                        .fill(Color.white)
+                        .shadow(color: .black.opacity(0.04), radius: 8,x: 0, y: 2)
+                )
+        }
+    }
+    
+    private var emailField: some View {
+        VStack(alignment: .leading, spacing: 4) {
+            Text("Email")
+                .font(.customfont(.medium, fontSize: 14))
+            
+            TextField("Please enter email", text: $viewModel.email)
+                .keyboardType(.emailAddress)
+                .textInputAutocapitalization(.never)
+                .autocorrectionDisabled(true)
+                .font(.customfont(.regular, fontSize: 14))
+                .padding(.horizontal, 12)
+                .frame(height: 50)
+                .background (
+                    RoundedRectangle(cornerRadius: 10)
+                        .fill(Color.white)
+                        .shadow(color: .black.opacity(0.04), radius: 8,x: 0, y: 2)
+                )
+        }
+    }
+    
+    private var numberField: some View {
+        VStack(alignment: .leading, spacing: 8) {
+            Text("Phone Number")
+                .font(.customfont(.regular, fontSize: 14))
+                .foregroundColor(.gray)
+            
+            HStack(spacing: 0) {
+                Button {
+                    showCountryPicker = true
+                } label: {
+                    HStack(spacing: 6) {
+                        if let countryObj = countryObj {
+                            Text("\(countryObj.isoCode.getFlag())")
+                                .font(.customfont(.medium, fontSize: 28))
+                                .padding(.leading, 12)
+                            
+                            Text("+\(countryObj.phoneCode)")
+                                .font(.customfont(.medium, fontSize: 16))
+                                .foregroundColor(.black)
+                        }
+                        
+                        Image(systemName: "chevron.down")
+                            .font(.system(size: 12, weight: .medium))
+                            .foregroundColor(.gray)
+                    }
+                }
+                .background(Color.white)
+                
+                TextField("123-245-89", text: $viewModel.mobile)
+                    .keyboardType(.phonePad)
+                    .font(.customfont(.regular, fontSize: 15))
+                    .padding(.horizontal, 10)
+                    .frame(height: 44)
+            }
+            .background (
+                RoundedRectangle(cornerRadius: 10)
+                    .stroke(.gray.opacity(0.3), lineWidth: 1)
+                    .background (
+                        RoundedRectangle(cornerRadius: 10)
+                            .fill(Color.white)
+                    )
+            )
+        }
+    }
+    
+    private var passwordField: some View {
+        VStack(alignment: .leading, spacing: 4) {
+            Text("Set Password")
+                .font(.customfont(.medium, fontSize: 14))
+            
+            HStack {
+                if viewModel.isPaswordVisible {
+                    TextField("Please enter password", text: $viewModel.password)
+                } else {
+                    SecureField("Please enter password", text: $viewModel.password)
+                }
+                
+                Button {
+                    viewModel.isPaswordVisible.toggle()
+                } label: {
+                    Image(systemName: viewModel.isPaswordVisible ? "eye.slash" : "eye")
+                        .foregroundColor(.gray)
+                }
+            }
+            .font(.customfont(.regular, fontSize: 14))
+            .padding(.horizontal, 12)
+            .frame(height: 50)
+            .background (
+                RoundedRectangle(cornerRadius: 10)
+                    .fill(Color.white)
+                    .shadow(color: Color.black.opacity(0.04), radius: 8, x: 0, y: 2)
+            )
+        }
+    }
+    
+    private var confirmPasswordField: some View {
+        VStack(alignment: .leading, spacing: 4) {
+            Text("Confirm Password")
+                .font(.customfont(.medium, fontSize: 14))
+            
+            HStack {
+                if viewModel.isConfirmPasswordVisible {
+                    TextField("Please enter password", text: $viewModel.confirmPassword)
+                } else {
+                    SecureField("Please enter password", text: $viewModel.confirmPassword)
+                }
+                
+                Button {
+                    viewModel.isConfirmPasswordVisible.toggle()
+                } label: {
+                    Image(systemName: viewModel.isConfirmPasswordVisible ? "eye.slash" : "eye")
+                        .foregroundColor(.gray)
+                }
+            }
+            .font(.customfont(.regular, fontSize: 14))
+            .padding(.horizontal, 12)
+            .frame(height: 50)
+            .background (
+                RoundedRectangle(cornerRadius: 10)
+                    .fill(Color.white)
+                    .shadow(color: Color.black.opacity(0.04), radius: 8, x: 0, y: 2)
+            )
+        }
+    }
+    
+    private var addressField: some View {
+        VStack(alignment: .leading, spacing: 4) {
+            Text("Location")
+                .font(.customfont(.medium, fontSize: 14))
+            
+            Button {
+                showAddressPicker = true
+            } label: {
+                Text(viewModel.address.isEmpty ? "Select location" : viewModel.address)
+                    .font(.customfont(.regular, fontSize: 14))
+                    .foregroundColor(.black)
+                    .multilineTextAlignment(.leading)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(.horizontal, 12)
+                    .frame(height: 50)
+                    .background (
+                        RoundedRectangle(cornerRadius: 10)
+                            .fill(Color.white)
+                            .shadow(color: .black.opacity(0.04),
+                                    radius: 8,
+                                    x: 0,
+                                    y: 2)
+                    )
+            }
+        }
+    }
+    
+    private var signupButton: some View {
+        Button {
+            viewModel.mobileCode = countryObj?.phoneCode ?? ""
+            if viewModel.validateFields() {
+                viewModel.paramDictionary()
+                viewModel.paramImageDictionary()
+                router.push(to: .vehicleDetail)
+            }
+        } label: {
+            Text("Register")
+                .font(.customfont(.bold, fontSize: 16))
+                .foregroundColor(.yellow)
+                .frame(maxWidth: .infinity)
+                .frame(height: 45)
+                .background(Color.colorNeavyBlue)
+                .cornerRadius(10)
+        }
+        .padding(.top, 40)
+    }
+    
+    private var bottomSignin: some View {
+        VStack(spacing: 12) {
+            Spacer()
+            
+            HStack(spacing: 4) {
+                Text("Already have an account?")
+                    .font(.customfont(.regular, fontSize: 14))
+                    .foregroundColor(.gray)
+                
+                Button("Login") {
+                    dissmiss()
+                }
+                .font(.customfont(.bold, fontSize: 14))
+                .foregroundColor(.colorNeavyBlue)
+            }
+            .frame(maxWidth: .infinity, alignment: .center)
+            .padding(.bottom, 8)
+        }
+    }
+    
+    private var termCondition: some View {
+        HStack(spacing: 8) {
+            // Checkbox
+            Button {
+                viewModel.isCheck.toggle()
+            } label: {
+                Image(systemName: viewModel.isCheck ? "checkmark.square.fill" : "square")
+                    .font(.title3)
+                    .foregroundColor(.colorNeavyBlue)
+            }
+            .buttonStyle(.plain)
+
+            // Text + link
+            (
+                Text("By Signing up you agree to our ")
+                    .foregroundColor(.primary)
+                +
+                Text("Terms & Conditions")
+                    .foregroundColor(.colorNeavyBlue)
+                    .fontWeight(.semibold)
+            )
+            .font(.system(size: 14))
+        }
+        .padding(.horizontal)
     }
     
     private func addressView() -> some View {
@@ -457,4 +427,6 @@ extension SignupView: Address {
 
 #Preview {
     SignupView()
+        .environmentObject(NavigationRouter())
+        .environmentObject(AppState())
 }

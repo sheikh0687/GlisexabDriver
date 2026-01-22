@@ -10,37 +10,45 @@ import SwiftUI
 struct MyAccountView: View {
     
     @EnvironmentObject private var router: NavigationRouter
+    @EnvironmentObject var appState: AppState
+    
+    @StateObject var viewModel = ProfileViewModel()
     
     var body: some View {
-        ZStack {
+         ZStack {
             VStack(alignment: .leading, spacing: 20) {
-                VStack(alignment: .leading, spacing: 20) {
+                 VStack(alignment: .leading, spacing: 20) {
                     
                      HStack(alignment: .top, spacing: 16) {
-                        Image("userPlace")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 60, height: 60)
-                        
+                         if let uiImage = viewModel.selectedUIImage {
+                             Image(uiImage: uiImage)
+                                 .resizable()
+                                 .scaledToFill()
+                                 .frame(width: 60, height: 60)
+                                 .clipShape(Circle())
+                         } else {
+                             Image("user")
+                                 .resizable()
+                                 .scaledToFit()
+                                 .frame(width: 60, height: 60)
+                                 .clipShape(Circle())
+                         }
+
                         VStack(alignment: .leading, spacing: 10) {
-                            Text("Jerome Bell")
+                            Text("\(viewModel.firstName) \(viewModel.lastName)")
                                 .font(.customfont(.semiBold, fontSize: 18))
                             
-                            Text("jeromebellgmail.com")
+                            Text(viewModel.email)
                                 .font(.customfont(.medium, fontSize: 14))
                                 .foregroundColor(.gray)
                             
-                            Text("098827****56")
+                            Text(viewModel.contactNumber)
                                 .font(.customfont(.semiBold, fontSize: 18))
                                 .padding(.top)
-                            
-                            Text("3517 W. Pennsylvania 57867")
-                                .font(.customfont(.medium, fontSize: 14))
-                                .foregroundColor(.gray)
                         }
                         Spacer()
                         Button {
-                            print("Edit Profile")
+                            router.push(to: .editProfile)
                         } label: {
                             Image("Edit")
                                 .resizable()
@@ -53,37 +61,63 @@ struct MyAccountView: View {
                     .cornerRadius(10)
                     .shadow(radius: 1)
                     
-                    // Driver Details
-                    VStack(alignment: .leading, spacing: 10) {
-                        Text("Vehicle Information")
-                             .font(.customfont(.semiBold, fontSize: 16))
-                        VStack(alignment: .leading, spacing: 10) {
-                            InfoRow(label: "Vehicle Type & Model :", value: "Sedan(2024)")
-                            InfoRow(label: "Vehicle Number :", value: "MP7379")
-                            InfoRow(label: "Vehicle Color :", value: "White")
-                            InfoRow(label: "Registration Expiration Date :", value: "12/7/26")
-                        }
-                        .padding()
-                        .background(Color.white)
-                        .cornerRadius(10)
-                        .shadow(radius: 1)
-                    }
-
-                    VStack(alignment: .leading, spacing: 10) {
-                        Text("Your Documents")
-                             .font(.customfont(.semiBold, fontSize: 16))
-                        VStack(alignment: .leading, spacing: 10) {
-                            DocumentRow(icon: "doc", label: "Vehicle Registration")
-                            DocumentRow(icon: "doc", label: "Commercial Insurance")
-                            DocumentRow(icon: "calendar", label: "Expiration Date")
-                            DocumentRow(icon: "person.crop.rectangle", label: "Driving License")
-                        }
-                        .padding()
-                        .background(Color.white)
-                        .cornerRadius(10)
-                        .shadow(radius: 1)
+                    HStack {
+                        Image(systemName: "info.circle")
+                            .font(.system(size: 16, weight: .medium))
+                        
+                        Text("Add Information")
+                            .font(.customfont(.medium, fontSize: 16))
+                        
+                        Spacer()
+                        
+                        Image(systemName: "chevron.right")
+                            .font(.system(size: 16, weight: .medium))
                     }
                     
+                    .padding()
+                    .frame(maxWidth: .infinity, minHeight: 45)
+                    .background(Color.white)
+                    .cornerRadius(10)
+                    .shadow(radius: 1)
+                    .onTapGesture {
+                        router.push(to: .uploadDocument)
+                    }
+                    
+                    HStack {
+                        Image(systemName: "info.circle")
+                            .font(.system(size: 16, weight: .medium))
+                            .foregroundColor(.gray)
+                        
+                        Text("Update Bank Detail")
+                            .font(.customfont(.medium, fontSize: 16))
+                        
+                        Spacer()
+                        
+                        Image(systemName: "chevron.right")
+                            .font(.system(size: 16, weight: .medium))
+                    }
+                    .padding()
+                    .frame(maxWidth: .infinity, minHeight: 45)
+                    .background(Color.white)
+                    .cornerRadius(10)
+                    .shadow(radius: 1)
+                    .onTapGesture {
+                        router.push(to: .bankDetail)
+                    }
+                    
+                    Button {
+                        print("Call Api")
+                    } label: {
+                        Text("Delete Account")
+                            .font(.customfont(.regular, fontSize: 14))
+                            .foregroundColor(.white)
+                            .padding()
+                            .frame(maxWidth: .infinity, minHeight: 45)
+                    }
+                    .background(Color.red)
+                    .shadow(radius: 1)
+                    .cornerRadius(10)
+                    .padding(.top, 20)
                     Spacer()
                 }
                 .padding()
@@ -101,6 +135,9 @@ struct MyAccountView: View {
         }
         .onAppear {
             UINavigationBar.setTitleColor(.white)
+           Task {
+               await viewModel.fetchUserProfile(appState: appState)
+            }
         }
     }
 }
@@ -139,4 +176,6 @@ struct DocumentRow: View {
 
 #Preview {
     MyAccountView()
+        .environmentObject(NavigationRouter())
+        .environmentObject(AppState())
 }

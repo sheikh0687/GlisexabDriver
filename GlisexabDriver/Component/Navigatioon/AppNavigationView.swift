@@ -11,6 +11,8 @@ enum AppNavigationView: Hashable {
     
     case login
     case signup
+    case forgetPassword
+    case otp
     case vehicleDetail
     case driverDocument
     case home
@@ -20,6 +22,13 @@ enum AppNavigationView: Hashable {
     case editProfile
     case myAccount
     case myReview
+    case wallet
+    case uploadDocument
+    case bankDetail
+    case history
+    case earning
+    case notification
+    case rating(useriD: String, requestiD: String)
     
     @ViewBuilder
     var view: some View {
@@ -31,7 +40,7 @@ enum AppNavigationView: Hashable {
         case .home:
             HomeView()
         case .trackRide:
-            TrackingView(showingPopup: .constant(false))
+            TrackingView()
         case .vehicleDetail:
             VehcileDetailSignupView()
         case .driverDocument:
@@ -46,6 +55,24 @@ enum AppNavigationView: Hashable {
             MyAccountView()
         case .myReview:
             ReviewView()
+        case .rating(let striD, let strReqiD):
+            RatingView(useriD: striD, requestiD: strReqiD)
+        case .forgetPassword:
+            ForgetPasswordView()
+        case .otp:
+            OtpView()
+        case .wallet:
+            WalletView()
+        case .uploadDocument:
+            UploadDocumentView()
+        case .bankDetail:
+            AddBankDetailsView()
+        case .history:
+            HistoryView()
+        case .earning:
+            EarningView()
+        case .notification:
+            NotificationView()
         }
     }
 }

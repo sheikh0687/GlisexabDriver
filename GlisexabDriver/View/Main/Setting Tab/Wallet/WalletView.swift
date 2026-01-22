@@ -12,7 +12,7 @@ struct WalletView: View {
     @EnvironmentObject private var router: NavigationRouter
     
     var body: some View {
-        ZStack {
+        VStack {
             ZStack {
                 RoundedRectangle(cornerRadius: 16, style: .continuous)
                     .fill (
@@ -24,7 +24,7 @@ struct WalletView: View {
                     )
                     .frame(height: 180)
                     .overlay (
-                        HStack {
+                         HStack {
                             VStack(alignment: .leading, spacing: 36) {
                                 VStack(alignment: .leading, spacing: 8) {
                                     Text("Your Balance")
@@ -61,6 +61,8 @@ struct WalletView: View {
                     )
             }
             .padding(.horizontal)
+            
+            Spacer()
         }
         .navigationBarBackButtonHidden(true)
         .navigationBarTitleDisplayMode(.inline)

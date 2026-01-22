@@ -41,7 +41,7 @@ final class Service {
     
     private let session: Session = {
         let config = URLSessionConfiguration.default
-        config.timeoutIntervalForRequest = 120
+        config.timeoutIntervalForRequest = 60
         config.requestCachePolicy = .reloadIgnoringLocalAndRemoteCacheData
         config.urlCache = nil
         return Session(configuration: config)
@@ -53,81 +53,135 @@ final class Service {
     }
     
     // MARK: - Raw Data Request
-    func requestData(
+    func requestData (
         url: String,
         method: HTTPMethod = .post,
-        params: [String: Any]? = nil,
-        completion: @escaping (Result<Data, ApiError>) -> Void
-    ) {
-        guard checkConnection() else {
-            completion(.failure(.noInternet))
-            return
-        }
+        params: [String: Any]? = nil
+    ) async throws -> Data {
+        guard checkConnection() else { throw ApiError.noInternet }
         
-        session.request(url, method: method, parameters: params)
+        let request = session.request(url, method: method, parameters: params)
+        let data = try await request.serializingData().value
+        
+        if let params = params, !params.isEmpty {
+            let queryString = params.map { "\($0.key)=\($0.value)" }.joined(separator: "&")
+            let fullUrl = "\(url)?\(queryString)"
+            print("""
+            🟢 Full API for Browser
+            ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+            \(fullUrl)
+            ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+            """)
+        } else {
+            print("""
+            🟢 Full API for Browser
+            ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+            \(url)
+            ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+            """)
+        }
+
+        return data
+    }
+    
+    // MARK: - Decodable Request
+    func request<T: Decodable> (
+        url: String,
+        method: HTTPMethod = .post,
+        params: [String: Any]? = nil
+    )  async throws -> T {
+        let data = try await requestData(url: url, method: method, params: params)
+        return try JSONDecoder().decode(T.self, from: data)
+    }
+    
+    // MARK: - Upload Single Media
+    func uploadSingleMedia<T: Decodable> (
+        url: String,
+        params: [String: String]? = nil,
+        images: [String: UIImage]? = nil,
+        videos: [String: Data]? = nil
+    ) async throws -> T {
+        guard checkConnection() else { throw ApiError.noInternet }
+        
+        return try await withCheckedThrowingContinuation { continuation in
+            session.upload(multipartFormData: { multipart in
+                self.appendParameters(params, to: multipart)
+                self.appendImages(images, to: multipart)
+                self.appendVideos(videos, to: multipart)
+            }, to: url)
             .validate()
             .responseData { response in
                 switch response.result {
                 case .success(let data):
-                    // Construct readable API URL for debugging
-                    if let params = params, !params.isEmpty {
-                        let queryString = params
-                            .map { "\($0.key)=\($0.value)" }
-                            .joined(separator: "&")
-                        
-                        let fullUrl = "\(url)?\(queryString)"
-                        print("""
-                        🟢 Full API for Browser
-                        ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-                        \(fullUrl)
-                        ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-                        """)
-                    } else {
-                        print("""
-                        🟢 Full API for Browser
-                        ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-                        \(url)
-                        ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-                        """)
+                    do {
+                        let decoded = try JSONDecoder().decode(T.self, from: data)
+                        continuation.resume(returning: decoded)
+                    } catch {
+                        print("❌ Decoding failed: \(error.localizedDescription)")
+                        continuation.resume(throwing: ApiError.decodingError(error.localizedDescription))
                     }
-                    completion(.success(data))
-                    
                 case .failure(let error):
-                    print("❌ AFError: \(error.localizedDescription)")
-                    completion(.failure(.serverError(error.localizedDescription)))
+                    print("❌ Upload Failed: \(error.localizedDescription)")
+                    continuation.resume(throwing: ApiError.serverError(error.localizedDescription))
                 }
             }
+        }
     }
-    
-    // MARK: - Decodable Request
-    func request<T: Decodable>(
+
+    // MARK: - Upload Multiple Media
+    func uploadMultipleMedia (
         url: String,
-        method: HTTPMethod = .post,
-        params: [String: Any]? = nil,
-        responseType: T.Type,
-        completion: @escaping (Result<T, ApiError>) -> Void
-    ) {
-        requestData(url: url, method: method, params: params) { result in
-            switch result {
-            case .success(let data):
-                do {
-                    let decoded = try JSONDecoder().decode(T.self, from: data)
-                    completion(.success(decoded))
-                } catch {
-                    print("❌ Decoding failed: \(error.localizedDescription)")
-                    completion(.failure(.decodingError(error.localizedDescription)))
+        params: [String: String]? = nil,
+        imageArrays: [String: [UIImage]]? = nil,
+        videoURLs: [String: [URL]]? = nil
+    ) async throws -> Data {
+        guard checkConnection() else { throw ApiError.noInternet }
+        
+        return try await withCheckedThrowingContinuation { continuation in
+            session.upload(multipartFormData: { multipart in
+                self.appendParameters(params, to: multipart)
+                
+                // Multiple Images
+                imageArrays?.forEach { key, images in
+                    for image in images {
+                        if let data = image.jpegData(compressionQuality: 0.7) {
+                            multipart.append(data,
+                                             withName: key,
+                                             fileName: "\(UUID().uuidString).jpg",
+                                             mimeType: "image/jpeg")
+                        }
+                    }
                 }
-            case .failure(let err):
-                completion(.failure(err))
+                
+                // Multiple Videos
+                videoURLs?.forEach { key, urls in
+                    for url in urls {
+                        multipart.append(url,
+                                         withName: key,
+                                         fileName: "\(UUID().uuidString).mp4",
+                                         mimeType: "video/mp4")
+                    }
+                }
+            }, to: url)
+            .validate()
+            .responseData { response in
+                switch response.result {
+                case .success(let data):
+                    print("✅ Upload Success")
+                    continuation.resume(returning: data)
+                case .failure(let error):
+                    print("❌ Upload Failed: \(error.localizedDescription)")
+                    continuation.resume(throwing: ApiError.serverError(error.localizedDescription))
+                }
             }
         }
     }
     
-    // MARK: - Upload Single Media
-//    func uploadSingleMedia (
+    // MARK: - Upload With Files (PDF, etc.)
+//    func uploadWithFiles(
 //        url: String,
 //        params: [String: String]? = nil,
-//        images: [String: UIImage]? = nil,
+//        pdfData: [String: Data]? = nil,
 //        videos: [String: Data]? = nil,
 //        completion: @escaping (Result<Data, ApiError>) -> Void
 //    ) {
@@ -138,7 +192,16 @@ final class Service {
 //        
 //        session.upload(multipartFormData: { multipart in
 //            self.appendParameters(params, to: multipart)
-//            self.appendImages(images, to: multipart)
+//            
+//            // PDFs
+//            pdfData?.forEach { key, data in
+//                multipart.append(data,
+//                                 withName: key,
+//                                 fileName: "\(key).pdf",
+//                                 mimeType: "application/pdf")
+//            }
+//            
+//            // Videos
 //            self.appendVideos(videos, to: multipart)
 //        }, to: url)
 //        .validate()
@@ -146,119 +209,6 @@ final class Service {
 //            self.handleUploadResponse(response, completion: completion)
 //        }
 //    }
-    
-    func uploadSingleMedia<T: Decodable>(
-        url: String,
-        params: [String: String]? = nil,
-        images: [String: UIImage]? = nil,
-        videos: [String: Data]? = nil,
-        responseType: T.Type,
-        completion: @escaping (Result<T, ApiError>) -> Void
-    ) {
-        guard checkConnection() else {
-            completion(.failure(.noInternet))
-            return
-        }
-        
-        session.upload(multipartFormData: { multipart in
-            self.appendParameters(params, to: multipart)
-            self.appendImages(images, to: multipart)
-            self.appendVideos(videos, to: multipart)
-        }, to: url)
-        .validate()
-        .responseData { response in
-            switch response.result {
-            case .success(let data):
-                do {
-                    let decoded = try JSONDecoder().decode(T.self, from: data)
-                    completion(.success(decoded))
-                } catch {
-                    print("❌ Decoding failed: \(error.localizedDescription)")
-                    completion(.failure(.decodingError(error.localizedDescription)))
-                }
-            case .failure(let error):
-                print("❌ Upload Failed: \(error.localizedDescription)")
-                completion(.failure(.serverError(error.localizedDescription)))
-            }
-        }
-    }
-    
-    // MARK: - Upload Multiple Media
-    func uploadMultipleMedia(
-        url: String,
-        params: [String: String]? = nil,
-        imageArrays: [String: [UIImage]]? = nil,
-        videoURLs: [String: [URL]]? = nil,
-        completion: @escaping (Result<Data, ApiError>) -> Void
-    ) {
-        guard checkConnection() else {
-            completion(.failure(.noInternet))
-            return
-        }
-        
-        session.upload(multipartFormData: { multipart in
-            self.appendParameters(params, to: multipart)
-            
-            // Multiple Images
-            imageArrays?.forEach { key, images in
-                for image in images {
-                    if let data = image.jpegData(compressionQuality: 0.7) {
-                        multipart.append(data,
-                                         withName: key,
-                                         fileName: "\(UUID().uuidString).jpg",
-                                         mimeType: "image/jpeg")
-                    }
-                }
-            }
-            
-            // Multiple Videos
-            videoURLs?.forEach { key, urls in
-                for url in urls {
-                    multipart.append(url,
-                                     withName: key,
-                                     fileName: "\(UUID().uuidString).mp4",
-                                     mimeType: "video/mp4")
-                }
-            }
-        }, to: url)
-        .validate()
-        .responseData { response in
-            self.handleUploadResponse(response, completion: completion)
-        }
-    }
-    
-    // MARK: - Upload With Files (PDF, etc.)
-    func uploadWithFiles(
-        url: String,
-        params: [String: String]? = nil,
-        pdfData: [String: Data]? = nil,
-        videos: [String: Data]? = nil,
-        completion: @escaping (Result<Data, ApiError>) -> Void
-    ) {
-        guard checkConnection() else {
-            completion(.failure(.noInternet))
-            return
-        }
-        
-        session.upload(multipartFormData: { multipart in
-            self.appendParameters(params, to: multipart)
-            
-            // PDFs
-            pdfData?.forEach { key, data in
-                multipart.append(data,
-                                 withName: key,
-                                 fileName: "\(key).pdf",
-                                 mimeType: "application/pdf")
-            }
-            
-            // Videos
-            self.appendVideos(videos, to: multipart)
-        }, to: url)
-        .validate()
-        .responseData { response in
-            self.handleUploadResponse(response, completion: completion)
-        }
-    }
 }
 
 // MARK: - Multipart Helpers
@@ -292,17 +242,17 @@ private extension Service {
         }
     }
     
-    func handleUploadResponse(
-        _ response: AFDataResponse<Data>,
-        completion: @escaping (Result<Data, ApiError>) -> Void
-    ) {
-        switch response.result {
-        case .success(let data):
-            print("✅ Upload Success")
-            completion(.success(data))
-        case .failure(let error):
-            print("❌ Upload Failed: \(error.localizedDescription)")
-            completion(.failure(.serverError(error.localizedDescription)))
-        }
-    }
+//    func handleUploadResponse(
+//        _ response: AFDataResponse<Data>,
+//        completion: @escaping (Result<Data, ApiError>) -> Void
+//    ) {
+//        switch response.result {
+//        case .success(let data):
+//            print("✅ Upload Success")
+//            completion(.success(data))
+//        case .failure(let error):
+//            print("❌ Upload Failed: \(error.localizedDescription)")
+//            completion(.failure(.serverError(error.localizedDescription)))
+//        }
+//    }
 }

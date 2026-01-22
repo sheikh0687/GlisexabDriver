@@ -28,88 +28,93 @@ struct OnboardingView: View {
     var body: some View {
         ZStack {
             // Background color
-            Color.colorNeavyBlue
-                .ignoresSafeArea()
-            
-            // TabView with white rounded background on each page
-            TabView(selection: $currentPage) {
-                ForEach(onboardingData.indices, id: \.self) { index in
-                    VStack(alignment: .leading) {
-                        
-                        Image(onboardingData[index].imageName)
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: .screenWidth * 0.85)
-                            .padding(.top, 20)
-                        
-                        Text(onboardingData[index].title)
-                            .font(.customfont(.bold, fontSize: 18))
+            LinearGradient (
+                gradient: Gradient(colors: [Color(.systemGray6), Color.white]),
+                startPoint: .top,
+                endPoint: .bottom
+            )
+            .ignoresSafeArea()
+
+            VStack(spacing: 0) {
+                
+                Spacer()
+                // Main content
+                VStack(spacing: 40) {
+                    Image(onboardingData[currentPage].imageName) // 3D car model
+                        .resizable()
+                        .scaledToFit()
+                        .frame(height: 300)
+                        .rotationEffect(.degrees(-5))
+                        .padding(.top, 40)
+                    
+                    VStack(spacing: 16) {
+                        Text(onboardingData[currentPage].title)
+                            .font(.customfont(.semiBold, fontSize: 28))
                             .foregroundColor(.black)
-                            .multilineTextAlignment(.leading)
-                            .padding(.top, 40)
+                            .multilineTextAlignment(.center)
                         
-                        Text(onboardingData[index].description)
+                        Text(onboardingData[currentPage].description)
+                            .font(.customfont(.regular, fontSize: 18))
+                            .foregroundColor(.gray)
+                            .multilineTextAlignment(.center)
+                            .padding(.horizontal, 40)
+                    }
+                }
+                
+                Spacer()
+                
+                // Bottom controls
+                VStack(spacing: 32) {
+                    HStack(spacing: 12) {
+                        Circle()
+                            .fill(currentPage == 0 ? Color.black : Color.gray.opacity(0.3))
+                            .frame(width: 12, height: 12)
+                        
+                        ForEach(1..<onboardingData.count, id: \.self) { index in
+                            Circle()
+                                .fill(currentPage == index ? Color.black : Color.gray.opacity(0.3))
+                                .frame(width: 12, height: 12)
+                        }
+                    }
+                    
+                    HStack(spacing: 16) {
+                        // Skip button
+                        Text("Skip")
                             .font(.customfont(.medium, fontSize: 16))
                             .foregroundColor(.gray)
-                            .padding(.top, 8)
+                            .onTapGesture {
+                                router.push(to: .login)
+                            }
                         
                         Spacer()
                         
-                    }
-                    .padding(20)
-                    .background(Color.white)
-                    .cornerRadius(20)
-                    .padding(.horizontal)
-                    .tag(index)
-                }
-            }
-            .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
-            .animation(.easeInOut, value: currentPage)
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-            
-            VStack {
-                Spacer()
-                HStack {
-                    // Page Indicator
-                    HStack(spacing: 8) {
-                        ForEach(0..<onboardingData.count, id: \.self) { index in
-                            Circle()
-                                .fill(index == currentPage ? Color.colorNeavyBlue : Color.gray)
-                                .frame(width: 8, height: 8)
+                        // Next button
+                        Button {
+                            if currentPage < onboardingData.count - 1 {
+                                withAnimation(.spring()) {
+                                    currentPage += 1
+                                }
+                            } else {
+                                router.push(to: .login)
+                            }
+                        } label: {
+                            HStack(spacing: 12) {
+                                Text("Next")
+                                    .font(.customfont(.semiBold, fontSize: 16))
+                                
+                                Image(systemName: "chevron.right")
+                                    .font(.system(size: 16, weight: .medium))
+                            }
+                            .foregroundColor(.white)
+                            .padding(.horizontal, 24)
+                            .padding(.vertical, 16)
+                            .background(Color.black)
+                            .clipShape(RoundedRectangle(cornerRadius: 25))
                         }
                     }
-                    .padding(.horizontal, 30)
-                    .padding(.bottom, 24)
-                    
-                    Spacer()
-                    
-                    // Next Button Overlay
-                    ZStack {
-                        // Blue arc cut effect
-                        Circle()
-                            .fill(Color.colorNeavyBlue)
-                            .frame(width: 120, height: 120) // slightly bigger for effect
-                            .offset(x: 30) // pushes half outside
-                            .overlay {
-                                Button {
-                                    withAnimation {
-                                        if currentPage < onboardingData.count - 1 {
-                                            currentPage += 1
-                                        } else {
-                                            router.push(to: .login)
-                                        }
-                                    }
-                                } label: {
-                                    Image(systemName: "chevron.right")
-                                        .foregroundColor(.white)
-                                        .font(.system(size: 22, weight: .bold))
-                                        .frame(width: 100, height: 100)
-                                }
-                            }
-                    }
-                    .padding(.trailing, -20) // aligns with edge
-                    .padding(.bottom, 60)
                 }
+                .padding(.horizontal, 32)
+                .padding(.bottom, 60)
             }
         }
         .navigationBarHidden(true)

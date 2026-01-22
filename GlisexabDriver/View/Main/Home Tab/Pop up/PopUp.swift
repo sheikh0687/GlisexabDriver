@@ -10,72 +10,54 @@ import SwiftUI
 struct PopUp: View {
     
     @Binding var isShowing: Bool
+    @State var isPresent: Bool = false
     
     var body: some View {
-        VStack(spacing: 24) {
-            Image("referAmount")
-                .resizable()
-                .scaledToFit()
-                .frame(width: .screenWidth * 0.7)
-            
-            Text("Ride Completed ✅")
-                .font(.customfont(.semiBold, fontSize: 17))
-            
-            VStack(alignment: .leading, spacing: 14) {
-                HStack(spacing: 4) {
-                    Image(systemName: "mappin")
-                        .foregroundColor(.red)
-                        .font(.system(size: 18))
-                    Text("1901 Thornridge Cir. Shiloh, Hawaii 81063")
-                        .font(.customfont(.medium, fontSize: 14))
-                        .multilineTextAlignment(.leading)
-                }
+        ZStack {
+            Spacer()
+            VStack(spacing: 12) {
+
+                Text("Payment Confirmation")
+                    .font(.customfont(.semiBold, fontSize: 14))
                 
-                HStack(spacing: 4) {
-                    Image(systemName: "mappin.circle.fill")
-                        .foregroundColor(.green)
-                        .font(.system(size: 18))
-                    Text("2715 Ash Dr. San Jose, South Dakota 83475")
-                        .font(.customfont(.medium, fontSize: 14))
-                        .multilineTextAlignment(.leading)
-                }
-                
-                HStack(spacing: 4) {
-                    Text("Distance :")
-                        .font(.customfont(.medium, fontSize: 14))
-                        .foregroundColor(.gray)
-                    Text("15minutes")
-                        .font(.customfont(.semiBold, fontSize: 14))
-                }
-                
-                HStack(spacing: 4) {
-                    Text("Fare Earned :")
-                        .font(.customfont(.medium, fontSize: 14))
-                        .foregroundColor(.gray)
-                    Text("$80")
-                        .font(.customfont(.semiBold, fontSize: 14))
-                }
+                Text("Have you received the amount of: $180.00?")
+                    .font(.customfont(.medium, fontSize: 16))
+                    .foregroundColor(.gray)
+                    .multilineTextAlignment(.center)
                 
                 HStack {
-                    CustomButtonAction(title: "See Next Ride", color: .colorNeavyBlue, titleColor: .white) {
-                        print("See Next Ride")
+                    CustomButtonAction(title: "Yes", color: .colorNeavyBlue, titleColor: .white) {
+                        self.isPresent = true
                     }
                     
-                    CustomButtonAction(title: "View Earnings", color: .colorNeavyBlue, titleColor: .white) {
+                    CustomButtonAction(title: "No", color: Color(.systemGray6), titleColor: .black) {
                         print("See Earninh")
                     }
                 }
                 .padding(.horizontal)
+            } // MAIN VSTACK
+            .padding(16)
+            .background (
+                RoundedRectangle(cornerRadius: 11)
+                .stroke(Color.gray, lineWidth: 0.5)
+                .background(RoundedRectangle(cornerRadius: 10)
+                    .fill(Color(.white)))
+            )
+            .padding(.horizontal, 24)
+            
+            Spacer()
+            
+            if isPresent {
+                Color.black.opacity(0.4)
+                    .ignoresSafeArea()
+                    .onTapGesture {
+                        withAnimation { isPresent = false }
+                    }
+                PopUp(isShowing: $isPresent)
+                    .transition(.scale)
+                    .zIndex(1)
             }
-        } // MAIN VSTACK
-        .padding(16)
-        .background(RoundedRectangle(cornerRadius: 11)
-            .stroke(Color.gray, lineWidth: 0.5)
-            .background(RoundedRectangle(cornerRadius: 10)
-                .fill(Color(.white)))
-        )
-        .padding(.horizontal, 24)
-
+        }
     }
 }
 
