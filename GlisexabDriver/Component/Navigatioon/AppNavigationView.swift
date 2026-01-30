@@ -12,7 +12,7 @@ enum AppNavigationView: Hashable {
     case login
     case signup
     case forgetPassword
-    case otp
+    case otp(email: String)
     case vehicleDetail
     case driverDocument
     case home
@@ -28,6 +28,7 @@ enum AppNavigationView: Hashable {
     case history
     case earning
     case notification
+    case contactUs
     case rating(useriD: String, requestiD: String)
     
     @ViewBuilder
@@ -59,8 +60,8 @@ enum AppNavigationView: Hashable {
             RatingView(useriD: striD, requestiD: strReqiD)
         case .forgetPassword:
             ForgetPasswordView()
-        case .otp:
-            OtpView()
+        case .otp(let emailAddress):
+            OtpView(email: emailAddress)
         case .wallet:
             WalletView()
         case .uploadDocument:
@@ -73,6 +74,8 @@ enum AppNavigationView: Hashable {
             EarningView()
         case .notification:
             NotificationView()
+        case .contactUs:
+            ContactUsView()
         }
     }
 }

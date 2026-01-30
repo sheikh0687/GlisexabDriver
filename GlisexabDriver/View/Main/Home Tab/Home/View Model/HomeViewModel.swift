@@ -44,21 +44,7 @@ class HomeViewModel: ObservableObject {
         let params: [String : Any] = ["driver_id": appState.useriD]
         
         print(params)
-        
-//        Api.shared.requestToDriverPendingReq(params: params) { [weak self] result in
-//            guard let self else { return }
-//            DispatchQueue.main.async {
-//                self.isLoading = false
-//                switch result {
-//                case .success(let res):
-//                    self.pendingRequests = res
-//                    self.selectedRequest = res.first      // Automatically show first request
-//                case .failure(let error):
-//                    self.customError = .customError(message: error.localizedDescription)
-//                }
-//            }
-//        }
-        
+                
         do {
             let res = try await Api.shared.requestToDriverPendingReq(params: params)
             self.pendingRequests = res
@@ -80,21 +66,7 @@ class HomeViewModel: ObservableObject {
         param["status"] = "Accept"
         
         print(param)
-        
-//        Api.shared.reqToChangeRequest(params: param) { [weak self] result in
-//            guard let self else { return }
-//            
-//            DispatchQueue.main.async {
-//                self.isLoading = false
-//                switch result {
-//                case .success(_):
-//                    self.isReqAccept = true
-//                case .failure(let error):
-//                    self.customError = .customError(message: error.localizedDescription)
-//                }
-//            }
-//        }
-        
+               
         do {
             let _ = try await Api.shared.reqToChangeRequest(params: param)
             self.isReqAccept = true
@@ -114,21 +86,7 @@ class HomeViewModel: ObservableObject {
         paramDict["request_id"] = reqiD
         
         print(paramDict)
-        
-//        Api.shared.reqToRejectRequest(params: paramDict) { [weak self] result in
-//            guard let self else { return }
-//            
-//            DispatchQueue.main.async {
-//                self.isLoading = false
-//                switch result {
-//                case .success(_):
-//                    self.isReqAccept = false
-//                case .failure(let error):
-//                    self.customError = .customError(message: error.localizedDescription)
-//                }
-//            }
-//        }
-        
+                
         do {
             let _ = try await Api.shared.reqToRejectRequest(params: paramDict)
             self.isReqAccept = false
@@ -148,22 +106,7 @@ class HomeViewModel: ObservableObject {
         paramDict["available_status"] = driverStatus
         
         print(paramDict)
-        
-//        Api.shared.reqToUpdateDriverStatus(params: paramDict) { [weak self] result in
-//            guard let self else { return }
-//            
-//            DispatchQueue.main.async {
-//                self.isLoading = false
-//                switch result {
-//                case .success(_):
-//                    completion(true)
-//                case .failure(let error):
-//                    self.customError = .customError(message: error.localizedDescription)
-//                    completion(false)
-//                }
-//            }
-//        }
-        
+                
         do {
             let _ = try await Api.shared.reqToUpdateDriverStatus(params: paramDict)
             completion(true)
@@ -199,28 +142,7 @@ class HomeViewModel: ObservableObject {
         
         var paramDict: [String : Any] = [:]
         paramDict["user_id"] = appState.useriD
-        
-//        Api.shared.requestToFetchProfile(params: paramDict) { [weak self] result in
-//            guard let self else { return }
-//            
-//            DispatchQueue.main.async {
-//                self.isLoading = false
-//                switch result {
-//                case .success(let res):
-//                    self.userProfile = res
-//                    
-//                    if res.available_status?.lowercased() == "online" {
-//                        self.isOnline = true
-//                    } else {
-//                        self.isOnline = false
-//                    }
-//                    
-//                case .failure(let error):
-//                    self.customError = .customError(message: error.localizedDescription)
-//                }
-//            }
-//        }
-        
+                
         do {
             let res = try await Api.shared.requestToFetchProfile(params: paramDict)
             self.userProfile = res
@@ -245,22 +167,7 @@ class HomeViewModel: ObservableObject {
         paramDict["driver_id"] = appState.useriD
         
         print(paramDict)
-        
-//        Api.shared.requestToDriverActiveRequest(params: paramDict) { [weak self] result in
-//            guard let self else { return }
-//            
-//            DispatchQueue.main.async {
-//                self.isLoading = false
-//                switch result {
-//                case .success(let resActiveReq):
-//                    self.resActiveRequest = resActiveReq
-//                    self.isSuccessReq = true
-//                case .failure(let error):
-//                    self.customError = .customError(message: error.localizedDescription)
-//                }
-//            }
-//        }
-        
+                
         do {
             let response = try await Api.shared.requestToDriverActiveRequest(params: paramDict)
             self.resActiveRequest = response

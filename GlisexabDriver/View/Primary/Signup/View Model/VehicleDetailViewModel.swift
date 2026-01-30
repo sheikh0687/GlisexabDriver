@@ -49,58 +49,6 @@ final class VehicleDetailViewModel: ObservableObject {
         
         isLoading = false
     }
-    
-    func webServiceCallForSignup(appState: AppState) async {
-        
-        print(paramSigupDetail)
-        print(paramImageSignupDt)
-        
-        isLoading = true
-        customError = nil
-        isNewUser = false
-        
-//        Api.shared.requestToSignup(params: paramSigupDetail, imageParam: paramImageSignupDt) { [weak self] result in
-//            guard let self else { return }
-//            DispatchQueue.main.async {
-//                self.isLoading = false
-//                
-//                switch result {
-//                case .success(let userResponse):
-//                    self.user = userResponse
-//                    print("✅ Login Success:", userResponse)
-//                    
-//                    if let useriD = userResponse.id  {
-//                        appState.useriD = useriD
-//                        appState.isLoggedIn = true
-//                        appState.cardiD = userResponse.cust_id ?? ""
-//                    }
-//                    
-//                case .failure(let error):
-//                    self.customError = .customError(message: error.localizedDescription)
-//                    print("❌ API Error:", error.localizedDescription)
-//                }
-//            }
-//        }
-        
-        do {
-            let response = try await Api.shared.requestToSignup(params: paramSigupDetail, imageParam: paramImageSignupDt)
-            self.isNewUser = true
-            
-            print("✅ Login Success:", response)
-            
-            if let useriD = response.id  {
-                appState.useriD = useriD
-                appState.isLoggedIn = true
-                appState.cardiD = response.cust_id ?? ""
-            }
-            
-        } catch {
-            self.customError = .customError(message: error.localizedDescription)
-            print("❌ API Error:", error.localizedDescription)
-        }
-
-        isLoading = false
-    }
 }
 
 // MARK: DRIVER VEHICLE DETAILS

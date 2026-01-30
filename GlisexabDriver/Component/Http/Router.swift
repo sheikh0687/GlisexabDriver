@@ -15,7 +15,8 @@ enum Router: String {
     case login
     case forgot_password
     case signup
-    case verify_number
+    case verify_email
+    case send_feedback
     
     case get_profile
     case vehicle_list
@@ -72,8 +73,8 @@ enum Router: String {
             
         case .driver_update_profile:
             return Router.oAuthRoute(path: "driver_update_profile")
-        case .verify_number:
-            return Router.oAuthRoute(path: "verify_number")
+        case .verify_email:
+            return Router.oAuthRoute(path: "verify_email")
             
         case .get_rating_review:
             return Router.oAuthRoute(path: "get_rating_review")
@@ -92,6 +93,8 @@ enum Router: String {
             
         case .get_notification_list:
             return Router.oAuthRoute(path: "get_notification_list")
+        case .send_feedback:
+            return Router.oAuthRoute(path: "send_feedback")
         }
     }
     

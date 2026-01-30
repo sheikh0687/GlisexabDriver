@@ -35,7 +35,7 @@ final class Api {
     
     func requestToLogin(params: [String: Any]) async throws -> Res_LoginResponse {
         
-        let response: Api_LoginResponse = try await Service.shared.request(
+        let response: Api_LoginResponse = try await Service.shared.request (
             url: Router.login.url(),
             method: .get,
             params: params,
@@ -53,10 +53,38 @@ final class Api {
             params: params,
             images: paramImageSignupDt
         )
+        
         return try handleApiResponse(response,
                                      successCondition: { $0.status == "1"},
                                      extractData: { $0.result },
                                      defaultMessage: "Signup Failed") as! Res_LoginResponse
+    }
+    
+    func requestToForgetPassword(params: [String: Any]) async throws -> Api_Basic {
+        let response: Api_Basic = try await Service.shared.request (
+            url: Router.forgot_password.url(),
+            method: .get,
+            params: params
+        )
+        guard response.status != "0" else {
+            throw ApiError.serverError(response.result ?? "Forget password failed")
+        }
+        return response
+    }
+    
+    func requestToVerifyEmail(params: [String: Any]) async throws -> Api_VerifyEmail {
+        
+        let response: Api_VerifyEmail = try await Service.shared.request (
+            url: Router.verify_email.url(),
+            method: .get,
+            params: params,
+        )
+        
+        guard response.status != "0" else {
+            throw ApiError.serverError(response.result ?? "Forget password failed")
+        }
+        
+        return response
     }
     
     func requestToFetchVehicle(params: [String: Any]) async throws -> [Res_VehicleList] {
@@ -207,20 +235,6 @@ final class Api {
                                      successCondition: { $0.status == "1" },
                                      extractData: { $0.result },
                                      defaultMessage: "Login failed") as! Res_LoginResponse
-        
-    }
-    
-    func requestToVerifyMobileNumber(params: [String: Any]) async throws -> Res_VerifyNumber {
-        
-        let response: Api_VerifyNumber = try await Service.shared.request(
-            url: Router.verify_number.url(),
-            method: .get,
-            params: params,
-        )
-        return try handleApiResponse(response,
-                                     successCondition: { $0.status == "1" },
-                                     extractData: { $0.result },
-                                     defaultMessage: "Login failed") as! Res_VerifyNumber
     }
     
     func requestToReviewList(params: [String: Any]) async throws -> [Res_ReviewList] {
@@ -235,7 +249,6 @@ final class Api {
                                      extractData: { $0.result },
                                      defaultMessage: "Login failed") as! [Res_ReviewList]
     }
-    
     
     func requestToAddBankDetail(params: [String : Any]) async throws -> Res_LoginResponse {
         let response: Api_LoginResponse = try await Service.shared.request(
@@ -285,6 +298,31 @@ final class Api {
                                      extractData: { $0.result },
                                      defaultMessage: "History fetch failed") as! [Res_NotificationList]
     }
+    
+    func requestToContactAdmin(params: [String: Any]) async throws -> Res_ContactAdmin {
+        let response: Api_ContactAdmin = try await Service.shared.request (
+            url: Router.send_feedback.url(),
+            method: .get,
+            params: params
+        )
+        return try handleApiResponse(response,
+                                     successCondition: { $0.status == "1" },
+                                     extractData: { $0.result },
+                                     defaultMessage: "History fetch failed") as! Res_ContactAdmin
+    }
+    
+    func requestToScheduleRide(params: [String: Any]) async throws -> [Res_ScheduleList] {
+        let response: Api_ScheduleList = try await Service.shared.request (
+            url: Router.get_driver_schedule_request.url(),
+            method: .get,
+            params: params
+        )
+        
+        return try handleApiResponse(response,
+                                     successCondition: { $0.status == "1" },
+                                     extractData: { $0.result },
+                                     defaultMessage: "History fetch failed") as! [Res_ScheduleList]
+    }
 }
 
 extension Api_LoginResponse: HasApiMessage {}
@@ -295,7 +333,9 @@ extension Api_RejectRequest: HasApiMessage {}
 extension Api_ActiveDriverRequest: HasApiMessage {}
 extension Api_UserRating: HasApiMessage {}
 extension Api_RideDetails: HasApiMessage {}
-extension Api_VerifyNumber: HasApiMessage {}
+extension Api_VerifyEmail: HasApiMessage {}
 extension Api_ReviewList: HasApiMessage {}
 extension Api_HistoryList: HasApiMessage {}
 extension Api_NotificationList: HasApiMessage {}
+extension Api_ContactAdmin: HasApiMessage {}
+extension Api_ScheduleList: HasApiMessage {}

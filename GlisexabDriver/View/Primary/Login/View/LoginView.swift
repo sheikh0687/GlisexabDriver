@@ -25,15 +25,14 @@ struct LoginView: View {
     
     var body: some View {
         ZStack(alignment: .top) {
-            
             ScrollView {
                 VStack(spacing: 24) {
                     headerText
                     inputFields
                     forgetPasswordAction
                     loginButton
-                    separatorOr
-                    googleButton
+//                    separatorOr
+//                    googleButton
                     bottomSignup
                 }
                 .padding(.horizontal, 20)
@@ -148,7 +147,7 @@ struct LoginView: View {
         HStack {
             Spacer()
             Button("Forget Password?") {
-                router.push(to: .otp)
+                router.push(to: .forgetPassword)
             }
             .font(.customfont(.semiBold, fontSize: 13))
             .foregroundColor(.colorNeavyBlue)

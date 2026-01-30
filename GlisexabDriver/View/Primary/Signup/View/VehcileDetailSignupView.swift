@@ -108,21 +108,6 @@ struct VehcileDetailSignupView: View {
                 dismissButton: .default(Text("Ok"))
             )
         }
-        .onChange(of: viewModel.isNewUser) { isNewUser in
-            if isNewUser {
-                withAnimation(.easeInOut(duration: 0.3)) {
-                    self.showSuccessBanner = true
-                }
-                
-                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                    withAnimation(.easeInOut(duration: 0.3)) {
-                        self.showSuccessBanner = false
-                    }
-                    
-                    router.push(to: .home)
-                }
-            }
-        }
     }
     
     private var headerText: some View {
@@ -336,22 +321,31 @@ struct VehcileDetailSignupView: View {
     
     private var SignupButtonLabel: some View {
         Group {
-            if viewModel.isLoading {
-                ProgressView()
-                    .frame(maxWidth: .infinity)
-                    .frame(height: 45)
-                    .background(Color.white)
-                    .cornerRadius(10)
-            } else {
-                Text("Register")
-                    .font(.customfont(.bold, fontSize: 16))
-                    .foregroundColor(.yellow)
-                    .frame(maxWidth: .infinity)
-                    .frame(height: 45)
-                    .background(Color.colorNeavyBlue)
-                    .cornerRadius(10)
-                    .shadow(radius: 2)
-            }
+//            if viewModel.isLoading {
+//                ProgressView()
+//                    .frame(maxWidth: .infinity)
+//                    .frame(height: 45)
+//                    .background(Color.white)
+//                    .cornerRadius(10)
+//            } else {
+//                Text("Register")
+//                    .font(.customfont(.bold, fontSize: 16))
+//                    .foregroundColor(.yellow)
+//                    .frame(maxWidth: .infinity)
+//                    .frame(height: 45)
+//                    .background(Color.colorNeavyBlue)
+//                    .cornerRadius(10)
+//                    .shadow(radius: 2)
+//            }
+            Text("Register")
+                .font(.customfont(.bold, fontSize: 16))
+                .foregroundColor(.yellow)
+                .frame(maxWidth: .infinity)
+                .frame(height: 45)
+                .background(Color.colorNeavyBlue)
+                .cornerRadius(10)
+                .shadow(radius: 2)
+
         }
     }
     
@@ -360,9 +354,10 @@ struct VehcileDetailSignupView: View {
             if viewModel.validateVehicleFields() {
                 viewModel.paramVehicleDictionary()
                 viewModel.paramVehicleImageDictionary()
-                Task {
-                    await viewModel.webServiceCallForSignup(appState: appState)
-                }
+//                router.push(to: .otp)
+//                Task {
+//                    await viewModel.webServiceCallForSignup(appState: appState)
+//                }
             }
         } label: {
             SignupButtonLabel

@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B730AD9C2F29DA4400AA7C17 /* ContactUsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B730AD9B2F29DA4400AA7C17 /* ContactUsView.swift */; };
+		B730AD9E2F29DDF400AA7C17 /* ContactUsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B730AD9D2F29DDF400AA7C17 /* ContactUsViewModel.swift */; };
+		B730ADA42F29E24D00AA7C17 /* HelpModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B730ADA32F29E24D00AA7C17 /* HelpModel.swift */; };
 		B75022402F17C30D005D17D3 /* UploadDocumentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B750223F2F17C30D005D17D3 /* UploadDocumentView.swift */; };
 		B757459E2F16589400263745 /* Review.swift in Sources */ = {isa = PBXBuildFile; fileRef = B757459D2F16589400263745 /* Review.swift */; };
 		B75745A02F16595000263745 /* RatingReviewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B757459F2F16595000263745 /* RatingReviewViewModel.swift */; };
@@ -22,6 +25,8 @@
 		B772F4E92F1B84E900756B57 /* HistoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B772F4E82F1B84E900756B57 /* HistoryViewModel.swift */; };
 		B772F4EE2F1B8F3900756B57 /* ScheduleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B772F4ED2F1B8F3900756B57 /* ScheduleModel.swift */; };
 		B772F4F42F1B936200756B57 /* EarningView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B772F4F32F1B936200756B57 /* EarningView.swift */; };
+		B77E9AA32F2C7FC600A8680C /* ResetPasswordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B77E9AA22F2C7FC600A8680C /* ResetPasswordViewModel.swift */; };
+		B77E9AA52F2C821000A8680C /* ResetPassword.swift in Sources */ = {isa = PBXBuildFile; fileRef = B77E9AA42F2C821000A8680C /* ResetPassword.swift */; };
 		B78631282F15067400C193A2 /* VehicleDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B78631272F15067400C193A2 /* VehicleDetailViewModel.swift */; };
 		B786312D2F150C7900C193A2 /* VerifyMobileNumber.swift in Sources */ = {isa = PBXBuildFile; fileRef = B786312C2F150C7900C193A2 /* VerifyMobileNumber.swift */; };
 		B786312F2F150CFD00C193A2 /* VerifyNumberViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B786312E2F150CFD00C193A2 /* VerifyNumberViewModel.swift */; };
@@ -39,6 +44,7 @@
 		B7974EDC2EED96E6008810A4 /* RideDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7974EDB2EED96E6008810A4 /* RideDetailViewModel.swift */; };
 		B7974EE12EED9B06008810A4 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7974EE02EED9B06008810A4 /* ProfileViewModel.swift */; };
 		B79D2AB92F1A0AA400A0366C /* SimpleToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B79D2AB82F1A0AA400A0366C /* SimpleToastView.swift */; };
+		B7BDAC972F2B2D640041FB41 /* ScheduleViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7BDAC962F2B2D640041FB41 /* ScheduleViewModel.swift */; };
 		B7EAFEB72F1CAF4D002A4E25 /* NotificationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7EAFEB62F1CAF4D002A4E25 /* NotificationModel.swift */; };
 		B7EAFEB92F1CAFB3002A4E25 /* NotificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7EAFEB82F1CAFB3002A4E25 /* NotificationView.swift */; };
 		B7EAFEBD2F1CB696002A4E25 /* NotificationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7EAFEBC2F1CB696002A4E25 /* NotificationViewModel.swift */; };
@@ -118,6 +124,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		B730AD9B2F29DA4400AA7C17 /* ContactUsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ContactUsView.swift; path = "GlisexabDriver/View/Main/Setting Tab/ContactUsView.swift"; sourceTree = SOURCE_ROOT; };
+		B730AD9D2F29DDF400AA7C17 /* ContactUsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactUsViewModel.swift; sourceTree = "<group>"; };
+		B730ADA32F29E24D00AA7C17 /* HelpModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpModel.swift; sourceTree = "<group>"; };
 		B750223F2F17C30D005D17D3 /* UploadDocumentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadDocumentView.swift; sourceTree = "<group>"; };
 		B757459D2F16589400263745 /* Review.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Review.swift; sourceTree = "<group>"; };
 		B757459F2F16595000263745 /* RatingReviewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingReviewViewModel.swift; sourceTree = "<group>"; };
@@ -133,6 +142,8 @@
 		B772F4E82F1B84E900756B57 /* HistoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewModel.swift; sourceTree = "<group>"; };
 		B772F4ED2F1B8F3900756B57 /* ScheduleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleModel.swift; sourceTree = "<group>"; };
 		B772F4F32F1B936200756B57 /* EarningView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EarningView.swift; sourceTree = "<group>"; };
+		B77E9AA22F2C7FC600A8680C /* ResetPasswordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordViewModel.swift; sourceTree = "<group>"; };
+		B77E9AA42F2C821000A8680C /* ResetPassword.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPassword.swift; sourceTree = "<group>"; };
 		B78631272F15067400C193A2 /* VehicleDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VehicleDetailViewModel.swift; sourceTree = "<group>"; };
 		B786312C2F150C7900C193A2 /* VerifyMobileNumber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyMobileNumber.swift; sourceTree = "<group>"; };
 		B786312E2F150CFD00C193A2 /* VerifyNumberViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyNumberViewModel.swift; sourceTree = "<group>"; };
@@ -149,6 +160,7 @@
 		B7974EDB2EED96E6008810A4 /* RideDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RideDetailViewModel.swift; sourceTree = "<group>"; };
 		B7974EE02EED9B06008810A4 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		B79D2AB82F1A0AA400A0366C /* SimpleToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleToastView.swift; sourceTree = "<group>"; };
+		B7BDAC962F2B2D640041FB41 /* ScheduleViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleViewModel.swift; sourceTree = "<group>"; };
 		B7C2830B2F111B1B0048D82E /* GlisexabDriver.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = GlisexabDriver.entitlements; sourceTree = "<group>"; };
 		B7EAFEB62F1CAF4D002A4E25 /* NotificationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationModel.swift; sourceTree = "<group>"; };
 		B7EAFEB82F1CAFB3002A4E25 /* NotificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationView.swift; sourceTree = "<group>"; };
@@ -244,6 +256,40 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B730AD972F29D9FC00AA7C17 /* Contact Help */ = {
+			isa = PBXGroup;
+			children = (
+				B730AD9A2F29DA2B00AA7C17 /* Model */,
+				B730AD992F29DA2300AA7C17 /* View */,
+				B730AD982F29DA1800AA7C17 /* View Model */,
+			);
+			path = "Contact Help";
+			sourceTree = "<group>";
+		};
+		B730AD982F29DA1800AA7C17 /* View Model */ = {
+			isa = PBXGroup;
+			children = (
+				B730AD9D2F29DDF400AA7C17 /* ContactUsViewModel.swift */,
+			);
+			path = "View Model";
+			sourceTree = "<group>";
+		};
+		B730AD992F29DA2300AA7C17 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				B730AD9B2F29DA4400AA7C17 /* ContactUsView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		B730AD9A2F29DA2B00AA7C17 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				B730ADA32F29E24D00AA7C17 /* HelpModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		B750223B2F17C2BA005D17D3 /* Upload Document */ = {
 			isa = PBXGroup;
 			children = (
@@ -304,10 +350,9 @@
 		B768E5782F0F9AE000F89E34 /* Forget Password */ = {
 			isa = PBXGroup;
 			children = (
-				B786312B2F150C6100C193A2 /* Model */,
-				B786312A2F150C5200C193A2 /* View */,
-				B78631292F150C4E00C193A2 /* View Model */,
-				B768E57A2F0F9AEF00F89E34 /* ForgetPasswordView.swift */,
+				B77E9AA02F2C7F3100A8680C /* Model */,
+				B77E9A9E2F2C7F0F00A8680C /* View */,
+				B77E9AA12F2C7F3600A8680C /* View Model */,
 			);
 			path = "Forget Password";
 			sourceTree = "<group>";
@@ -397,6 +442,7 @@
 		B772F4EC2F1B8EE900756B57 /* View Model */ = {
 			isa = PBXGroup;
 			children = (
+				B7BDAC962F2B2D640041FB41 /* ScheduleViewModel.swift */,
 			);
 			path = "View Model";
 			sourceTree = "<group>";
@@ -431,6 +477,40 @@
 			children = (
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		B77E9A9E2F2C7F0F00A8680C /* View */ = {
+			isa = PBXGroup;
+			children = (
+				B768E57A2F0F9AEF00F89E34 /* ForgetPasswordView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		B77E9A9F2F2C7F2200A8680C /* Otp */ = {
+			isa = PBXGroup;
+			children = (
+				B786312B2F150C6100C193A2 /* Model */,
+				B786312A2F150C5200C193A2 /* View */,
+				B78631292F150C4E00C193A2 /* View Model */,
+			);
+			path = Otp;
+			sourceTree = "<group>";
+		};
+		B77E9AA02F2C7F3100A8680C /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				B77E9AA42F2C821000A8680C /* ResetPassword.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		B77E9AA12F2C7F3600A8680C /* View Model */ = {
+			isa = PBXGroup;
+			children = (
+				B77E9AA22F2C7FC600A8680C /* ResetPasswordViewModel.swift */,
+			);
+			path = "View Model";
 			sourceTree = "<group>";
 		};
 		B78631292F150C4E00C193A2 /* View Model */ = {
@@ -854,6 +934,7 @@
 				CFD7AD4D2EB0A76200FDB2D9 /* Wallet */,
 				B772F4E02F1B84A500756B57 /* History */,
 				B772F4EF2F1B932F00756B57 /* Earning */,
+				B730AD972F29D9FC00AA7C17 /* Contact Help */,
 			);
 			path = "Setting Tab";
 			sourceTree = "<group>";
@@ -1011,6 +1092,7 @@
 				CFBAAAD42E9F760A001D8398 /* OnboardingView.swift */,
 				CF1F575F2EC73FE40056AE72 /* Login */,
 				CF1F57742EC744340056AE72 /* Signup */,
+				B77E9A9F2F2C7F2200A8680C /* Otp */,
 				B768E5782F0F9AE000F89E34 /* Forget Password */,
 				CF1F577D2EC747D70056AE72 /* Address Picker */,
 			);
@@ -1177,10 +1259,12 @@
 				CFBAAAE32E9F774A001D8398 /* NavigationRouter.swift in Sources */,
 				CFBAAAE42E9F774A001D8398 /* RootView.swift in Sources */,
 				CF8DE8792EA25CAB00F75D73 /* SideMenu.swift in Sources */,
+				B77E9AA52F2C821000A8680C /* ResetPassword.swift in Sources */,
 				B772F4EE2F1B8F3900756B57 /* ScheduleModel.swift in Sources */,
 				CFBAAAE52E9F774A001D8398 /* AppNavigationView.swift in Sources */,
 				CF0BD3AB2EA0CCDB00581E5B /* CustomButtonAction.swift in Sources */,
 				B762FCF42ED6E3E800EB6EA5 /* UpdateDriverStatus.swift in Sources */,
+				B730AD9C2F29DA4400AA7C17 /* ContactUsView.swift in Sources */,
 				CF8DE87B2EA25E6100F75D73 /* SideMenuHeader.swift in Sources */,
 				B7EAFEBD2F1CB696002A4E25 /* NotificationViewModel.swift in Sources */,
 				CF1F57562EC73F0F0056AE72 /* InternetConnection.swift in Sources */,
@@ -1212,6 +1296,7 @@
 				CF1F57512EC73EE70056AE72 /* Router.swift in Sources */,
 				CF6D6A752E9F9D2800B3656C /* DriverDocView.swift in Sources */,
 				CF546BD82EAFA1F70059D03E /* MyAccountView.swift in Sources */,
+				B77E9AA32F2C7FC600A8680C /* ResetPasswordViewModel.swift in Sources */,
 				B772F4E72F1B84E300756B57 /* HistoryView.swift in Sources */,
 				B796381F2EEC26940090F091 /* ActiveRequest.swift in Sources */,
 				CF804F692EA225D200F16E58 /* EditProfileView.swift in Sources */,
@@ -1227,8 +1312,10 @@
 				B75022402F17C30D005D17D3 /* UploadDocumentView.swift in Sources */,
 				CFBAAADF2E9F7737001D8398 /* LocationManager.swift in Sources */,
 				CF0BD3AE2EA0D3BE00581E5B /* TrackingView.swift in Sources */,
+				B730AD9E2F29DDF400AA7C17 /* ContactUsViewModel.swift in Sources */,
 				CF1F57732EC7427E0056AE72 /* Constant.swift in Sources */,
 				B772F4D92F1B5DA200756B57 /* DocumentViewModel.swift in Sources */,
+				B730ADA42F29E24D00AA7C17 /* HelpModel.swift in Sources */,
 				B772F4DF2F1B68E900756B57 /* AddBankDetailView.swift in Sources */,
 				CF89F93F2EA118E0002FF10B /* PopUp.swift in Sources */,
 				CFD7AD4E2EB0A76200FDB2D9 /* WalletView.swift in Sources */,
@@ -1245,6 +1332,7 @@
 				CFBAAACD2E9F7418001D8398 /* GlisexabDriverApp.swift in Sources */,
 				CF1F57822EC747FC0056AE72 /* AddressPickerView.swift in Sources */,
 				B7974ED52EED7911008810A4 /* RatingViewModel.swift in Sources */,
+				B7BDAC972F2B2D640041FB41 /* ScheduleViewModel.swift in Sources */,
 				B786312F2F150CFD00C193A2 /* VerifyNumberViewModel.swift in Sources */,
 				CFBAAAD52E9F760A001D8398 /* OnboardingView.swift in Sources */,
 				B78631282F15067400C193A2 /* VehicleDetailViewModel.swift in Sources */,

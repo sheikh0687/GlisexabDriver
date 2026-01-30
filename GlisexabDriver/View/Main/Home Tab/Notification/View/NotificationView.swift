@@ -63,6 +63,7 @@ struct NotificationView: View {
         .frame(maxWidth: .infinity)
         .padding(.vertical, 40)
     }
+    
 }
 
 struct NotificationViewList: View {

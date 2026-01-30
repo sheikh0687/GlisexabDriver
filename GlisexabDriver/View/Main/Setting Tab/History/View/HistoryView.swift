@@ -172,7 +172,7 @@ struct HistoryCardView: View {
                                 .resizable()
                                 .scaledToFill()
                         } placeholder: {
-                            Image("profileEdit")
+                            Image("user")
                                 .resizable()
                                 .scaledToFill()
                         }

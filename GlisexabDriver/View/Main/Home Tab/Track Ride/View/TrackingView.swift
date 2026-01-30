@@ -19,7 +19,8 @@ struct TrackingView: View {
     @State private var buttonWidth: Double = UIScreen.main.bounds.width - 40
     @State private var buttonOffset: CGFloat = 0
     @State private var isAnimate: Bool = false
-    @State private var showingPopup: Bool = false
+    @State private var paymentPop: Bool = false
+    @State private var adminPop: Bool = false
     @State private var strStatus: String = "Notify Arrived"
     
     var body: some View {
@@ -45,18 +46,58 @@ struct TrackingView: View {
             }
             .edgesIgnoringSafeArea(.bottom)
             
-            if showingPopup {
+            if paymentPop {
                 Color.black.opacity(0.4)
                     .ignoresSafeArea()
                     .onTapGesture {
-                        withAnimation { showingPopup = false }
+                        withAnimation { paymentPop = false }
                     }
-                PopUp(isShowing: $showingPopup)
-                    .transition(.scale)
-                    .zIndex(1)
+                    .zIndex(0)
+                
+                
+                PopUp (
+                    isShowing: $paymentPop,
+                    totalAmount: viewModel.resActiveReq?.total_amount ?? "",
+                    cloIsPaymentComplete: { bool in
+                        if bool {
+                            viewModel.stopArrivalTimer()
+                            router.push(to: .rating(useriD: viewModel.resActiveReq?.user_details?.id ?? "", requestiD: viewModel.resActiveReq?.id ?? ""))
+                        } else {
+                            paymentPop = false
+                            adminPop = true
+                        }
+                    }, popFor: "Payment")
+                .transition(.scale)
+                .zIndex(1)
+                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
+            }
+            
+            if adminPop {
+                Color.black.opacity(0.4)
+                    .ignoresSafeArea()
+                    .onTapGesture {
+                        withAnimation { paymentPop = false }
+                    }
+                    .zIndex(0)
+                
+                PopUp (
+                    isShowing: $paymentPop,
+                    totalAmount: viewModel.resActiveReq?.total_amount ?? "",
+                    cloIsPaymentComplete: { bool in
+                        if bool {
+                            router.push(to: .contactUs)
+                        } else {
+                            adminPop = false
+                        }
+                    }, popFor: "Admin"
+                )
+                .transition(.scale)
+                .zIndex(1)
+                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
             }
         }
-        .animation(.easeInOut, value: showingPopup)
+        .animation(.easeInOut, value: paymentPop)
+        .animation(.easeInOut, value: adminPop)
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden(true)
         .toolbar {
@@ -85,8 +126,8 @@ struct TrackingView: View {
         .onAppear {
             UINavigationBar.setTitleColor(.white)
             viewModel.router = router
-           Task {
-               await viewModel.loadDriverActiveReq(appState: appState)
+            Task {
+                await viewModel.loadDriverActiveReq(appState: appState)
             }
         }
         .onChange(of: viewModel.isSuccess) { isSuccess in
@@ -137,12 +178,6 @@ struct TrackingView: View {
                 }
             }
         }
-//        .onChange(of: viewModel.isFinished) { isFinished in
-//            if isFinished {
-//                viewModel.stopArrivalTimer()
-//                router.push(to: .rating(useriD: viewModel.resActiveReq?.user_details?.id ?? "", requestiD: viewModel.resActiveReq?.id ?? ""))
-//            }
-//        }
     }
     
     func makeAnnotations() -> [MKPointAnnotation] {
@@ -321,7 +356,7 @@ extension TrackingView {
             
             if viewModel.strDriverStatus == "Finish" && viewModel.strPaymentStatus == "Pending" {
                 Button {
-                    self.showingPopup = true
+                    self.paymentPop = true
                 } label: {
                     Text("Payment received?")
                         .font(.customfont(.regular, fontSize: 14))
@@ -424,18 +459,18 @@ extension TrackingView {
     private func handleStatusProgression() {
         switch viewModel.strDriverStatus {
         case "Accept":
-           Task {
-               await viewModel.loadChangeRequest(appState: appState, strStatus: "Arrived")
+            Task {
+                await viewModel.loadChangeRequest(appState: appState, strStatus: "Arrived")
             }
             buttonOffset = 0
         case "Arrived":
-           Task {
-               await viewModel.loadChangeRequest(appState: appState, strStatus: "Start")
+            Task {
+                await viewModel.loadChangeRequest(appState: appState, strStatus: "Start")
             }
             buttonOffset = 0
         case "Start":
-           Task {
-               await viewModel.loadChangeRequest(appState: appState, strStatus: "Finish")
+            Task {
+                await viewModel.loadChangeRequest(appState: appState, strStatus: "Finish")
             }
             buttonOffset = 0
         default: break
@@ -448,326 +483,3 @@ extension TrackingView {
         .environmentObject(AppState())
         .environmentObject(NavigationRouter())
 }
-
-
-//struct TrackingView: View {
-//
-//    @EnvironmentObject private var router: NavigationRouter
-//    @EnvironmentObject private var appState: AppState
-//
-//    @StateObject private var locationManager = LocationManager()
-//    @StateObject private var viewModel = TrackingViewModel()
-//
-//    var body: some View {
-//
-//        ZStack(alignment: .top) {
-//            // MARK: Map VIEW
-//            Map(coordinateRegion: $locationManager.region, showsUserLocation: true)
-//                .edgesIgnoringSafeArea(.all)
-//
-//            // MARK: Top Address VIEW
-//            VStack {
-//                AddressSummaryView(vM: viewModel)
-//                Spacer()
-//            }
-//            .padding(.vertical, 40)
-//
-//            // MARK: Bottom Ride Details VIEW
-//            VStack {
-//                Spacer()
-//                RideTrackingOuterView(showingPopup: $viewModel.showingPopup, vM: viewModel)
-//            }
-//            .edgesIgnoringSafeArea(.bottom)
-//
-//            if viewModel.showingPopup {
-//                Color.black.opacity(0.4)
-//                    .ignoresSafeArea()
-//                    .onTapGesture {
-//                        withAnimation { viewModel.showingPopup = false }
-//                    }
-//                // Your Popup Content
-//                PopUp(isShowing: $viewModel.showingPopup)
-//                    .transition(.scale)
-//                    .zIndex(1)
-//            }
-//        }
-//        .animation(.easeInOut, value: viewModel.showingPopup)
-//        .navigationBarTitleDisplayMode(.inline)
-//        .navigationBarBackButtonHidden(true)
-//        .toolbar {
-//            ToolbarItem(placement: .topBarLeading) {
-//                BackButton {
-//                    router.popView()
-//                }
-//            }
-//        }
-//        .onAppear {
-//            UINavigationBar.setTitleColor(.white)
-//            viewModel.loadDriverActiveReq(appState: appState)
-//        }
-//    }
-//}
-//
-//// MARK: Top Address Details VIEW
-//struct AddressSummaryView: View {
-//
-//    let vM: TrackingViewModel
-//
-//    var body: some View {
-//        VStack(alignment: .leading, spacing: 10) {
-//            HStack(spacing: 10) {
-//                Image("pinRed")
-//                    .resizable()
-//                    .scaledToFit()
-//                    .frame(width: 24, height: 100)
-//
-//                VStack(alignment: .leading, spacing: 10) {
-//                    Text("Pickup Address")
-//                        .font(.customfont(.bold, fontSize: 14))
-//                    Text (
-//                        vM.resActiveReq?.status == "Accept" ?
-//                        vM.resActiveReq?.pick_address ?? "" :
-//                            vM.resActiveReq?.drop_address ?? ""
-//                    )
-//                    .font(.customfont(.medium, fontSize: 12))
-//                    .multilineTextAlignment(.leading)
-//                    HStack {
-//                        Text("\(vM.resActiveReq?.time_away ?? "") minutes,\(vM.resActiveReq?.distance_away ?? "") miles")
-//                            .font(.customfont(.medium, fontSize: 12))
-//                            .foregroundColor(.colorGreen)
-//
-//                        Spacer()
-//
-//                        Button {
-//                            print("Edit the selected address")
-//                        } label: {
-//                            Image("edit")
-//                                .resizable()
-//                                .scaledToFit()
-//                                .frame(width: 24, height: 24)
-//                        }
-//                    }
-//                }
-//            }
-//        }
-//        .padding()
-//        .padding(.horizontal, 10)
-//        .background (
-//            RoundedRectangle(cornerRadius: 18)
-//                .stroke(Color(.separator), lineWidth: 1)
-//                .background(
-//                    RoundedRectangle(cornerRadius: 18)
-//                        .fill(Color.white)
-//                )
-//                .ignoresSafeArea(edges: .bottom)
-//        )
-//        .padding(.horizontal, 40)
-//    }
-//}
-//
-//// MARK: Bottom Ride Outer VIEW
-//struct RideTrackingOuterView: View {
-//    @Binding var showingPopup: Bool
-//    let vM: TrackingViewModel
-//
-//    var body: some View {
-//
-//        VStack(spacing: 0) {
-//            RideTrackingInnerView(showingPopup: $showingPopup, vM: vM)
-//        }
-//        .frame(maxWidth: .infinity)
-//        .padding()
-//        .background (
-//            RoundedRectangle(cornerRadius: 18)
-//                .stroke(Color(.separator), lineWidth: 0.5)
-//                .background (
-//                    RoundedRectangle(cornerRadius: 18)
-//                        .fill(.white)
-//                )
-//                .ignoresSafeArea(edges: .bottom)
-//        )
-//    }
-//}
-//
-//// MARK: Bottom Ride Inner VIEW
-//struct RideTrackingInnerView: View {
-//
-//    @State var buttonWidth: Double = UIScreen.main.bounds.width - 40
-//    @State var buttonOffset: CGFloat = 0
-//    @State var isAnimate: Bool = false
-//    @Binding var showingPopup: Bool
-//
-//    @State var strStatus: String = "Notify Arrived"
-//    @EnvironmentObject private var router: NavigationRouter
-//
-//    let vM: TrackingViewModel
-//
-//    var body: some View {
-//        VStack(spacing: 20) {
-//            HStack {
-//                if let urlString = vM.resActiveReq?.user_details?.image {
-//                    Utility.CustomWebImage(imageUrl: urlString, placeholder: Image(systemName: "person.crop.circle.fill"), width: 44, height: 44)
-//                        .clipShape(.circle)
-//                        .frame(width: 44, height: 44)
-//                }
-//                Spacer().frame(width: 10)
-//                VStack(alignment: .leading, spacing: 6) {
-//                    Text(vM.resActiveReq?.user_details?.first_name ?? "")
-//                        .font(.customfont(.medium, fontSize: 14))
-//                    HStack {
-//                        Image(systemName: "star.fill")
-//                            .foregroundColor(Color.yellow)
-//                            .font(Font.system(size: 14))
-//
-//                        Text("\(vM.resActiveReq?.user_details?.rating ?? "0")(\(vM.resActiveReq?.user_details?.rating_count ?? "0"))")
-//                            .font(.customfont(.regular, fontSize: 14))
-//                    }
-//                }
-//                Spacer()
-//                Divider()
-//                    .frame(width: 1, height: 40)
-//                    .foregroundColor(Color.black)
-//                Spacer()
-//                VStack(spacing: 6) {
-//                    Text("Estimate")
-//                        .font(.customfont(.regular, fontSize: 12))
-//                        .foregroundColor(.gray)
-//                    Text("$\(vM.resActiveReq?.driver_amount ?? "")")
-//                        .font(.customfont(.medium, fontSize: 14))
-//                }
-//                Spacer()
-//
-//                HStack(spacing: 10) {
-//
-////                    Button {
-////                        print("Call")
-////                    } label: {
-////                        Image("call")
-////                            .resizable()
-////                            .scaledToFit()
-////                            .frame(width: 32, height: 32)
-////                    }
-//
-//                    Button {
-//                        print("Call")
-//                    } label: {
-//                        Image("fillChat")
-//                            .resizable()
-//                            .scaledToFit()
-//                            .frame(width: 32, height: 32)
-//                    }
-//                }
-//
-//                Menu {
-//                    CustomButtonAction(title: "Ride Details", color: .clear, titleColor: .black) {
-//                        router.push(to: .ridedetails)
-//                    }
-//
-//                    CustomButtonAction(title: "Cancel", color: .clear,titleColor: .black) {
-//
-//                    }
-//
-//                } label : {
-//                    Image("editAddress")
-//                        .resizable()
-//                        .scaledToFit()
-//                        .frame(width: 24, height: 24)
-//                }
-//
-//            }
-//            .padding(.horizontal, 10)
-//
-////            VStack(alignment: .leading, spacing: 14) {
-////                HStack(spacing: 4) {
-////                    Image(systemName: "mappin")
-////                        .foregroundColor(.red)
-////                        .font(.system(size: 18))
-////                    Text("1901 Thornridge Cir. Shiloh, Hawaii 81063")
-////                        .font(.customfont(.medium, fontSize: 14))
-////                        .multilineTextAlignment(.leading)
-////                }
-////
-////                HStack(spacing: 4) {
-////                    Image(systemName: "mappin.circle.fill")
-////                        .foregroundColor(.green)
-////                        .font(.system(size: 18))
-////                    Text("2715 Ash Dr. San Jose, South Dakota 83475")
-////                        .font(.customfont(.medium, fontSize: 14))
-////                        .multilineTextAlignment(.leading)
-////                }
-////            }
-//
-//            ZStack {
-//                Capsule()
-//                    .fill(LinearGradient(colors: [.colorNeavyBlue, .colorLightNeavy], startPoint: .leading, endPoint: .trailing))
-//
-//                HStack {
-//                    ZStack {
-//                        Circle()
-//                            .fill(Color.white)
-//                            .frame(width: 56, height: 56)
-//                            .shadow(color: Color.black.opacity(0.15), radius: 6, y: 2)
-//                        Image(systemName: "chevron.right.2")
-//                            .foregroundColor(.colorNeavyBlue)
-//                            .font(.system(size: 24, weight: .bold))
-//                    }
-//                    .offset(x: buttonOffset)
-//                    .gesture (
-//                        DragGesture()
-//                            .onChanged({ gesture in
-//                                let drag = gesture.translation.width
-//                                if drag > 0 && drag < buttonWidth - 60 {
-//                                    buttonOffset = drag
-//                                }
-//                            })
-//                            .onEnded({ _ in
-//                                if buttonOffset > buttonWidth / 2 {
-//                                    buttonOffset = buttonWidth - 60
-//                                    if strStatus == "Notify Arrived" {
-//                                        strStatus = "Start Pickup"
-//                                        buttonOffset = 0
-//                                    } else if strStatus == "Start Pickup" {
-//                                        strStatus = "Passenger Picked"
-//                                        buttonOffset = 0
-//                                    } else if strStatus == "Passenger Picked" {
-//                                        strStatus = "Start to Drop-off"
-//                                        buttonOffset = 0
-//                                    } else if strStatus == "Start to Drop-off" {
-//                                        strStatus = "Drop-off Completed"
-//                                        buttonOffset = 0
-//                                    } else {
-//                                        showingPopup = true
-//                                    }
-//                                } else {
-//                                    buttonOffset = 0
-//                                }
-//                            })
-//                    )
-//
-//                    Spacer()
-//                }
-//                .frame(width: buttonWidth - 16, height: 60)
-//
-//                Text(strStatus)
-//                    .font(.customfont(.semiBold, fontSize: 16))
-//                    .foregroundColor(.white)
-//                    .frame(maxWidth: .infinity, alignment: .center)
-//                    .offset(x: 20)
-//
-//            }
-//            .frame(width: buttonWidth, height: 60)
-//
-////            HStack {
-////                Spacer()
-////                CustomButtonAction(title: "Cancel", color: .red, titleColor: .white) {
-////                    print("cancel this")
-////                }
-////                Spacer()
-////            }
-//
-//
-//        }
-//        .frame(maxWidth: .infinity)
-//        .padding()
-//    }
-//}

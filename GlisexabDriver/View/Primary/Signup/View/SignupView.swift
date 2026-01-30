@@ -342,7 +342,7 @@ struct SignupView: View {
             if viewModel.validateFields() {
                 viewModel.paramDictionary()
                 viewModel.paramImageDictionary()
-                router.push(to: .vehicleDetail)
+                router.push(to: .otp(email: viewModel.email))
             }
         } label: {
             Text("Register")
